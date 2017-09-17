@@ -47,7 +47,18 @@ const StyledPopup = styled.div`
 
 class MapboxMap extends Component {
   state = {
-    popup: undefined
+    popup: undefined,
+    initialLocation: [ 103.7716573, 1.295053 ]
+  }
+
+  componentDidMount() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.setState({
+          initialLocation: [ position.coords.longitude, position.coords.latitude ]
+        });
+      });
+    }
   }
 
   zoom = [15];
@@ -88,11 +99,11 @@ class MapboxMap extends Component {
   }
 
   render() {
-    const { popup } = this.state;
+    const { popup, initialLocation } = this.state;
 
     return (
       <Map
-        center={[ 103.7716573, 1.295053 ]}
+        center={initialLocation}
         style={style}
         zoom={this.zoom}
         onMove={this.onMove}
