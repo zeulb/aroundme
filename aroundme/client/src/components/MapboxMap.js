@@ -8,7 +8,7 @@ const data = require('./dummy_data.json');
 const Map = ReactMapboxGl({ accessToken: token });
 
 const mapStyle = {
-  height: 'calc(100% - 64px)',
+  height: '100%',
   width: '100%'
 };
 

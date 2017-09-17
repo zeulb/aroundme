@@ -6,9 +6,3 @@
   right: 0;
   overflow: auto;
 }
-
-.App-addButton {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-}
