@@ -27,10 +27,22 @@ class ImageInput extends Component {
     var file = event.target.files[0];
 
     if (file && /^image\//i.test(file.type)) {
-      this.setState({
-        imageUploaded: file,
-        waiting: false
-      });
+      var reader = new FileReader();
+
+      reader.onloadend = () => {
+        this.setState({
+          imageUploaded: reader.result,
+          waiting: false
+        });
+      }
+
+      reader.onerror = () => {
+        this.setState({
+          waiting: false
+        });
+      }
+
+      reader.readAsDataURL(file);
     } else {
       this.setState({
         waiting: false
