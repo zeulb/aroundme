@@ -7,11 +7,20 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
 import * as AppActions from '../actions/appActions'
 import MapboxMap from './MapboxMap';
+import ImageInput from './ImageInput';
 import './App.css';
 
 class App extends Component {
+
   onAddButtonClick = () => {
-    this.props.dispatch(AppActions.switchPage(AppActions.Page.ADD));
+    this.imageInput.open()
+      .then(image => {
+        this.props.dispatch(AppActions.switchPage(AppActions.Page.ADD));
+      });
+  }
+
+  addButtonImageInputRef = (input) => {
+    this.imageInput = input;
   }
 
   renderBar() {
@@ -28,6 +37,7 @@ class App extends Component {
         className="App-addButton"
         onClick={this.onAddButtonClick}>
         <ContentAdd />
+        <ImageInput ref={this.addButtonImageInputRef} />
       </FloatingActionButton>
     );
   }
@@ -42,8 +52,6 @@ class App extends Component {
     );
   }
 }
-
-
 
 export default connect((store) => {
   return {};
