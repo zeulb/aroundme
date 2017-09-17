@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
-import Map from './Map';
+import MapboxMap from './MapboxMap';
 import './App.css';
 
 class App extends Component {
@@ -14,7 +14,7 @@ class App extends Component {
           showMenuIconButton={false}
           iconElementRight={<IconButton><ActionSettings /></IconButton>}
         />
-        <Map />
+        <MapboxMap />
       </div>
     );
   }
