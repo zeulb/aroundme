@@ -18,8 +18,6 @@ class App extends Component {
   }
 
   renderView() {
-    console.log(this.props.page);
-    console.log(Page.ADD);
     switch(this.props.page) {
       case Page.ADD:
         return <FormView />
