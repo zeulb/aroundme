@@ -9,6 +9,10 @@ class ImageInput extends Component {
     promiseReject: null
   };
 
+  componentDidMount() {
+    this.input.setAttribute("capture", "camera");
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (prevState.waiting !== this.state.waiting) {
       if (this.state.imageUploaded) {
