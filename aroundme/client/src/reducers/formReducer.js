@@ -4,7 +4,12 @@ export default function reducer(state={
 
   switch (action.type) {
     case "ADD_IMAGE": {
-      return {...state, images: [/*...state.images, */action.payload]};
+      return {...state, images: [...state.images, action.payload]};
+    }
+    case "RESET": {
+      return {
+        images: []
+      };
     }
     default:
       return state;

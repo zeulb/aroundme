@@ -4,3 +4,9 @@ export function addImage(image) {
     payload: image
   }
 }
+
+export function resetForm() {
+  return {
+    type: "RESET"
+  }
+}

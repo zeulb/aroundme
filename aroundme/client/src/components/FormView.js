@@ -3,18 +3,19 @@ import { connect } from "react-redux";
 import IconButton from 'material-ui/IconButton';
 import {white} from 'material-ui/styles/colors';
 import * as AppActions from '../actions/appActions';
+import * as FormActions from '../actions/formActions';
+import ImageSlider from './ImageSlider';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import "./FormView.css";
 
 class FormView extends Component {
   renderImages() {
-    return this.props.images.map(image => {
-      return <img className="FormView-image" src={image} />;
-    });
+    return <ImageSlider images={this.props.images} />;
   }
 
   onCloseButtonClick = () => {
     this.props.dispatch(AppActions.switchPage(AppActions.Page.MAIN));
+    this.props.dispatch(FormActions.resetForm());
   };
 
   render() {

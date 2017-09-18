@@ -1,0 +1,18 @@
+.ImageSlider {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.ImageSlider-imageContainer {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.ImageSlider-image {
+  align-self: center;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 100%;
+}
