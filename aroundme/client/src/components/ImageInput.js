@@ -9,10 +9,6 @@ class ImageInput extends Component {
     promiseReject: null
   };
 
-  componentDidMount() {
-    this.input.setAttribute("capture", "camera");
-  }
-
   componentDidUpdate(prevProps, prevState) {
     if (prevState.waiting !== this.state.waiting) {
       if (this.state.imageUploaded) {
@@ -20,7 +16,18 @@ class ImageInput extends Component {
       } else {
         this.state.promiseReject();
       }
+
+      this.reset();
     }
+  }
+
+  reset() {
+    this.input.removeAttribute("capture");
+    this.input.removeAttribute("multiple");
+    this.setState({
+      imageUploaded: null,
+      waiting: true
+    });
   }
 
   inputRef = (input) => {
@@ -65,14 +72,25 @@ class ImageInput extends Component {
     );
   }
 
-  open() {
-    this.input.click();
+  createPromise() {
     return new Promise((resolve, reject) => {
       this.setState({
         promiseResolve: resolve,
         promiseReject: reject
       });
     });
+  }
+
+  openCamera() {
+    this.input.setAttribute("capture", "camera");
+    this.input.click();
+    return this.createPromise();
+  }
+
+  openPhotoLibrary() {
+    this.input.setAttribute("multiple", "");
+    this.input.click();
+    return this.createPromise();
   }
 }
 
