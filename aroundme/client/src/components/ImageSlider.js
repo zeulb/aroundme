@@ -5,7 +5,8 @@ import "./ImageSlider.css";
 class ImageSlider extends Component {
   render() {
     return (
-      <SwipeableViews className="ImageSlider">
+      <SwipeableViews
+        className="ImageSlider">
         {this.props.images.map(image => {
           return <div className="ImageSlider-imageContainer" >
             <img className="ImageSlider-image" src={image} />

@@ -3,7 +3,7 @@ import "./ImageInput.css";
 
 class ImageInput extends Component {
   state = {
-    imageUploaded: null,
+    imagesUploaded: null,
     waiting: true,
     promiseResolve: null,
     promiseReject: null
@@ -11,8 +11,8 @@ class ImageInput extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.waiting !== this.state.waiting) {
-      if (this.state.imageUploaded) {
-        this.state.promiseResolve(this.state.imageUploaded);
+      if (this.state.imagesUploaded) {
+        this.state.promiseResolve(this.state.imagesUploaded);
       } else {
         this.state.promiseReject();
       }
@@ -25,7 +25,7 @@ class ImageInput extends Component {
     this.input.removeAttribute("capture");
     this.input.removeAttribute("multiple");
     this.setState({
-      imageUploaded: null,
+      imagesUploaded: null,
       waiting: true
     });
   }
@@ -35,30 +35,38 @@ class ImageInput extends Component {
   }
 
   onImageSelect = (event) => {
-    var file = event.target.files[0];
+    var promises = [].slice.call(event.target.files).map(file =>
+      new Promise((resolve, reject) => {
+        if (file && /^image\//i.test(file.type)) {
+          var reader = new FileReader();
+          reader.onloadend = () => {
+            resolve(reader.result);
+          }
 
-    if (file && /^image\//i.test(file.type)) {
-      var reader = new FileReader();
+          reader.onerror = () => {
+            reject();
+          }
 
-      reader.onloadend = () => {
+          reader.readAsDataURL(file);
+        } else {
+          reject();
+        }
+      })
+    );
+
+    Promise.all(promises)
+      .then(images => {
         this.setState({
-          imageUploaded: reader.result,
+          imagesUploaded: images,
           waiting: false
         });
-      }
-
-      reader.onerror = () => {
+      })
+      .catch(() => {
         this.setState({
+          imagesUploaded: null,
           waiting: false
         });
-      }
-
-      reader.readAsDataURL(file);
-    } else {
-      this.setState({
-        waiting: false
       });
-    }
   }
 
   render() {

@@ -1,7 +1,7 @@
-export function addImage(image) {
+export function addImages(images) {
   return {
-    type: "ADD_IMAGE",
-    payload: image
+    type: "ADD_IMAGES",
+    payload: images
   }
 }
 
