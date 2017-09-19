@@ -5,6 +5,7 @@ import {white} from 'material-ui/styles/colors';
 import * as AppActions from '../actions/appActions';
 import * as FormActions from '../actions/formActions';
 import ImageSlider from './ImageSlider';
+import FormRow from './FormRow';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import "./FormView.css";
 
@@ -27,6 +28,7 @@ class FormView extends Component {
         <div className="FormView-images">
           {this.renderImages()}
         </div>
+        <FormRow />
       </div>
     );
   }

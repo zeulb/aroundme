@@ -1,0 +1,32 @@
+.FormRow {
+  display: flex;
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  bottom: 15px;
+}
+
+.FormRow-inputContainer {
+  flex: 1 auto;
+  margin: 0px 10px;
+  margin-bottom: -3px;
+  padding: 0 15px;
+  border-radius: 24px !important;
+}
+
+.FormRow-textField--iOS textarea {
+  margin-left: -3px;
+  &::placeholder {
+      padding-left: 3px;
+  }
+}
+
+.FormRow-uploadButton {
+  margin-left: 10px;
+  align-self: flex-end;
+}
+
+.FormRow-sendButton {
+  margin-right: 10px;
+  align-self: flex-end;
+}
