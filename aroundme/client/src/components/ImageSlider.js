@@ -8,9 +8,9 @@ class ImageSlider extends Component {
       <SwipeableViews
         className="ImageSlider"
         resistance={true}>
-        {this.props.images.map(image => {
+        {this.props.images.map((image, index) => {
           return <div className="ImageSlider-imageContainer" >
-            <img className="ImageSlider-image" src={image} />
+            <img className="ImageSlider-image" src={image} alt={`ImageSlider.${index}`} />
           </div>;
         })}
       </SwipeableViews>
