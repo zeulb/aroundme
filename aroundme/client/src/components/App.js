@@ -20,9 +20,9 @@ class App extends Component {
   renderView() {
     switch(this.props.page) {
       case Page.ADD:
-        return <FormView />
+        return <FormView />;
       default:
-        return <MapView />
+        return null;
     }
   }
 
@@ -31,6 +31,8 @@ class App extends Component {
       <div className="App">
         {this.renderBar()}
         {this.renderView()}
+
+        <MapView visible={this.props.page === Page.MAIN} />
       </div>
     );
   }

@@ -6,8 +6,8 @@ import "./MapView.css";
 class MapView extends Component {
   render() {
     return (
-      <div className="MapView">
-        <AddButton />
+      <div className="MapView" style={{visibility: this.props.visible ? "visible" : "hidden"}}>
+        {this.props.visible ? <AddButton /> : null}
         <MapboxMap />
       </div>
     );

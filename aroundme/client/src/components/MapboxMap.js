@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactMapboxGl, { Marker, Cluster, Popup } from 'react-mapbox-gl';
 import styled from 'styled-components';
+import './MapboxMap.css';
 
 const { token, style } = require('../config/mapbox.json');
 const data = require('./dummy_data.json');
@@ -34,6 +35,14 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     border: '2px solid #C9C9C9'
+  },
+  userMarker: {
+    backgroundColor: '#1DA1F2',
+    width: '16px',
+    height: '16px',
+    borderRadius: '50%',
+    boxShadow: '0 0 2px rgba(0,0,0,0.25)',
+    border: '2px solid #fff'
   }
 }
 
@@ -48,14 +57,16 @@ const StyledPopup = styled.div`
 class MapboxMap extends Component {
   state = {
     popup: undefined,
-    initialLocation: [ 103.7716573, 1.295053 ]
+    initialLocation: [ 103.7716573, 1.295053 ],
+    currentLocation: null
   }
 
   componentDidMount() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         this.setState({
-          initialLocation: [ position.coords.longitude, position.coords.latitude ]
+          initialLocation: [ position.coords.longitude, position.coords.latitude ],
+          currentLocation: [ position.coords.longitude, position.coords.latitude ]
         });
       });
     }
@@ -127,6 +138,16 @@ class MapboxMap extends Component {
             )
           }
         </Cluster>
+        {
+          this.state.currentLocation
+            ? (
+              <Marker
+                className='MapboxMap-userMarker'
+                coordinates={this.state.currentLocation}
+              />
+            )
+            : null
+        }
         {
           popup && (
             <Popup
