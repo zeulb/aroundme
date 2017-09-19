@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactMapboxGl, { Marker, Cluster, Popup } from 'react-mapbox-gl';
+import ReactMapboxGl, { Marker, Cluster, Layer, Feature, Popup, GeoJSONLayer } from 'react-mapbox-gl';
 import styled from 'styled-components';
 import './MapboxMap.css';
 
@@ -53,6 +53,42 @@ const StyledPopup = styled.div`
   padding: 5px;
   border-radius: 2px;
 `;
+
+const createGeoJSONCircle = function(center, radiusInKm, points) {
+    if(!points) points = 64;
+
+    var coords = {
+        latitude: center[1],
+        longitude: center[0]
+    };
+
+    var km = radiusInKm;
+
+    var ret = [];
+    var distanceX = km/(111.320*Math.cos(coords.latitude*Math.PI/180));
+    var distanceY = km/110.574;
+
+    var theta, x, y;
+    for(var i=0; i<points; i++) {
+        theta = (i/points)*(2*Math.PI);
+        x = distanceX*Math.cos(theta);
+        y = distanceY*Math.sin(theta);
+
+        ret.push([coords.longitude+x, coords.latitude+y]);
+    }
+    ret.push(ret[0]);
+
+    return {
+      "type": "FeatureCollection",
+      "features": [{
+          "type": "Feature",
+          "geometry": {
+              "type": "Polygon",
+              "coordinates": [ret]
+          }
+      }]
+    };
+};
 
 class MapboxMap extends Component {
   state = {
@@ -142,9 +178,41 @@ class MapboxMap extends Component {
           this.state.currentLocation
             ? (
               <Marker
+                key='currentUser'
                 className='MapboxMap-userMarker'
                 coordinates={this.state.currentLocation}
               />
+            )
+            : null
+        }
+        {
+          this.state.currentLocation
+            ? (
+              <GeoJSONLayer
+                data={createGeoJSONCircle(this.state.currentLocation, 0.5, 100)}
+                fillPaint={{
+                  "fill-color": "red",
+                  "fill-opacity": 0.1
+                }}/>
+            )
+            : null
+        }
+        {
+          (this.state.currentLocation && false)
+            ? (
+              <Layer type="circle"
+                paint={{
+                  'circle-stroke-width': 4,
+                  'circle-radius': 30,
+                  'circle-blur': 0.15,
+                  'circle-color': '#3770C6',
+                  'circle-stroke-color': 'white'
+                }}>
+                <Feature
+                  coordinates={this.state.currentLocation}
+                  draggable={true}
+                />
+              </Layer>
             )
             : null
         }
