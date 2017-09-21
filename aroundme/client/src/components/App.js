@@ -32,7 +32,10 @@ class App extends Component {
         {this.renderBar()}
         {this.renderView()}
 
-        <MapView visible={this.props.page === Page.MAIN} />
+        <MapView
+          visible={this.props.page === Page.MAIN || this.props.page === Page.SELECT_LOCATION}
+          selectMode={this.props.page === Page.SELECT_LOCATION}
+        />
       </div>
     );
   }

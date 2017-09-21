@@ -1,3 +1,10 @@
 .MapView {
   height: calc(100% - 64px);
 }
+
+.MapView-sendButton {
+  position: fixed;
+  right: 15px;
+  bottom: 25px;
+  z-index: 1;
+}

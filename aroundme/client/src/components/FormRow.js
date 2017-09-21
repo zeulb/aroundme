@@ -6,6 +6,7 @@ import Snackbar from 'material-ui/Snackbar';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import * as Icons from 'material-ui/svg-icons';
 import ImageInput from './ImageInput';
+import * as AppActions from '../actions/appActions';
 import * as FormActions from '../actions/formActions';
 import "./FormRow.css";
 
@@ -20,6 +21,10 @@ class FormRow extends Component {
         this.props.dispatch(FormActions.addImages(images));
         this.lastImagesAddedSet(images.length);
       });
+  }
+
+  onNextClick = () => {
+    this.props.dispatch(AppActions.switchPage(AppActions.Page.SELECT_LOCATION));
   }
 
   lastImagesAddedSet = (count) => {
@@ -63,7 +68,6 @@ class FormRow extends Component {
           <Icons.ImagePhotoCamera />
         </FloatingActionButton>
         <Paper className="FormRow-inputContainer">
-
           <TextField
             className={
               "FormRow-textField" + 
@@ -77,9 +81,12 @@ class FormRow extends Component {
             rowsMax={3}
             fullWidth={true}
             underlineShow={false}
-          /><br />
+          />
         </Paper>
-        <FloatingActionButton mini={true} className="FormRow-sendButton">
+        <FloatingActionButton
+          mini={true}
+          className="FormRow-sendButton"
+          onClick={this.onNextClick}>
           <Icons.ContentSend />
         </FloatingActionButton>
       </div>

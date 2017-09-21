@@ -9,7 +9,7 @@ class ImageSlider extends Component {
         className="ImageSlider"
         resistance={true}>
         {this.props.images.map((image, index) => {
-          return <div className="ImageSlider-imageContainer" >
+          return <div className="ImageSlider-imageContainer" key={`ImageSlider-container.${index}`}>
             <img className="ImageSlider-image" src={image} alt={`ImageSlider.${index}`} />
           </div>;
         })}
