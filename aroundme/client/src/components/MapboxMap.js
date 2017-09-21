@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import ReactMapboxGl, { Marker, Cluster, Layer, Feature, Popup, GeoJSONLayer } from 'react-mapbox-gl';
-import styled from 'styled-components';
+import ReactMapboxGl, { Marker, Cluster, Layer, Feature, GeoJSONLayer } from 'react-mapbox-gl';
 import './MapboxMap.css';
 
 const { token, style } = require('../config/mapbox.json');
@@ -10,7 +9,8 @@ const Map = ReactMapboxGl({ accessToken: token });
 
 const mapStyle = {
   height: '100%',
-  width: '100%'
+  width: '100%',
+  touchAction: 'none'
 };
 
 const styles = {
@@ -45,14 +45,6 @@ const styles = {
     border: '2px solid #fff'
   }
 }
-
-const StyledPopup = styled.div`
-  background: white;
-  color: #3F618C;
-  font-weight: 400;
-  padding: 5px;
-  border-radius: 2px;
-`;
 
 const createGeoJSONCircle = function(center, radiusInKm, points) {
     if(!points) points = 64;
@@ -92,9 +84,20 @@ const createGeoJSONCircle = function(center, radiusInKm, points) {
 
 class MapboxMap extends Component {
   state = {
-    popup: undefined,
     initialLocation: [ 103.7716573, 1.295053 ],
     currentLocation: null
+  }
+
+  selectConfig = {
+    zoom: [17],
+    minZoom: 15,
+    maxZoom: 18
+  }
+
+  normalConfig = {
+    zoom: [14],
+    minZoom: 4,
+    maxZoom: 18
   }
 
   componentDidMount() {
@@ -108,7 +111,27 @@ class MapboxMap extends Component {
     }
   }
 
-  zoom = [16];
+  updateMap(map) {
+    if (this.props.selectMode) {
+      map.dragPan.disable();
+      map.dragRotate.disable();
+      map.setMinZoom(this.selectConfig.minZoom);
+      map.setMaxZoom(this.selectConfig.maxZoom);
+    } else {
+      map.dragPan.enable();
+      map.dragRotate.enable();
+      map.setMinZoom(this.normalConfig.minZoom);
+      map.setMaxZoom(this.normalConfig.maxZoom);
+    }
+  }
+
+  onStyleLoaded = (map) => {
+    this.updateMap(map);
+  }
+
+  onMapZoom = (map) => {
+    this.updateMap(map);
+  }
 
   clusterMarker = (
     coordinates,
@@ -119,31 +142,10 @@ class MapboxMap extends Component {
         key={coordinates.toString()}
         coordinates={coordinates}
         style={styles.clusterMarker}
-        onClick={this.clusterClick.bind(this, coordinates, pointCount, getLeaves)}
       >
         <div>{pointCount}</div>
       </Marker>
     );
-
-  onMove = () => {
-    if (this.state.popup) {
-      this.setState({ popup: undefined });
-    }
-  };
-
-  clusterClick = (
-    coordinates,
-    total,
-    getLeaves
-  ) => {
-    this.setState({
-      popup: {
-        coordinates,
-        total,
-        leaves: getLeaves()
-      }
-    });
-  }
 
   renderUserMarker() {
     return this.state.currentLocation
@@ -158,7 +160,7 @@ class MapboxMap extends Component {
   }
 
   renderCircle() {
-    return this.state.currentLocation
+    return (this.state.currentLocation && this.props.selectMode)
       ? (
         <GeoJSONLayer
           data={createGeoJSONCircle(this.state.currentLocation, 0.2, 100)}
@@ -171,7 +173,7 @@ class MapboxMap extends Component {
   }
 
   renderLocationPin() {
-    return this.state.currentLocation
+    return (this.state.currentLocation && this.props.selectMode)
       ? (
         <Layer layout={{
           'icon-size': 1.0,
@@ -188,15 +190,17 @@ class MapboxMap extends Component {
   }
 
   render() {
-    const { popup, initialLocation } = this.state;
+    const { initialLocation } = this.state;
 
     return (
       <Map
+        ref={this.mapRef}
         center={initialLocation}
         style={style}
-        zoom={this.zoom}
-        onMove={this.onMove}
         containerStyle={mapStyle}
+        onStyleLoad={this.onStyleLoaded}
+        onZoom={this.onMapZoom}
+        zoom={this.props.selectMode ? this.selectConfig.zoom : this.normalConfig.zoom}
       >
         <Cluster ClusterMarkerFactory={this.clusterMarker}>
           {
@@ -219,27 +223,6 @@ class MapboxMap extends Component {
         {this.renderUserMarker()}
         {this.renderCircle()}
         {this.renderLocationPin()}
-        {
-          popup && (
-            <Popup
-              offset={[0, -50]}
-              coordinates={popup.coordinates}
-            >
-              <StyledPopup>
-                {
-                  popup.leaves.map((leaf, index) =>
-                    <div
-                      key={index}
-                    >
-                      {leaf.props['data-feature'].properties.name}
-                    </div>
-                  )
-                }
-                {popup.total > popup.leaves.length ? <div>And more...</div> : null}
-              </StyledPopup>
-            </Popup>
-          )
-        }
       </Map>
     )
   }

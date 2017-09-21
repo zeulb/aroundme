@@ -8,7 +8,7 @@ class MapView extends Component {
     return (
       <div className="MapView" style={{visibility: this.props.visible ? "visible" : "hidden"}}>
         {this.props.visible ? <AddButton /> : null}
-        <MapboxMap />
+        <MapboxMap selectMode={true} />
       </div>
     );
   }
