@@ -1,0 +1,1 @@
+../client/node_modules/react-mapbox-gl/lib/layer.js
