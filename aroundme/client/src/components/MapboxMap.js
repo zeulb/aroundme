@@ -108,7 +108,7 @@ class MapboxMap extends Component {
     }
   }
 
-  zoom = [15];
+  zoom = [16];
 
   clusterMarker = (
     coordinates,
@@ -145,6 +145,48 @@ class MapboxMap extends Component {
     });
   }
 
+  renderUserMarker() {
+    return this.state.currentLocation
+      ? (
+        <Marker
+          key='currentUser'
+          className='MapboxMap-userMarker'
+          coordinates={this.state.currentLocation}
+        />
+      )
+      : null;
+  }
+
+  renderCircle() {
+    return this.state.currentLocation
+      ? (
+        <GeoJSONLayer
+          data={createGeoJSONCircle(this.state.currentLocation, 0.2, 100)}
+          fillPaint={{
+            "fill-color": "red",
+            "fill-opacity": 0.1
+          }}/>
+      )
+      : null;
+  }
+
+  renderLocationPin() {
+    return this.state.currentLocation
+      ? (
+        <Layer layout={{
+          'icon-size': 1.0,
+          'icon-offset': [0, -28],
+          'icon-image': 'location-pin-marker'
+        }}>
+          <Feature
+            coordinates={this.state.currentLocation}
+            draggable={true}
+          />
+        </Layer>
+      )
+      : null;
+  }
+
   render() {
     const { popup, initialLocation } = this.state;
 
@@ -174,48 +216,9 @@ class MapboxMap extends Component {
             )
           }
         </Cluster>
-        {
-          this.state.currentLocation
-            ? (
-              <Marker
-                key='currentUser'
-                className='MapboxMap-userMarker'
-                coordinates={this.state.currentLocation}
-              />
-            )
-            : null
-        }
-        {
-          this.state.currentLocation
-            ? (
-              <GeoJSONLayer
-                data={createGeoJSONCircle(this.state.currentLocation, 0.5, 100)}
-                fillPaint={{
-                  "fill-color": "red",
-                  "fill-opacity": 0.1
-                }}/>
-            )
-            : null
-        }
-        {
-          (this.state.currentLocation && false)
-            ? (
-              <Layer type="circle"
-                paint={{
-                  'circle-stroke-width': 4,
-                  'circle-radius': 30,
-                  'circle-blur': 0.15,
-                  'circle-color': '#3770C6',
-                  'circle-stroke-color': 'white'
-                }}>
-                <Feature
-                  coordinates={this.state.currentLocation}
-                  draggable={true}
-                />
-              </Layer>
-            )
-            : null
-        }
+        {this.renderUserMarker()}
+        {this.renderCircle()}
+        {this.renderLocationPin()}
         {
           popup && (
             <Popup
