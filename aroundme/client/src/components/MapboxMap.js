@@ -84,8 +84,13 @@ const createGeoJSONCircle = function(center, radiusInKm, points) {
 
 class MapboxMap extends Component {
   state = {
-    initialLocation: [ 103.7716573, 1.295053 ],
-    currentLocation: null
+    initialLocation: this.getCurrentPositionFromCache() || [ 103.7716573, 1.295053 ],
+    currentLocation: this.getCurrentPositionFromCache() || null
+  }
+
+  getCurrentPositionFromCache() {
+    const currentLocation = localStorage.getItem('currentLocation');
+    return currentLocation ? currentLocation.split(',') : null;
   }
 
   selectConfig = {
@@ -102,11 +107,12 @@ class MapboxMap extends Component {
 
   componentDidMount() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
+      navigator.geolocation.watchPosition(position => {
         this.setState({
           initialLocation: [ position.coords.longitude, position.coords.latitude ],
           currentLocation: [ position.coords.longitude, position.coords.latitude ]
         });
+        localStorage.setItem('currentLocation', [ position.coords.longitude, position.coords.latitude ]);
       });
     }
   }
