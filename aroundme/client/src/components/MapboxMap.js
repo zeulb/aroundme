@@ -111,7 +111,11 @@ class MapboxMap extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (!prevProps.selectMode && this.props.selectMode) {
-      this.props.dispatch(FormActions.setLocation(this.state.initialLocation));
+      this.props.dispatch(
+        FormActions.setLocation({
+          lng: this.state.initialLocation[0],
+          lat: this.state.initialLocation[1]
+        }));
     }
   }
 
