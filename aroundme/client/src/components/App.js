@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from "react-redux"
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
+import Popover from 'material-ui/Popover';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
 import { Page } from '../actions/appActions';
 import MapView from './MapView';
@@ -14,7 +17,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      me: null
+      me: null,
+      open: false
     }
   }
 
@@ -47,16 +51,32 @@ class App extends Component {
     }(document, 'script', 'facebook-jssdk'));
   }
 
+  handleRequestClose() {
+    this.setState({
+      open: false,
+    });
+  };
+
   renderBar() {
     return <AppBar
       title="AroundMe"
       showMenuIconButton={false}
       iconElementRight={<IconButton 
-                            onTouchTap={this.handleFBLogin.bind(this)}>
-                              <ActionSettings/>
-                        </IconButton>}
+                            onTouchTap={this.handleTouchTap.bind(this)}>
+                            <ActionSettings/>
+                          </IconButton>}
     />;
   }
+
+  handleTouchTap(event) {
+    // This prevents ghost click.
+    event.preventDefault();
+
+    this.setState({
+      open: true,
+      anchorEl: event.currentTarget,
+    });
+  };
 
   handleFBLogin(e) {
     console.log(this.state)
@@ -94,6 +114,20 @@ class App extends Component {
           visible={this.props.page === Page.MAIN || this.props.page === Page.SELECT_LOCATION}
           selectMode={this.props.page === Page.SELECT_LOCATION}
         />
+        <Popover
+          open={this.state.open}
+          anchorEl={this.state.anchorEl}
+          anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+          onRequestClose={this.handleRequestClose.bind(this)}
+          targetOrigin={{horizontal: 'left', vertical: 'top'}}>
+
+          <Menu>
+            <MenuItem primaryText="Refresh" />
+            <MenuItem primaryText="Help &amp; feedback" />
+            <MenuItem primaryText="Settings" />
+            <MenuItem primaryText="Sign out" />
+          </Menu>
+        </Popover>
       </div>
     );
   }
