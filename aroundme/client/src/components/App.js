@@ -107,16 +107,16 @@ class App extends Component {
     }.bind(this), {scope: 'user_friends'});
   }
 
-  loadFromCache() {
+  loadCache() {
     let name = localStorage.getItem('name');
     name = name? name.split(',') : null;
-    return {
+    this.setState({
       id: localStorage.getItem('me_id'),
       access_token: localStorage.getItem('me_access_token'),
       first_name: name? name[0] : null,
       last_name: name? name[1] : null,
       pic_url: localStorage.getItem('pic_url')
-    };
+    })
   }
 
   renderView() {
@@ -128,6 +128,23 @@ class App extends Component {
     }
   }
 
+  handleFBLogout(event) {
+    event.preventDefault();
+    FB.logout(function(response) {
+      this.setState({
+        id: null,
+        access_token: null,
+        first_name: null,
+        last_name: null,
+        pic_url: null,
+      });
+      localStorage.removeItem('name');
+      localStorage.removeItem('pic_url');
+      localStorage.removeItem('me_id');
+      localStorage.removeItem('me_access_token');
+    }.bind(this));
+  }
+
   handleRequestChange() {
     this.setState({
       open: false
@@ -135,26 +152,24 @@ class App extends Component {
   }
 
   render() {
-    let cache = this.loadFromCache();
     let menuTop = null;
     let menuBottom = null;
     let menuBottom2 = null;
     let menuBottom3 = null;
-    console.log(cache);
     if (this.state.access_token) {
       menuTop = <div className="Menu-Text">Welcome, {this.state.first_name}!</div>
       menuBottom = <MenuItem primaryText="My Events" /> 
       menuBottom2 = <MenuItem primaryText="Settings" />
-      menuBottom3 = <MenuItem primaryText="Sign out" />
+      menuBottom3 = <MenuItem primaryText="Sign out" onClick={this.handleFBLogout.bind(this)}/>
     } else {
       menuTop = <MenuItem 
-                  style={{"height":"64px",  
-                          "line-height":"64px", 
+                  style={{height:"64px",  
+                          lineHeight:"64px", 
                           backgroundColor:"rgb(0,188,212)",
-                          "color": "white",
-                          "font-weight": "bold",
-                          "text-align":"center",
-                          "vertical-align":"middle"}} 
+                          color: "white",
+                          fontWeight: "bold",
+                          textAlign:"center",
+                          verticalAlign:"middle"}} 
                   primaryText="Log in"
                   onClick = {this.handleFBLogin.bind(this)}/>;
       menuBottom = <MenuItem primaryText="Help &amp; feedback" />;
