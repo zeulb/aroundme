@@ -13,6 +13,7 @@ class MapView extends Component {
   onSend = () => {
     this.props.dispatch(FormActions.createEvent(this.props.form));
     this.props.dispatch(AppActions.switchPage(AppActions.Page.MAIN));
+    this.props.dispatch(FormActions.resetForm());
   };
 
   renderSendButton() {
