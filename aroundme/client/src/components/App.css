@@ -6,3 +6,9 @@
   right: 0;
   overflow: auto;
 }
+
+.Menu-Text {
+  height: 64px;
+  position: relative;
+  padding: 0px 16px;
+}
