@@ -1,0 +1,8 @@
+{
+  "production": {
+    "api": "https://api.aroundme.bojio.pw"
+  },
+  "development": {
+    "api": "https://api.aroundme.bojio.pw"
+  }
+}

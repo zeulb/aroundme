@@ -11,7 +11,7 @@ import "./MapView.css";
 class MapView extends Component {
 
   onSend = () => {
-    this.props.dispatch(FormActions.createEvent());
+    this.props.dispatch(FormActions.createEvent(this.props.form));
     this.props.dispatch(AppActions.switchPage(AppActions.Page.MAIN));
   };
 
@@ -36,4 +36,8 @@ class MapView extends Component {
   }
 }
 
-export default connect()(MapView);
+export default connect((store) => {
+  return {
+    form: store.form
+  };
+})(MapView);
