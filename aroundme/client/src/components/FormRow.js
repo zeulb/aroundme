@@ -76,7 +76,7 @@ class FormRow extends Component {
           mini={true}
           className="FormRow-uploadButton"
           onClick={this.onPhotoClick}>
-          <Icons.ImagePhotoCamera />
+          <Icons.ImageAddToPhotos />
         </FloatingActionButton>
         <Paper className="FormRow-inputContainer">
           <TextField
