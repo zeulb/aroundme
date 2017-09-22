@@ -11,29 +11,68 @@ import './App.css';
 /*global FB*/
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      me: null
+    }
+  }
+
+  componentDidMount() {
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId: '1429723593764167',
+        cookie: true,
+        xfbml: true,
+        version: 'v2.5'
+      });
+      FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+          this.setState({
+            me: {
+              id: response.authResponse.userID,
+              access_token: response.authResponse.accessToken
+            }
+          })
+        }
+      }.bind(this))
+    }.bind(this);
+
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  }
+
   renderBar() {
     return <AppBar
       title="AroundMe"
       showMenuIconButton={false}
       iconElementRight={<IconButton 
-                            onTouchTap={this.handleFBLogin}>
+                            onTouchTap={this.handleFBLogin.bind(this)}>
                               <ActionSettings/>
                         </IconButton>}
     />;
   }
 
   handleFBLogin(e) {
-    console.log("trying to log in");
+    console.log(this.state)
     FB.login(function(response) {
-
       if (response.status === 'connected') {
-
-        console.log(response.authReponse);
-      } else {
-        console.log("failed")
-
+        this.setState({
+          me: {
+            id: response.authResponse.userID,
+            access_token: response.authResponse.accessToken
+          }
+        })
+        FB.api(response.authResponse.userID+"?fields=email,first_name,last_name,name,gender", 'get', e=>{
+          console.log(e);
+          })
       }
-    }, {scope: 'user_friends'});
+    }.bind(this), {scope: 'user_friends'});
   }
 
   renderView() {
