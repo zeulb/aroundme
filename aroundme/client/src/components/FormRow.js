@@ -58,6 +58,10 @@ class FormRow extends Component {
     scroll.scrollToBottom();
   }
 
+  onTextChange = (event) => {
+    this.props.dispatch(FormActions.setDescription(event.target.value));
+  }
+
   render() {
     return (
       <div className="FormRow">
@@ -89,6 +93,7 @@ class FormRow extends Component {
             fullWidth={true}
             underlineShow={false}
             onFocus={this.onTextFocus}
+            onChange={this.onTextChange}
           />
         </Paper>
         <FloatingActionButton

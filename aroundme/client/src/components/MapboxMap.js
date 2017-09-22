@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux"
 import ReactMapboxGl, { Marker, Cluster, Layer, Feature, GeoJSONLayer } from 'react-mapbox-gl';
 import './MapboxMap.css';
+import * as FormActions from '../actions/formActions';
 import UserMarker from './UserMarker';
 
 const { token, style } = require('../config/mapbox.json');
@@ -107,6 +109,12 @@ class MapboxMap extends Component {
     }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevProps.selectMode && this.props.selectMode) {
+      this.props.dispatch(FormActions.setLocation(this.state.initialLocation));
+    }
+  }
+
   updateMap(map) {
     if (this.props.selectMode) {
       map.dragPan.disable();
@@ -160,6 +168,10 @@ class MapboxMap extends Component {
       : null;
   }
 
+  onSetLocation = (evt) => {
+    this.props.dispatch(FormActions.setLocation(evt.lngLat));
+  };
+
   renderLocationPin() {
     return this.props.selectMode
       ? (
@@ -171,6 +183,7 @@ class MapboxMap extends Component {
           <Feature
             coordinates={this.state.initialLocation}
             draggable={true}
+            onDragEnd={this.onSetLocation}
           />
         </Layer>
       )
@@ -216,4 +229,4 @@ class MapboxMap extends Component {
   }
 }
 
-export default MapboxMap;
+export default connect()(MapboxMap);
