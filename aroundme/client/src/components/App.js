@@ -8,13 +8,32 @@ import MapView from './MapView';
 import FormView from './FormView';
 import './App.css';
 
+/*global FB*/
+
 class App extends Component {
   renderBar() {
     return <AppBar
       title="AroundMe"
       showMenuIconButton={false}
-      iconElementRight={<IconButton><ActionSettings /></IconButton>}
+      iconElementRight={<IconButton 
+                            onTouchTap={this.handleFBLogin}>
+                              <ActionSettings/>
+                        </IconButton>}
     />;
+  }
+
+  handleFBLogin(e) {
+    console.log("trying to log in");
+    FB.login(function(response) {
+
+      if (response.status === 'connected') {
+
+        console.log(response.authReponse);
+      } else {
+        console.log("failed")
+
+      }
+    }, {scope: 'user_friends'});
   }
 
   renderView() {
