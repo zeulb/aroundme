@@ -10,6 +10,9 @@ import * as AppActions from '../actions/appActions';
 import * as FormActions from '../actions/formActions';
 import "./FormRow.css";
 
+var Scroll = require('react-scroll');
+var scroll = Scroll.animateScroll;
+
 class FormRow extends Component {
   state = {
     lastImagesAddedCount: 0
@@ -51,6 +54,10 @@ class FormRow extends Component {
     }
   }
 
+  onTextFocus = (event) => {
+    scroll.scrollToBottom();
+  }
+
   render() {
     return (
       <div className="FormRow">
@@ -81,6 +88,7 @@ class FormRow extends Component {
             rowsMax={3}
             fullWidth={true}
             underlineShow={false}
+            onFocus={this.onTextFocus}
           />
         </Paper>
         <FloatingActionButton

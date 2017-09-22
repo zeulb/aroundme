@@ -1,9 +1,10 @@
 .FormRow {
   display: flex;
-  position: fixed;
+  position: absolute;
   left: 0px;
   right: 0px;
   bottom: 15px;
+  height: auto;
 }
 
 .FormRow-inputContainer {
