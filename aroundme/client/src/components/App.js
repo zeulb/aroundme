@@ -193,6 +193,7 @@ class App extends Component {
         <Drawer 
           docked={false}
           onRequestChange={this.handleRequestChange.bind(this)}
+          disableSwipeToOpen={true}
           open={this.state.open}>
           {menuTop}
           <Divider />
