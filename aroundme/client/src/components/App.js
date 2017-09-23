@@ -10,6 +10,10 @@ import MapView from './MapView';
 import FormView from './FormView';
 import './App.css';
 
+const appConfig = require('../config/app.json');
+const nodeEnv = process.env.NODE_ENV || "development";
+const appId = appConfig[nodeEnv].appId;
+
 /*global FB*/
 
 class App extends Component {
@@ -23,7 +27,7 @@ class App extends Component {
   componentDidMount() {
     window.fbAsyncInit = function() {
       FB.init({
-        appId: '1429723593764167',
+        appId: appId,
         cookie: true,
         xfbml: true,
         version: 'v2.5'
@@ -38,7 +42,6 @@ class App extends Component {
           if (!this.state.id) {
             // TODO: call POST user from back end with
             // response.authResponse.userID
-            //
             // With result, set localstorage and state
           }
         } else {
@@ -126,18 +129,19 @@ class App extends Component {
 
   handleFBLogout(event) {
     event.preventDefault();
+    this.setState({
+      id: null,
+      fb_id: null,
+      first_name: null,
+      last_name: null,
+      pic_url: null,
+    });
+    localStorage.removeItem('name');
+    localStorage.removeItem('pic_url');
+    localStorage.removeItem('fb_id');
+    localStorage.removeItem('id');
     FB.logout(function(response) {
-      this.setState({
-        id: null,
-        fb_id: null,
-        first_name: null,
-        last_name: null,
-        pic_url: null,
-      });
-      localStorage.removeItem('name');
-      localStorage.removeItem('pic_url');
-      localStorage.removeItem('fb_id');
-      localStorage.removeItem('id');
+      console.log(response);
     }.bind(this));
   }
 
