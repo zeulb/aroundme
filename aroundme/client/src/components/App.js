@@ -30,23 +30,19 @@ class App extends Component {
       });
       FB.getLoginStatus(function(response) {
         if (response.status === 'connected') {
-          FB.login(function(response) {
-            if (response.status === 'connected') {
-              FB.api(response.authResponse.userID+"?fields=first_name,last_name,picture.width(58).height(58)", 'get', e=>{
-                this.setState({
-                  id: response.authResponse.userID,
-                  access_token: response.authResponse.accessToken,
-                  first_name: e.first_name,
-                  last_name: e.last_name,
-                  pic_url: e.picture.data.url
-                });
-                localStorage.setItem('name', [e.first_name, e.last_name]);
-                localStorage.setItem('pic_url', e.picture.data.url);
-                localStorage.setItem('me_id', response.authResponse.userID);
-                localStorage.setItem('me_access_token', response.authResponse.accessToken);
-              })
-            }
-          }.bind(this), {scope: 'user_friends'});
+          FB.api(response.authResponse.userID+"?fields=first_name,last_name,picture.width(58).height(58)", 'get', e=>{
+            this.setState({
+              id: response.authResponse.userID,
+              access_token: response.authResponse.accessToken,
+              first_name: e.first_name,
+              last_name: e.last_name,
+              pic_url: e.picture.data.url
+            });
+            localStorage.setItem('name', [e.first_name, e.last_name]);
+            localStorage.setItem('pic_url', e.picture.data.url);
+            localStorage.setItem('me_id', response.authResponse.userID);
+            localStorage.setItem('me_access_token', response.authResponse.accessToken);
+          }).bind(this)
         }
       }.bind(this))
     }.bind(this);
