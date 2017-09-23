@@ -1,5 +1,5 @@
 .MapView {
-  height: calc(100% - 64px);
+  height: calc(100% - 48px);
 }
 
 .MapView-sendButton {

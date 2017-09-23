@@ -40,7 +40,10 @@ class ImageInput extends Component {
         if (file && /^image\//i.test(file.type)) {
           var reader = new FileReader();
           reader.onloadend = () => {
-            resolve(reader.result);
+            resolve({
+              file: file,
+              image: reader.result
+            });
           }
 
           reader.onerror = () => {

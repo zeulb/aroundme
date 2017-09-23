@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux"
 import ReactMapboxGl, { Marker, Cluster, Layer, Feature, GeoJSONLayer } from 'react-mapbox-gl';
 import './MapboxMap.css';
+import * as FormActions from '../actions/formActions';
+import UserMarker from './UserMarker';
 
 const { token, style } = require('../config/mapbox.json');
 const data = require('./dummy_data.json');
@@ -35,14 +38,6 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     border: '2px solid #C9C9C9'
-  },
-  userMarker: {
-    backgroundColor: '#1DA1F2',
-    width: '16px',
-    height: '16px',
-    borderRadius: '50%',
-    boxShadow: '0 0 2px rgba(0,0,0,0.25)',
-    border: '2px solid #fff'
   }
 }
 
@@ -84,8 +79,7 @@ const createGeoJSONCircle = function(center, radiusInKm, points) {
 
 class MapboxMap extends Component {
   state = {
-    initialLocation: this.getCurrentPositionFromCache() || [ 103.7716573, 1.295053 ],
-    currentLocation: this.getCurrentPositionFromCache() || null
+    initialLocation: this.getCurrentPositionFromCache() || [ 103.7716573, 1.295053 ]
   }
 
   getCurrentPositionFromCache() {
@@ -107,13 +101,21 @@ class MapboxMap extends Component {
 
   componentDidMount() {
     if (navigator.geolocation) {
-      navigator.geolocation.watchPosition(position => {
+      navigator.geolocation.getCurrentPosition(position => {
         this.setState({
-          initialLocation: [ position.coords.longitude, position.coords.latitude ],
-          currentLocation: [ position.coords.longitude, position.coords.latitude ]
+          initialLocation: [ position.coords.longitude, position.coords.latitude ]
         });
-        localStorage.setItem('currentLocation', [ position.coords.longitude, position.coords.latitude ]);
       });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevProps.selectMode && this.props.selectMode) {
+      this.props.dispatch(
+        FormActions.setLocation({
+          lng: this.state.initialLocation[0],
+          lat: this.state.initialLocation[1]
+        }));
     }
   }
 
@@ -154,22 +156,14 @@ class MapboxMap extends Component {
     );
 
   renderUserMarker() {
-    return this.state.currentLocation
-      ? (
-        <Marker
-          key='currentUser'
-          className='MapboxMap-userMarker'
-          coordinates={this.state.currentLocation}
-        />
-      )
-      : null;
+    return <UserMarker initialLocation={this.state.initialLocation} />;
   }
 
   renderCircle() {
-    return (this.state.currentLocation && this.props.selectMode)
+    return this.props.selectMode
       ? (
         <GeoJSONLayer
-          data={createGeoJSONCircle(this.state.currentLocation, 0.2, 100)}
+          data={createGeoJSONCircle(this.state.initialLocation, 0.2, 100)}
           fillPaint={{
             "fill-color": "red",
             "fill-opacity": 0.1
@@ -178,8 +172,12 @@ class MapboxMap extends Component {
       : null;
   }
 
+  onSetLocation = (evt) => {
+    this.props.dispatch(FormActions.setLocation(evt.lngLat));
+  };
+
   renderLocationPin() {
-    return (this.state.currentLocation && this.props.selectMode)
+    return this.props.selectMode
       ? (
         <Layer layout={{
           'icon-size': 1.0,
@@ -187,8 +185,9 @@ class MapboxMap extends Component {
           'icon-image': 'location-pin-marker'
         }}>
           <Feature
-            coordinates={this.state.currentLocation}
+            coordinates={this.state.initialLocation}
             draggable={true}
+            onDragEnd={this.onSetLocation}
           />
         </Layer>
       )
@@ -234,4 +233,4 @@ class MapboxMap extends Component {
   }
 }
 
-export default MapboxMap;
+export default connect()(MapboxMap);

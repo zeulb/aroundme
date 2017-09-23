@@ -10,6 +10,9 @@ import * as AppActions from '../actions/appActions';
 import * as FormActions from '../actions/formActions';
 import "./FormRow.css";
 
+var Scroll = require('react-scroll');
+var scroll = Scroll.animateScroll;
+
 class FormRow extends Component {
   state = {
     lastImagesAddedCount: 0
@@ -51,6 +54,14 @@ class FormRow extends Component {
     }
   }
 
+  onTextFocus = (event) => {
+    scroll.scrollToBottom();
+  }
+
+  onTextChange = (event) => {
+    this.props.dispatch(FormActions.setDescription(event.target.value));
+  }
+
   render() {
     return (
       <div className="FormRow">
@@ -65,7 +76,7 @@ class FormRow extends Component {
           mini={true}
           className="FormRow-uploadButton"
           onClick={this.onPhotoClick}>
-          <Icons.ImagePhotoCamera />
+          <Icons.ImageAddToPhotos />
         </FloatingActionButton>
         <Paper className="FormRow-inputContainer">
           <TextField
@@ -81,6 +92,8 @@ class FormRow extends Component {
             rowsMax={3}
             fullWidth={true}
             underlineShow={false}
+            onFocus={this.onTextFocus}
+            onChange={this.onTextChange}
           />
         </Paper>
         <FloatingActionButton

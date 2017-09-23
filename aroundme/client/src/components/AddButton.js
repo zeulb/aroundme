@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux"
 import * as Icons from 'material-ui/svg-icons';
 import Avatar from 'material-ui/Avatar';
-import { blue500 } from 'material-ui/styles/colors';
+import { indigo300, white } from 'material-ui/styles/colors';
 import { SpeedDial, BubbleList, BubbleListItem } from 'react-speed-dial';
 import * as AppActions from '../actions/appActions';
 import * as FormActions from '../actions/formActions';
@@ -42,12 +42,12 @@ class AddButton extends Component {
           direction="right">
           <BubbleListItem
             key="AddButton-cameraButton"
-            leftAvatar={<Avatar backgroundColor={blue500} icon={<Icons.ImagePhotoCamera />} />}
+            leftAvatar={<Avatar backgroundColor={white} color={indigo300} icon={<Icons.ImagePhotoCamera />} />}
             onClick={this.onCameraClick}
           />
           <BubbleListItem
             key="AddButton-photoButton"
-            leftAvatar={<Avatar backgroundColor={blue500} icon={<Icons.ImagePhotoLibrary />} />}
+            leftAvatar={<Avatar backgroundColor={white} color={indigo300} icon={<Icons.ImagePhotoLibrary />} />}
             onClick={this.onPhotoClick}
           />
           <ImageInput ref={this.imageInputRef} />
