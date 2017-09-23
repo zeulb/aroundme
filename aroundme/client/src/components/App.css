@@ -25,4 +25,6 @@
   line-height: 80px;
   padding-left: 20px;
   vertical-align: middle;
+  overflow: hidden;
+  width: 120px;
 }

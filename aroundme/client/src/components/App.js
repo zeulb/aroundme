@@ -5,7 +5,6 @@ import IconButton from 'material-ui/IconButton';
 import Drawer from 'material-ui/Drawer';
 import Divider from 'material-ui/Divider';
 import MenuItem from 'material-ui/MenuItem';
-import ActionSettings from 'material-ui/svg-icons/action/settings';
 import { Page } from '../actions/appActions';
 import MapView from './MapView';
 import FormView from './FormView';
@@ -72,6 +71,7 @@ class App extends Component {
       title="AroundMe"
       titleStyle={{textAlign: "center"}}
       onLeftIconButtonTouchTap={this.handleTouchTap.bind(this)}
+      iconElementRight={<IconButton disabled={true}/>}
     />;
   }
 
@@ -160,7 +160,9 @@ class App extends Component {
     if (this.state.access_token) {
       menuTop =(<div className="Menu-Box">
                   <img className="Profile-Picture" src={this.state.pic_url}></img>
-                  <div className="User-Information"> {this.state.first_name} {this.state.last_name} </div>
+                  <div className="User-Information">
+                    {this.state.first_name} {this.state.last_name}
+                  </div>
                 </div>);
       menuBottom = <MenuItem primaryText="My Events" /> 
       menuBottom2 = <MenuItem primaryText="Settings" />
