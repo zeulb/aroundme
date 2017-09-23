@@ -12,3 +12,28 @@ export function switchPage(page) {
     payload: page
   }
 }
+
+export function openDrawer() {
+  return {
+    type: "OPEN_DRAWER"
+  }
+}
+
+export function closeDrawer() {
+  return {
+    type: "CLOSE_DRAWER"
+  }
+}
+
+export function login(rawData) {
+  return {
+    type: "LOGIN",
+    payload: rawData
+  }
+}
+
+export function logout() {
+  return {
+    type: "LOGOUT"
+  }
+}

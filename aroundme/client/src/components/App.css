@@ -6,25 +6,3 @@
   right: 0;
   overflow: hidden;
 }
-
-.Menu-Box {
-  height: 80px;
-  position: relative;
-  padding: 0px 16px;
-  display: flex;
-}
-
-.Profile-Picture {
-  padding: 10px 0px;
-  border-radius: 50%;
-  height: 60px;
-  width: 60px;
-}
-
-.User-Information {
-  line-height: 80px;
-  padding-left: 20px;
-  vertical-align: middle;
-  overflow: hidden;
-  width: 120px;
-}

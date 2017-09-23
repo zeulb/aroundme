@@ -1,0 +1,35 @@
+.SideDrawer > div {
+  z-index: 10000 !important;
+}
+
+.SideDrawer-loggedInHeader {
+  height: 80px;
+  position: relative;
+  padding: 0px 16px;
+  display: flex;
+}
+
+.SideDrawer-guestHeader {
+  height: 80px;  
+  line-height: 80px !important;
+  background-color: rgb(0,188,212) !important;
+  color: white !important;
+  font-weight: bold !important;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.SideDrawer-profilePicture {
+  padding: 10px 0px;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+}
+
+.SideDrawer-userInformation {
+  line-height: 80px;
+  padding-left: 20px;
+  vertical-align: middle;
+  overflow: hidden;
+  width: 120px;
+}
