@@ -189,6 +189,7 @@ class App extends Component {
         <MapView
           visible={this.props.page === Page.MAIN || this.props.page === Page.SELECT_LOCATION}
           selectMode={this.props.page === Page.SELECT_LOCATION}
+          isDrawerOpen={this.state.open}
         />
         <Drawer 
           docked={false}
