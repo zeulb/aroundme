@@ -156,15 +156,20 @@ class App extends Component {
     let menuBottom = null;
     let menuBottom2 = null;
     let menuBottom3 = null;
+    let menuBottom4 = null;
     if (this.state.access_token) {
-      menuTop = <div className="Menu-Text">Welcome, {this.state.first_name}!</div>
+      menuTop =(<div className="Menu-Box">
+                  <img className="Profile-Picture" src={this.state.pic_url}></img>
+                  <div className="User-Information"> {this.state.first_name} {this.state.last_name} </div>
+                </div>);
       menuBottom = <MenuItem primaryText="My Events" /> 
       menuBottom2 = <MenuItem primaryText="Settings" />
-      menuBottom3 = <MenuItem primaryText="Sign out" onClick={this.handleFBLogout.bind(this)}/>
+      menuBottom3 = <MenuItem primaryText="Help &amp; feedback" />;
+      menuBottom4 = <MenuItem primaryText="Sign out" onClick={this.handleFBLogout.bind(this)}/>
     } else {
       menuTop = <MenuItem 
-                  style={{height:"64px",  
-                          lineHeight:"64px", 
+                  style={{height:"80px",  
+                          lineHeight:"80px", 
                           backgroundColor:"rgb(0,188,212)",
                           color: "white",
                           fontWeight: "bold",
@@ -180,8 +185,9 @@ class App extends Component {
         {this.renderView()}
 
         <MapView
-          visible={this.props.page === Page.MAIN || this.props.page === Page.SELECT_LOCATION}
+          visible={this.props.page === Page.MAIN || this.props.page === Page.SELECT_LOCATION || !this.state.open}
           selectMode={this.props.page === Page.SELECT_LOCATION}
+          isDrawerOpen={this.state.open}
         />
         <Drawer 
           docked={false}
@@ -192,6 +198,7 @@ class App extends Component {
           {menuBottom}
           {menuBottom2}
           {menuBottom3}
+          {menuBottom4}
         </Drawer>
       </div>
     );
