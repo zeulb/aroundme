@@ -1,8 +1,10 @@
 {
   "production": {
-    "api": "https://api.aroundme.bojio.pw"
+    "api": "https://api.aroundme.bojio.pw",
+    "appId": "1429723593764167"
   },
   "development": {
-    "api": "https://api.aroundme.bojio.pw"
+    "api": "https://api.aroundme.bojio.pw",
+    "appId": "1488189307903103"
   }
 }
