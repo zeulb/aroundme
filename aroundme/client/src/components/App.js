@@ -5,7 +5,6 @@ import IconButton from 'material-ui/IconButton';
 import Drawer from 'material-ui/Drawer';
 import Divider from 'material-ui/Divider';
 import MenuItem from 'material-ui/MenuItem';
-import ActionSettings from 'material-ui/svg-icons/action/settings';
 import { Page } from '../actions/appActions';
 import MapView from './MapView';
 import FormView from './FormView';
@@ -31,23 +30,19 @@ class App extends Component {
       });
       FB.getLoginStatus(function(response) {
         if (response.status === 'connected') {
-          FB.login(function(response) {
-            if (response.status === 'connected') {
-              FB.api(response.authResponse.userID+"?fields=first_name,last_name,picture.width(58).height(58)", 'get', e=>{
-                this.setState({
-                  id: response.authResponse.userID,
-                  access_token: response.authResponse.accessToken,
-                  first_name: e.first_name,
-                  last_name: e.last_name,
-                  pic_url: e.picture.data.url
-                });
-                localStorage.setItem('name', [e.first_name, e.last_name]);
-                localStorage.setItem('pic_url', e.picture.data.url);
-                localStorage.setItem('me_id', response.authResponse.userID);
-                localStorage.setItem('me_access_token', response.authResponse.accessToken);
-              })
-            }
-          }.bind(this), {scope: 'user_friends'});
+          this.setState({
+            fb_id: response.authResponse.userID,
+          });
+          localStorage.setItem('fb_id', response.authResponse.userID);
+          this.loadCache();
+          if (!this.state.id) {
+            // TODO: call POST user from back end with
+            // response.authResponse.userID
+            //
+            // With result, set localstorage and state
+          }
+        } else {
+          this.loadCache();
         }
       }.bind(this))
     }.bind(this);
@@ -72,6 +67,7 @@ class App extends Component {
       title="AroundMe"
       titleStyle={{textAlign: "center"}}
       onLeftIconButtonTouchTap={this.handleTouchTap.bind(this)}
+      iconElementRight={<IconButton disabled={true}/>}
     />;
   }
 
@@ -91,17 +87,17 @@ class App extends Component {
     FB.login(function(response) {
       if (response.status === 'connected') {
         FB.api(response.authResponse.userID+"?fields=first_name,last_name,picture.width(58).height(58)", 'get', e=>{
+          //TODO: call POST to back end with response.authResponse.userID and
+          //other fields -> update state and localStorage
           this.setState({
-            id: response.authResponse.userID,
-            access_token: response.authResponse.accessToken,
+            fb_id: response.authResponse.userID,
             first_name: e.first_name,
             last_name: e.last_name,
             pic_url: e.picture.data.url
           });
           localStorage.setItem('name', [e.first_name, e.last_name]);
           localStorage.setItem('pic_url', e.picture.data.url);
-          localStorage.setItem('me_id', response.authResponse.userID);
-          localStorage.setItem('me_access_token', response.authResponse.accessToken);
+          localStorage.setItem('fb_id', response.authResponse.userID);
         })
       }
     }.bind(this), {scope: 'user_friends'});
@@ -111,8 +107,8 @@ class App extends Component {
     let name = localStorage.getItem('name');
     name = name? name.split(',') : null;
     this.setState({
-      id: localStorage.getItem('me_id'),
-      access_token: localStorage.getItem('me_access_token'),
+      id: localStorage.getItem('id'),
+      fb_id: localStorage.getItem('fb_id'),
       first_name: name? name[0] : null,
       last_name: name? name[1] : null,
       pic_url: localStorage.getItem('pic_url')
@@ -133,15 +129,15 @@ class App extends Component {
     FB.logout(function(response) {
       this.setState({
         id: null,
-        access_token: null,
+        fb_id: null,
         first_name: null,
         last_name: null,
         pic_url: null,
       });
       localStorage.removeItem('name');
       localStorage.removeItem('pic_url');
-      localStorage.removeItem('me_id');
-      localStorage.removeItem('me_access_token');
+      localStorage.removeItem('fb_id');
+      localStorage.removeItem('id');
     }.bind(this));
   }
 
@@ -157,10 +153,13 @@ class App extends Component {
     let menuBottom2 = null;
     let menuBottom3 = null;
     let menuBottom4 = null;
-    if (this.state.access_token) {
+    //TODO: change this to this.state.id once API call works
+    if (this.state.fb_id) {
       menuTop =(<div className="Menu-Box">
                   <img className="Profile-Picture" src={this.state.pic_url}></img>
-                  <div className="User-Information"> {this.state.first_name} {this.state.last_name} </div>
+                  <div className="User-Information">
+                    {this.state.first_name} {this.state.last_name}
+                  </div>
                 </div>);
       menuBottom = <MenuItem primaryText="My Events" /> 
       menuBottom2 = <MenuItem primaryText="Settings" />
@@ -187,10 +186,12 @@ class App extends Component {
         <MapView
           visible={this.props.page === Page.MAIN || this.props.page === Page.SELECT_LOCATION}
           selectMode={this.props.page === Page.SELECT_LOCATION}
+          isDrawerOpen={this.state.open}
         />
         <Drawer 
           docked={false}
           onRequestChange={this.handleRequestChange.bind(this)}
+          disableSwipeToOpen={true}
           open={this.state.open}>
           {menuTop}
           <Divider />

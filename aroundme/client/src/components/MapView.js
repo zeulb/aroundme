@@ -29,7 +29,7 @@ class MapView extends Component {
   render() {
     return (
       <div className="MapView" style={{visibility: this.props.visible ? "visible" : "hidden"}}>
-        {(this.props.visible && !this.props.selectMode) ? <AddButton /> : null}
+        {(this.props.visible && !this.props.selectMode && !this.props.isDrawerOpen) ? <AddButton /> : null}
         {(this.props.visible && this.props.selectMode) ? this.renderSendButton() : null}
         <MapboxMap selectMode={this.props.selectMode} />
       </div>
