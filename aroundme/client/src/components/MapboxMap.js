@@ -5,6 +5,7 @@ import './MapboxMap.css';
 import * as FormActions from '../actions/formActions';
 import * as MapActions from '../actions/mapActions';
 import UserMarker from './UserMarker';
+import MarkerImage from './marker.svg';
 
 const { token, style } = require('../config/mapbox.json');
 
@@ -215,16 +216,16 @@ class MapboxMap extends Component {
             this.props.geojson.features.map((feature, key) =>
               <Marker
                 key={key}
-                style={styles.marker}
+                style={{
+                  position: 'relative',
+                  bottom: 16,
+                  width: 32,
+                  height: 32,
+                  backgroundImage: `url(${MarkerImage})`
+                }}
                 coordinates={feature.geometry.coordinates}
                 data-feature={feature}
-              >
-                <div
-                  title={feature.properties.name}
-                >
-                  {feature.properties.name[0]}
-                </div>
-              </Marker>
+              />
             )
           }
         </Cluster>
