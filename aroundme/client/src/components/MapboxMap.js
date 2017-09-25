@@ -217,8 +217,7 @@ class MapboxMap extends Component {
               <Marker
                 key={key}
                 style={{
-                  position: 'relative',
-                  bottom: 16,
+                  marginTop: -16,
                   width: 32,
                   height: 32,
                   backgroundImage: `url(${MarkerImage})`
