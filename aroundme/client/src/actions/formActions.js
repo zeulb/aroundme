@@ -23,7 +23,7 @@ export function setLocation(location) {
   }
 }
 
-export function createEvent(form) {
+export function createEvent() {
   return (dispatch, getState) => {
     const state = getState();
 
