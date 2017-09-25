@@ -1,3 +1,7 @@
+const appConfig = require('../config/app.json');
+const nodeEnv = process.env.NODE_ENV || "development";
+const apiUrl = appConfig[nodeEnv].api;
+
 export const Page = Object.freeze({
     MAIN: Symbol("main"),
     LOGIN: Symbol("login"),
@@ -25,10 +29,21 @@ export function closeDrawer() {
   }
 }
 
-export function login(rawData) {
+export function login(data) {
+  var formData = new FormData();
+  formData.append('facebook_id', data.facebookId);
+  formData.append('access_token', data.accessToken);
+  formData.append('name', data.fullName);
+  formData.append('first_name', data.firstName);
+  formData.append('last_name', data.lastName);
+  formData.append('facebook_pic_url', data.pictureUrl);
+
   return {
     type: "LOGIN",
-    payload: rawData
+    payload: fetch(apiUrl + "/users", {
+      method: "POST",
+      body: formData
+    }).then(response => response.json())
   }
 }
 

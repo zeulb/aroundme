@@ -40,7 +40,7 @@ export function createEvent(form) {
     payload: fetch(apiUrl + "/events", {
       method: "POST",
       body: formData
-    })
+    }).then(response => response.json())
   }
 }
 

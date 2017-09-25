@@ -1,13 +1,22 @@
 import { Page } from "../actions/appActions"
 
-const fbCacheFields = ['id', 'fbId', 'fullName', 'firstName', 'lastName', 'pictureUrl'];
+const fieldMapping = {
+  'id': 'user_id',
+  'fbId': 'facebook_id',
+  'session': 'session_id',
+  'fullName': 'name',
+  'firstName': 'first_name',
+  'lastName': 'last_name',
+  'pictureUrl': 'facebook_pic_url',
+}
+const cachedFields = ['id', 'session', 'fbId', 'fullName', 'firstName', 'lastName', 'pictureUrl'];
 
 const fetchFromCache = () => {
-  const isLoggedIn = localStorage.getItem('fbId') ? true : false;
+  const isLoggedIn = localStorage.getItem('session') ? true : false;
   let userInfo = {};
 
   if (isLoggedIn) {
-    fbCacheFields.forEach(field => {
+    cachedFields.forEach(field => {
       userInfo[field] = localStorage.getItem(field)
     });
   }
@@ -34,14 +43,27 @@ export default function reducer(state={
     case "CLOSE_DRAWER": {
       return {...state, drawerOpen: false};
     }
-    case "LOGIN": {
-      fbCacheFields.forEach(field => {
-        localStorage.setItem(field, action.payload[field]);
+    case "LOGIN_PENDING": {
+      return {...state};
+    }
+    case "LOGIN_REJECTED": {
+      return {...state};
+    }
+    case "LOGIN_FULFILLED": {
+      var userInfo = {};
+      cachedFields.forEach(field => {
+        userInfo[field] = action.payload[fieldMapping[field]];
+        localStorage.setItem(field, userInfo[field]);
       });
-      return {...state, isLoggedIn: true, user: action.payload};
+
+      return {
+        ...state,
+        isLoggedIn: true,
+        user: userInfo
+      };
     }
     case "LOGOUT": {
-      fbCacheFields.forEach(field => {
+      cachedFields.forEach(field => {
         localStorage.removeItem(field);
       });
       return {...state, isLoggedIn: false, user: {}}

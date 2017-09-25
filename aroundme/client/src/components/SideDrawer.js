@@ -22,13 +22,7 @@ class SideDrawer extends Component {
         version: 'v2.5'
       });
       FB.getLoginStatus(response => {
-        if (response.status === 'connected') {
-          //if (!this.state.id) {
-            // TODO: call POST user from back end with
-            // response.authResponse.userID
-            // With result, set localstorage and state
-          //}
-        } else {
+        if (response.status !== 'connected') {
           // Clear cache & set as not logged in
           this.props.dispatch(AppActions.logout());
         }
@@ -53,11 +47,10 @@ class SideDrawer extends Component {
           response.authResponse.userID+"?fields=name,first_name,last_name,picture.width(58).height(58)",
           'get',
           e => {
-            //TODO: call POST to back end with response.authResponse.userID and
-            //other fields -> update state and localStorage
             this.props.dispatch(
               AppActions.login({
-                fbId: response.authResponse.userID,
+                facebookId: response.authResponse.userID,
+                accessToken: response.authResponse.accessToken,
                 fullName: e.name,
                 firstName: e.first_name,
                 lastName: e.last_name,
