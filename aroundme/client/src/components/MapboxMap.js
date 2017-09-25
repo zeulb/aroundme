@@ -3,10 +3,10 @@ import { connect } from "react-redux"
 import ReactMapboxGl, { Marker, Cluster, Layer, Feature, GeoJSONLayer } from 'react-mapbox-gl';
 import './MapboxMap.css';
 import * as FormActions from '../actions/formActions';
+import * as MapActions from '../actions/mapActions';
 import UserMarker from './UserMarker';
 
 const { token, style } = require('../config/mapbox.json');
-const data = require('./dummy_data.json');
 
 const Map = ReactMapboxGl({ accessToken: token });
 
@@ -107,6 +107,9 @@ class MapboxMap extends Component {
         });
       });
     }
+    this.props.dispatch(
+      MapActions.fetchMap()
+    );
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -209,7 +212,7 @@ class MapboxMap extends Component {
       >
         <Cluster ClusterMarkerFactory={this.clusterMarker}>
           {
-            data.features.map((feature, key) =>
+            this.props.geojson.features.map((feature, key) =>
               <Marker
                 key={key}
                 style={styles.marker}
@@ -233,4 +236,8 @@ class MapboxMap extends Component {
   }
 }
 
-export default connect()(MapboxMap);
+export default connect((store) => {
+  return {
+    geojson: store.map.geojson
+  };
+})(MapboxMap);

@@ -28,7 +28,6 @@ export function createEvent() {
     const state = getState();
 
     var formData = new FormData();
-    // TODO: update this to real user and session id.
     formData.append('user_id', state.app.user.id);
     formData.append('session_id', state.app.user.session);
     formData.append('long', state.form.location.lng);
