@@ -34,6 +34,9 @@ class AddButton extends Component {
   render() {
     return (
       <SpeedDial
+        style={{
+          zIndex: 1000
+        }}
         positionH="left"
         positionV="bottom"
       >

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux"
 import MapboxMap from './MapboxMap';
 import AddButton from './AddButton';
+import Snackbar from 'material-ui/Snackbar';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import * as Icons from 'material-ui/svg-icons';
 import * as FormActions from '../actions/formActions';
@@ -16,6 +17,10 @@ class MapView extends Component {
     this.props.dispatch(FormActions.resetForm());
   };
 
+  resetForm = () => {
+    this.props.dispatch(FormActions.resetForm());
+  }
+
   renderSendButton() {
     return (
       <FloatingActionButton
@@ -29,6 +34,12 @@ class MapView extends Component {
   render() {
     return (
       <div className="MapView" style={{visibility: this.props.visible ? "visible" : "hidden"}}>
+        <Snackbar
+          open={this.props.recentlyCreated}
+          message={"You just created an event!"}
+          autoHideDuration={2500}
+          onRequestClose={this.resetForm}
+        />
         {(this.props.visible && !this.props.selectMode) ? <AddButton /> : null}
         {(this.props.visible && this.props.selectMode) ? this.renderSendButton() : null}
         <MapboxMap selectMode={this.props.selectMode} />
@@ -37,4 +48,8 @@ class MapView extends Component {
   }
 }
 
-export default connect()(MapView);
+export default connect((store) => {
+  return {
+    recentlyCreated: store.form.created
+  };
+})(MapView);

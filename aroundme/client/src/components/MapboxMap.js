@@ -108,8 +108,13 @@ class MapboxMap extends Component {
         });
       });
     }
-    this.props.dispatch(
-      MapActions.fetchMap()
+    setInterval(
+      () => {
+        this.props.dispatch(
+          MapActions.fetchMap()
+        )
+      },
+      3000
     );
   }
 

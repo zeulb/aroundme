@@ -1,6 +1,7 @@
 export default function reducer(state={
     images: [],
     description: "",
+    created: false,
     location: null
   }, action) {
 
@@ -21,12 +22,13 @@ export default function reducer(state={
       return {...state};
     }
     case "CREATE_EVENT_FULFILLED": {
-      return {...state};
+      return {...state, created: true};
     }
     case "RESET": {
       return {
         images: [],
         description: "",
+        created: false,
         location: null
       };
     }
