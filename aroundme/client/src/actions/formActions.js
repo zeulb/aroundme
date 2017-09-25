@@ -24,23 +24,27 @@ export function setLocation(location) {
 }
 
 export function createEvent(form) {
-  var formData = new FormData();
-  // TODO: update this to real user and session id.
-  formData.append('user_id', '1');
-  formData.append('session_id', 'JSRECMREKT');
-  formData.append('long', form.location.lng);
-  formData.append('lat', form.location.lat);
-  formData.append('description', form.description);
-  form.images.forEach(image => {
-    formData.append('content[]', image.file);
-  });
+  return (dispatch, getState) => {
+    const state = getState();
 
-  return {
-    type: "CREATE_EVENT",
-    payload: fetch(apiUrl + "/events", {
-      method: "POST",
-      body: formData
-    }).then(response => response.json())
+    var formData = new FormData();
+    // TODO: update this to real user and session id.
+    formData.append('user_id', state.app.user.id);
+    formData.append('session_id', state.app.user.session);
+    formData.append('long', state.form.location.lng);
+    formData.append('lat', state.form.location.lat);
+    formData.append('description', state.form.description);
+    state.form.images.forEach(image => {
+      formData.append('content[]', image.file);
+    });
+
+    dispatch({
+      type: "CREATE_EVENT",
+      payload: fetch(apiUrl + "/events", {
+        method: "POST",
+        body: formData
+      }).then(response => response.json())
+    });
   }
 }
 
