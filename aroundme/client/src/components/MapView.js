@@ -31,9 +31,15 @@ class MapView extends Component {
     );
   }
 
+  className() {
+    return "MapView" + (
+      this.props.withAppBar ? " MapView--withAppBar" : ""
+    );
+  }
+
   render() {
     return (
-      <div className="MapView" style={{visibility: this.props.visible ? "visible" : "hidden"}}>
+      <div className={this.className()} style={{visibility: this.props.visible ? "visible" : "hidden"}}>
         <Snackbar
           open={this.props.recentlyCreated}
           message={"You just created an event!"}

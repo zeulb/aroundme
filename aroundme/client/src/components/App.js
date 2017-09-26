@@ -11,12 +11,16 @@ import './App.css';
 
 class App extends Component {
   renderBar() {
-    return <AppBar
-      title="AroundMe"
-      titleStyle={{ textAlign: "center" }}
-      onLeftIconButtonTouchTap={this.onOpenDrawer}
-      iconElementRight={<IconButton disabled={true}/>}
-    />;
+    if (this.shouldRenderAppBar()) {
+      return <AppBar
+        title="AroundMe"
+        titleStyle={{ textAlign: "center" }}
+        onLeftIconButtonTouchTap={this.onOpenDrawer}
+        iconElementRight={<IconButton disabled={true}/>}
+      />;
+    } else {
+      return null;
+    }
   }
 
   onOpenDrawer = (event) => {
@@ -33,6 +37,10 @@ class App extends Component {
     }
   }
 
+  shouldRenderAppBar() {
+    return (this.props.page !== Page.SELECT_LOCATION && this.props.page !== Page.ADD);
+  }
+
   render() {
     return (
       <div className="App">
@@ -40,6 +48,7 @@ class App extends Component {
         {this.renderView()}
 
         <MapView
+          withAppBar={this.shouldRenderAppBar()}
           visible={this.props.page === Page.MAIN || this.props.page === Page.SELECT_LOCATION}
           selectMode={this.props.page === Page.SELECT_LOCATION}
         />

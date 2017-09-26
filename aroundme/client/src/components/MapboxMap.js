@@ -186,7 +186,7 @@ class MapboxMap extends Component {
   };
 
   renderLocationPin() {
-    return this.props.selectMode
+    return (this.props.selectMode && this.props.selectedLocation)
       ? (
         <Layer layout={{
           'icon-size': 1.0,
@@ -194,7 +194,7 @@ class MapboxMap extends Component {
           'icon-image': 'location-pin-marker'
         }}>
           <Feature
-            coordinates={this.state.initialLocation}
+            coordinates={[this.props.selectedLocation.lng, this.props.selectedLocation.lat]}
             draggable={true}
             onDragEnd={this.onSetLocation}
           />
@@ -243,6 +243,7 @@ class MapboxMap extends Component {
 
 export default connect((store) => {
   return {
-    geojson: store.map.geojson
+    geojson: store.map.geojson,
+    selectedLocation: store.form.location
   };
 })(MapboxMap);

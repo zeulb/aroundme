@@ -1,12 +1,12 @@
 .FormView {
   background-color: #333333;
-  height: calc(100% - 48px);
+  height: 100%;
 }
 
 .FormView-closeButton {
   color: white;
   position: fixed !important;
-  top: 52px;
+  top: 4px;
   left: 5px;
 }
 
