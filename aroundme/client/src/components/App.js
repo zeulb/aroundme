@@ -7,13 +7,19 @@ import * as AppActions from '../actions/appActions';
 import MapView from './MapView';
 import FormView from './FormView';
 import SideDrawer from './SideDrawer';
+import Logo from '../assets/logo-white.png';
 import './App.css';
 
 class App extends Component {
+
+  renderLogo() {
+    return <img className="App-logo" src={Logo} />;
+  }
+
   renderBar() {
     if (this.shouldRenderAppBar()) {
       return <AppBar
-        title="AroundMe"
+        title={this.renderLogo()}
         titleStyle={{ textAlign: "center" }}
         onLeftIconButtonTouchTap={this.onOpenDrawer}
         iconElementRight={<IconButton disabled={true}/>}

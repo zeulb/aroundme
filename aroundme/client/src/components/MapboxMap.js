@@ -5,7 +5,7 @@ import './MapboxMap.css';
 import * as FormActions from '../actions/formActions';
 import * as MapActions from '../actions/mapActions';
 import UserMarker from './UserMarker';
-import MarkerImage from './marker.svg';
+import MarkerImage from '../assets/marker.svg';
 
 const { token, style } = require('../config/mapbox.json');
 
