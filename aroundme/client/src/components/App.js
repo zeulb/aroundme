@@ -13,7 +13,7 @@ import './App.css';
 class App extends Component {
 
   renderLogo() {
-    return <img className="App-logo" src={Logo} />;
+    return <img className="App-logo" src={Logo} alt="logo" />;
   }
 
   renderBar() {
