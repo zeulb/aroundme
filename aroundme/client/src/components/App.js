@@ -7,7 +7,7 @@ import * as AppActions from '../actions/appActions';
 import MapView from './MapView';
 import FormView from './FormView';
 import SideDrawer from './SideDrawer';
-import Logo from '../assets/logo-white.png';
+import Logo from '../assets/logo.png';
 import './App.css';
 
 class App extends Component {

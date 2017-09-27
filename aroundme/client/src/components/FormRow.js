@@ -99,6 +99,7 @@ class FormRow extends Component {
         <FloatingActionButton
           mini={true}
           className="FormRow-sendButton"
+          secondary
           onClick={this.onNextClick}>
           <Icons.ContentSend />
         </FloatingActionButton>

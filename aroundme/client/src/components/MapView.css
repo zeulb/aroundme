@@ -12,3 +12,17 @@
   bottom: 25px;
   z-index: 1;
 }
+
+.MapView-guide {
+  position: fixed;
+  top: 40px;
+  left: 25px;
+  right: 25px;
+  border-radius: 10px;
+  z-index: 1;
+  font-size: 12px;
+  text-align: center;
+  background-color: rgba(120, 146, 190, 0.6);
+  padding: 15px 10px;
+  color: white;
+}

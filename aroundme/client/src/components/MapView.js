@@ -25,7 +25,9 @@ class MapView extends Component {
     return (
       <FloatingActionButton
         className="MapView-sendButton"
-        onClick={this.onSend}>
+        onClick={this.onSend}
+        mini
+        secondary>
         <Icons.ContentSend />
       </FloatingActionButton>
     );
@@ -34,6 +36,14 @@ class MapView extends Component {
   className() {
     return "MapView" + (
       this.props.withAppBar ? " MapView--withAppBar" : ""
+    );
+  }
+
+  renderGuide() {
+    return (
+      <div className="MapView-guide">
+        Drag the pin to the location where the photo is taken.
+      </div>
     );
   }
 
@@ -46,6 +56,7 @@ class MapView extends Component {
           autoHideDuration={2500}
           onRequestClose={this.resetForm}
         />
+        {this.props.selectMode ? this.renderGuide() : null}
         {(this.props.visible && !this.props.selectMode) ? <AddButton /> : null}
         {(this.props.visible && this.props.selectMode) ? this.renderSendButton() : null}
         <MapboxMap selectMode={this.props.selectMode} />
