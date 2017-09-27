@@ -49,7 +49,6 @@ class SideDrawer extends Component {
           response.authResponse.userID+"?fields=name,first_name,last_name,picture.width(800).height(800)",
           'get',
           e => {
-            console.log(e.picture);
             this.props.dispatch(
               AppActions.login({
                 facebookId: response.authResponse.userID,
