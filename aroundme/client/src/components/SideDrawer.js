@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { connect } from "react-redux"
 import Drawer from 'material-ui/Drawer';
 import Divider from 'material-ui/Divider';
+import { List, ListItem } from 'material-ui/List';
+import * as Icons from 'material-ui/svg-icons';
 import MenuItem from 'material-ui/MenuItem';
 import * as AppActions from '../actions/appActions';
+import {indigo400} from 'material-ui/styles/colors';
 import './SideDrawer.css';
 
 const appConfig = require('../config/app.json');
@@ -95,18 +98,31 @@ class SideDrawer extends Component {
   renderMenu() {
     return this.props.isLoggedIn
       ? (
-        <div>
-          <MenuItem primaryText="My Events" /> 
-          <MenuItem primaryText="Settings" />
-          <MenuItem primaryText="Help &amp; feedback" />
-          <MenuItem primaryText="Sign out" onClick={this.handleFBLogout}/>
-        </div>
+        <List>
+          <ListItem primaryText="Discover Events" leftIcon={<Icons.ActionSearch color={indigo400} />} />
+          <ListItem primaryText="My Feed" leftIcon={<Icons.SocialPerson color={indigo400} />} />
+          <ListItem primaryText="Help / Privacy" leftIcon={<Icons.ActionInfo color={indigo400} />} />
+          <ListItem primaryText="Settings" leftIcon={<Icons.ActionSettings color={indigo400} />} />
+        </List>
       )
       : (
-        <div>
-          <MenuItem primaryText="Help &amp; feedback" />
-        </div>
+        <List>
+          <ListItem primaryText="Help / Privacy" leftIcon={<Icons.ActionInfo color={indigo400} />} />
+        </List>
       );
+  }
+
+  renderLogOut() {
+    return (
+      <List className="SideDrawer-logOutContainer">
+        <ListItem
+          className="SideDrawer-logOut"
+          primaryText="Log Out?"
+          onClick={this.handleFBLogout}
+          insetChildren={true}
+        />
+      </List>
+    );
   }
 
   render() {
@@ -120,6 +136,7 @@ class SideDrawer extends Component {
         {this.renderHeader()}
         <Divider />
         {this.renderMenu()}
+        {this.props.isLoggedIn ? this.renderLogOut(): null}
       </Drawer>
     );
   }

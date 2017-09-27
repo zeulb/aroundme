@@ -1,4 +1,6 @@
 .SideDrawer > div {
+  display: flex;
+  flex-direction: column;
   z-index: 10000 !important;
 }
 
@@ -32,4 +34,13 @@
   vertical-align: middle;
   overflow: hidden;
   width: 120px;
+}
+
+.SideDrawer-logOutContainer {
+  margin-top: auto;
+}
+
+.SideDrawer-logOut {
+  font-style: italic;
+  color: rgb(92, 107, 192) !important;
 }
