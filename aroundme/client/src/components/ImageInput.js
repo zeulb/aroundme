@@ -37,11 +37,12 @@ class ImageInput extends Component {
   onImageSelect = (event) => {
     var promises = [].slice.call(event.target.files).map(file =>
       new Promise((resolve, reject) => {
-        if (file && /^image\//i.test(file.type)) {
+        if (file) {
           var reader = new FileReader();
           reader.onloadend = () => {
             resolve({
               file: file,
+              type: file.type,
               image: reader.result
             });
           }
@@ -79,7 +80,7 @@ class ImageInput extends Component {
         ref={this.inputRef}
         onChange={this.onImageSelect}
         type="file"
-        accept="image/*" />
+        accept="image/*,video/mp4" />
     );
   }
 
