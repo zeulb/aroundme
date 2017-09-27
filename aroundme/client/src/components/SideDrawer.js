@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux"
 import Drawer from 'material-ui/Drawer';
-import Divider from 'material-ui/Divider';
 import { List, ListItem } from 'material-ui/List';
 import * as Icons from 'material-ui/svg-icons';
-import MenuItem from 'material-ui/MenuItem';
 import * as AppActions from '../actions/appActions';
+import UserCard from './UserCard';
 import {indigo400} from 'material-ui/styles/colors';
 import './SideDrawer.css';
 
@@ -47,9 +46,10 @@ class SideDrawer extends Component {
     FB.login(response => {
       if (response.status === 'connected') {
         FB.api(
-          response.authResponse.userID+"?fields=name,first_name,last_name,picture.width(58).height(58)",
+          response.authResponse.userID+"?fields=name,first_name,last_name,picture.width(800).height(800)",
           'get',
           e => {
+            console.log(e.picture);
             this.props.dispatch(
               AppActions.login({
                 facebookId: response.authResponse.userID,
@@ -79,20 +79,13 @@ class SideDrawer extends Component {
   }
 
   renderHeader() {
-    return this.props.isLoggedIn ? (
-        <div className="SideDrawer-loggedInHeader">
-          <img className="SideDrawer-profilePicture" src={this.props.user.pictureUrl} alt={this.props.user.fullName} />
-          <div className="SideDrawer-userInformation">
-            {this.props.user.fullName}
-          </div>
-        </div>
-      ) : (
-        <MenuItem 
-          className="SideDrawer-guestHeader"
-          primaryText="Log in"
-          onClick = {this.handleFBLogin}
-        />
-      );
+    return (
+      <UserCard
+        isLoggedIn={this.props.isLoggedIn}
+        user={this.props.user}
+        onLogin={this.handleFBLogin}
+      />
+    );
   }
 
   renderMenu() {
@@ -134,7 +127,6 @@ class SideDrawer extends Component {
         disableSwipeToOpen={true}
         open={this.props.isOpen}>
         {this.renderHeader()}
-        <Divider />
         {this.renderMenu()}
         {this.props.isLoggedIn ? this.renderLogOut(): null}
       </Drawer>

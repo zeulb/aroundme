@@ -1,0 +1,29 @@
+.UserCard {
+  display: flex;
+  flex-direction: column;
+  background-color: #F7F7F7;
+  align-items: center;
+  padding-bottom: 25px;
+}
+
+.UserCard-avatar {
+  width: 80px;
+  height: 80px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.UserCard-profilePicture {
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+}
+
+.UserCard-name {
+  font-weight: 800;
+  font-size: large;
+}
+
+.UserCard-fbLogin {
+  width: 200px;
+}
