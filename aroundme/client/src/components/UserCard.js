@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
-import GuestPicture from '../assets/user-icon.svg';
+import GuestPicture from '../assets/guest-user.png';
 import FbLogin from '../assets/fb-login.png';
 import './UserCard.css';
 
