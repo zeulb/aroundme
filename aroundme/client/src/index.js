@@ -4,7 +4,7 @@ import './index.css';
 import Root from './components/Root';
 import store from "./store"
 import { Provider } from "react-redux"
-import * as ServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker';
 import 'semantic-ui-css/semantic.min.css';
 
 ReactDOM.render(
@@ -13,4 +13,4 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root'));
 
-ServiceWorker.unregister();
+registerServiceWorker();
