@@ -1,0 +1,5 @@
+.MapFeedView {
+  height: calc(100% - 48px);
+  background-color: rgb(217, 217, 217);
+  overflow-y: scroll;
+}

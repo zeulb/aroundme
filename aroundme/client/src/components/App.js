@@ -5,9 +5,11 @@ import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
 import { Page } from '../actions/appActions';
 import * as AppActions from '../actions/appActions';
+import * as Icons from 'material-ui/svg-icons';
 import MapView from './MapView';
 import FormView from './FormView';
 import LoginView from './LoginView';
+import MapFeedView from './MapFeedView';
 import SideDrawer from './SideDrawer';
 import Logo from '../assets/logo.png';
 import './App.css';
@@ -49,12 +51,25 @@ class App extends Component {
     return <img className="App-logo" src={Logo} alt="logo" />;
   }
 
+  onClose = () => {
+    this.props.dispatch(AppActions.switchPage(Page.MAIN));
+  }
+
   renderBar() {
-    if (this.shouldRenderAppBar()) {
+    const appBarText = this.appBar();
+    if (appBarText === 'Home') {
       return <AppBar
         title={this.renderLogo()}
         titleStyle={{ textAlign: "center" }}
         onLeftIconButtonTouchTap={this.onOpenDrawer}
+        iconElementRight={<IconButton disabled={true}/>}
+      />;
+    } else if (appBarText) {
+      return <AppBar
+        title={this.renderLogo()}
+        titleStyle={{ textAlign: "center" }}
+        iconElementLeft={<IconButton><Icons.NavigationChevronLeft /></IconButton>}
+        onLeftIconButtonTouchTap={this.onClose}
         iconElementRight={<IconButton disabled={true}/>}
       />;
     } else {
@@ -75,13 +90,34 @@ class App extends Component {
         return <LoginView splash={false} returnPage={Page.SELECT_LOCATION} />;
       case Page.SPLASH:
         return <LoginView splash={true} returnPage={Page.MAIN} />;
+      case Page.MAP_FEED:
+        return <MapFeedView events={this.props.events} />;
       default:
         return null;
     }
   }
 
-  shouldRenderAppBar() {
-    return (this.props.page !== Page.SELECT_LOCATION && this.props.page !== Page.ADD && this.props.page !== Page.LOGIN && this.props.page !== Page.SPLASH);
+  isFeedView() {
+    switch(this.props.page) {
+      case Page.MAP_FEED:
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  appBar() {
+    switch(this.props.page) {
+      case Page.SELECT_LOCATION:
+      case Page.ADD:
+      case Page.LOGIN:
+      case Page.SPLASH:
+        return null;
+      case Page.MAP_FEED:
+        return "Feed";
+      default:
+        return "Home";
+    }
   }
 
   setNotRecentlyLoggedIn = () => {
@@ -90,7 +126,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App" style={{
+        overflowY: "hidden"
+      }}>
         <Snackbar
           open={this.props.recentlyLoggedIn}
           message={`Welcome back, ${this.props.user.firstName}!`}
@@ -102,7 +140,7 @@ class App extends Component {
         {this.renderView()}
 
         <MapView
-          withAppBar={this.shouldRenderAppBar()}
+          withAppBar={this.appBar() !== null}
           visible={this.props.page === Page.MAIN || this.props.page === Page.SELECT_LOCATION}
           selectMode={this.props.page === Page.SELECT_LOCATION}
         />
@@ -116,6 +154,7 @@ export default connect((store) => {
   return {
     page: store.app.page,
     user: store.app.user,
+    events: store.map.events,
     recentlyLoggedIn: store.app.recentlyLoggedIn
   };
 })(App);
