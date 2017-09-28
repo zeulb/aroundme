@@ -80,7 +80,7 @@ class ImageInput extends Component {
         ref={this.inputRef}
         onChange={this.onImageSelect}
         type="file"
-        accept="image/*,video/mp4" />
+        accept="image/*" />
     );
   }
 
