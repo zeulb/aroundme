@@ -7,7 +7,7 @@ import App from './App';
 import './Root.css';
 
 const muiTheme = getMuiTheme({
-  fontFamily: 'Open Sans, Roboto, sans-serif',
+  fontFamily: 'Montserrat, Open Sans, Roboto, sans-serif',
   palette: {
     primary1Color: indigo300,
     primary2Color: indigo500
