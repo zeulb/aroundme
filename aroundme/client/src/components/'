@@ -13,7 +13,6 @@ import MapFeedView from './MapFeedView';
 import SideDrawer from './SideDrawer';
 import Logo from '../assets/logo.png';
 import './App.css';
-import HelpView from './HelpView';
 
 const appConfig = require('../config/app.json');
 const nodeEnv = process.env.NODE_ENV || "development";
@@ -80,6 +79,7 @@ class App extends Component {
 
   onOpenDrawer = (event) => {
     event.preventDefault();
+    console.log("DRAWER");
     this.props.dispatch(AppActions.openDrawer());
   };
 
@@ -93,8 +93,6 @@ class App extends Component {
         return <LoginView splash={true} returnPage={Page.MAIN} />;
       case Page.MAP_FEED:
         return <MapFeedView events={this.props.events} />;
-      case Page.HELP:
-        return <HelpView />;
       default:
         return null;
     }

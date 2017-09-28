@@ -9,7 +9,8 @@ export const Page = Object.freeze({
     SETTING: Symbol("setting"),
     ADD: Symbol("add"),
     SELECT_LOCATION: Symbol("select_location"),
-    MAP_FEED: Symbol("map_feed")
+    MAP_FEED: Symbol("map_feed"),
+    HELP: Symbol("help")
 });
 
 export function switchPage(page) {

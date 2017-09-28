@@ -58,13 +58,18 @@ class SideDrawer extends Component {
     );
   }
 
+  onOpenHelp = (event) => {
+    event.preventDefault();
+    this.props.dispatch(AppActions.switchPage(AppActions.Page.HELP));
+  };
+
   renderMenu() {
     return this.props.isLoggedIn
       ? (
         <List>
           <ListItem primaryText="Discover Events" leftIcon={<Icons.ActionSearch color={indigo400} />} />
           <ListItem primaryText="My Feed" leftIcon={<Icons.SocialPerson color={indigo400} />} />
-          <ListItem primaryText="Help / Privacy" leftIcon={<Icons.ActionInfo color={indigo400} />} />
+          <ListItem primaryText="Help / Privacy"  onClick={this.onOpenHelp.bind(this)} leftIcon={<Icons.ActionInfo color={indigo400} />} />
           <ListItem primaryText="Settings" leftIcon={<Icons.ActionSettings color={indigo400} />} />
         </List>
       )
