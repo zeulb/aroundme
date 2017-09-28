@@ -5,6 +5,7 @@ const apiUrl = appConfig[nodeEnv].api;
 export const Page = Object.freeze({
     MAIN: Symbol("main"),
     LOGIN: Symbol("login"),
+    SPLASH: Symbol("splash"),
     SETTING: Symbol("setting"),
     ADD: Symbol("add"),
     SELECT_LOCATION: Symbol("select_location")
@@ -26,6 +27,12 @@ export function openDrawer() {
 export function closeDrawer() {
   return {
     type: "CLOSE_DRAWER"
+  }
+}
+
+export function setNotRecentlyLoggedIn() {
+  return {
+    type: "NOT_RECENTLY_LOGGED_IN"
   }
 }
 

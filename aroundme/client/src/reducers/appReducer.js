@@ -29,8 +29,9 @@ const fetchFromCache = () => {
 }
 
 export default function reducer(state={
-    page: Page.MAIN,
+    page: localStorage.getItem('session') ? Page.MAIN : Page.SPLASH,
     drawerOpen: false,
+    recentlyLoggedIn: localStorage.getItem('session') ? true : false,
     ...fetchFromCache()
   }, action) {
 
@@ -65,6 +66,7 @@ export default function reducer(state={
       return {
         ...state,
         isLoggedIn: true,
+        recentlyLoggedIn: true,
         user: userInfo
       };
     }
@@ -76,7 +78,10 @@ export default function reducer(state={
       cachedFields.forEach(field => {
         localStorage.removeItem(field);
       });
-      return {...state, isLoggedIn: false, user: {}}
+      return {...state, isLoggedIn: false, recentlyLoggedIn: false, user: {}}
+    }
+    case "NOT_RECENTLY_LOGGED_IN": {
+      return {...state, recentlyLoggedIn: false}
     }
     default:
       return state;
