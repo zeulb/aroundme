@@ -1,4 +1,5 @@
 export default function reducer(state={
+    events: [],
     geojson: { type: "FeatureCollection", features: [] },
     isLoading: false
   }, action) {
@@ -11,29 +12,47 @@ export default function reducer(state={
       return {...state, isLoading: false};
     }
     case "FETCH_GEOJSON_FULFILLED": {
-      return {...state, geojson: convert(action.payload), isLoading: false};
+      const events = action.payload['events'];
+      return {...state, events: events.map(compactEvent), geojson: toGeojson(events), isLoading: false};
     }
     default:
       return state;
   }
 }
 
-function convert(response) {
+function compactEvent(event) {
+  const titleEnd = event.description.indexOf('\n');
+
+  return {
+    id: event.id,
+    title:
+      (titleEnd === -1)
+        ? event.description
+        : event.description.slice(0, titleEnd),
+    description:
+      (titleEnd === -1)
+        ? ""
+        : event.description.slice(titleEnd + 1),
+    address: event.address,
+    timestamp: event.updated * 1000,
+    creator: event.user,
+    upvotes: event.upvotes,
+    downvotes: event.downvotes,
+    voted: event.did_vote,
+    comments: event.comments,
+    images: event.content.map(image => image.data_url)
+  };
+}
+
+function toGeojson(events) {
   var geoFeatures = [];
-  for (var i = 0; i < response['events'].length; i++) {
-    var geoEvent = response['events'][i];
+  for (var i = 0; i < events.length; i++) {
+    var geoEvent = events[i];
     geoFeatures.push({
       type: "Feature",
       properties: {
-        scalerank: 2,
-        name: geoEvent.id,
+        id: geoEvent.id,
         comment: geoEvent.description,
-        name_alt: null,
-        lat_y: geoEvent.lat,
-        long_x: geoEvent.long,
-        region: null,
-        subregion: null,
-        featureclass: null 
       },
       geometry: {
         type: "Point",

@@ -1,0 +1,8 @@
+.Feeds {
+  background-color: rgb(217, 217, 217);
+  padding: 15px 0 !important;
+}
+
+::-webkit-scrollbar { 
+  display: none; 
+}

@@ -4,6 +4,7 @@ import ReactMapboxGl, { Marker, Cluster, Layer, Feature, GeoJSONLayer } from 're
 import './MapboxMap.css';
 import * as FormActions from '../actions/formActions';
 import * as MapActions from '../actions/mapActions';
+import * as AppActions from '../actions/appActions';
 import UserMarker from './UserMarker';
 import MarkerImage from '../assets/marker.svg';
 
@@ -159,10 +160,19 @@ class MapboxMap extends Component {
         key={coordinates.toString()}
         coordinates={coordinates}
         style={styles.clusterMarker}
+        onClick={this.clusterClick.bind(coordinates, pointCount, getLeaves)}
       >
         <div>{pointCount}</div>
       </Marker>
     );
+
+  clusterClick = (coordinates, pointCount, getLeaves) => {
+    this.props.dispatch(AppActions.switchPage(AppActions.Page.MAP_FEED));
+  }
+
+  markerClick = () => {
+    this.props.dispatch(AppActions.switchPage(AppActions.Page.MAP_FEED));
+  }
 
   renderUserMarker() {
     return <UserMarker initialLocation={this.state.initialLocation} />;
@@ -229,6 +239,7 @@ class MapboxMap extends Component {
                 }}
                 coordinates={feature.geometry.coordinates}
                 data-feature={feature}
+                onClick={this.markerClick}
               />
             )
           }

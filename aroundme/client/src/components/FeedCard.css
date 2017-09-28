@@ -1,0 +1,23 @@
+.FeedCard {
+  background-color: white !important;
+  margin-bottom: 5px !important;
+  margin-top: 5px !important;
+  padding: 20px 20px 5px 20px !important;
+}
+
+.FeedCard-meta {
+  margin-top: 0px !important;
+}
+
+.FeedCard-info {
+  margin-top: -10px !important;
+}
+
+.FeedCard-info i {
+  margin-top: 4px !important;
+}
+
+.FeedCard-bar i {
+  color: rgb(120, 146, 190);
+  margin-top: 4px !important;
+}
