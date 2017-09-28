@@ -1,3 +1,5 @@
+import ReactGA from 'react-ga'
+
 export default function reducer(state={
     images: [],
     description: "",
@@ -19,9 +21,17 @@ export default function reducer(state={
       return {...state};
     }
     case "CREATE_EVENT_REJECTED": {
+      ReactGA.event({
+        category: 'Event',
+        action: 'Rejected'
+      });
       return {...state};
     }
     case "CREATE_EVENT_FULFILLED": {
+      ReactGA.event({
+        category: 'Event',
+        action: 'Created'
+      });
       return {...state, created: true};
     }
     case "RESET": {

@@ -1,4 +1,5 @@
 import { Page } from "../actions/appActions"
+import ReactGA from 'react-ga'
 
 const fieldMapping = {
   'id': 'user_id',
@@ -35,6 +36,7 @@ export default function reducer(state={
 
   switch (action.type) {
     case "SWITCH_PAGE": {
+      ReactGA.pageview(action.payload.toString().slice(7, -1))
       return {...state, page: action.payload};
     }
     case "OPEN_DRAWER": {
@@ -50,6 +52,10 @@ export default function reducer(state={
       return {...state};
     }
     case "LOGIN_FULFILLED": {
+      ReactGA.event({
+        category: 'User',
+        action: 'Logged in'
+      });
       var userInfo = {};
       cachedFields.forEach(field => {
         userInfo[field] = action.payload[fieldMapping[field]];
@@ -63,6 +69,10 @@ export default function reducer(state={
       };
     }
     case "LOGOUT": {
+      ReactGA.event({
+        category: 'User',
+        action: 'Logged out'
+      });
       cachedFields.forEach(field => {
         localStorage.removeItem(field);
       });
