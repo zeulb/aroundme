@@ -1,4 +1,4 @@
-import ReactGA from 'react-ga'
+import GoogleAnalytics from "./GoogleAnalytics"
 
 export default function reducer(state={
     images: [],
@@ -7,6 +7,7 @@ export default function reducer(state={
     location: null
   }, action) {
 
+  var ga = new GoogleAnalytics()
   switch (action.type) {
     case "ADD_IMAGES": {
       return {...state, images: [...state.images, ...action.payload]};
@@ -21,16 +22,16 @@ export default function reducer(state={
       return {...state};
     }
     case "CREATE_EVENT_REJECTED": {
-      ReactGA.event({
+      ga.event({
         category: 'Event',
-        action: 'Rejected'
+        action: 'Create rejected'
       });
       return {...state};
     }
     case "CREATE_EVENT_FULFILLED": {
-      ReactGA.event({
+      ga.event({
         category: 'Event',
-        action: 'Created'
+        action: 'Create fulfilled'
       });
       return {...state, created: true};
     }

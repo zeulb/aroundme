@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux"
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {indigo200, indigo300, indigo500, white} from 'material-ui/styles/colors';
@@ -28,6 +29,15 @@ const muiTheme = getMuiTheme({
 injectTapEventPlugin();
 
 class Root extends Component {
+
+  componentDidMount() {
+    this.props.ga.initialize('UA-107184191-1', {
+      debug: false,
+      titleCase: false,
+    })
+    this.props.ga.pageview("/main");
+  }
+
   render() {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
@@ -37,4 +47,8 @@ class Root extends Component {
   }
 }
 
-export default Root;
+export default connect((store) => {
+  return {
+    ga: store.app.ga
+  };
+})(Root);

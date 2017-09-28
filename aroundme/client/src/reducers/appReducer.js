@@ -1,5 +1,5 @@
 import { Page } from "../actions/appActions"
-import ReactGA from 'react-ga'
+import GoogleAnalytics from "./GoogleAnalytics"
 
 const fieldMapping = {
   'id': 'user_id',
@@ -31,12 +31,14 @@ const fetchFromCache = () => {
 export default function reducer(state={
     page: Page.MAIN,
     drawerOpen: false,
+    ga: new GoogleAnalytics(),
     ...fetchFromCache()
   }, action) {
 
+  var ga = new GoogleAnalytics()
   switch (action.type) {
     case "SWITCH_PAGE": {
-      ReactGA.pageview(action.payload.toString().slice(7, -1))
+      ga.pageview("/" + action.payload.toString());
       return {...state, page: action.payload};
     }
     case "OPEN_DRAWER": {
@@ -52,7 +54,7 @@ export default function reducer(state={
       return {...state};
     }
     case "LOGIN_FULFILLED": {
-      ReactGA.event({
+      ga.event({
         category: 'User',
         action: 'Logged in'
       });
@@ -69,7 +71,7 @@ export default function reducer(state={
       };
     }
     case "LOGOUT": {
-      ReactGA.event({
+      ga.event({
         category: 'User',
         action: 'Logged out'
       });
