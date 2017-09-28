@@ -1,0 +1,38 @@
+.LoginView {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.LoginView-closeButton {
+  color: white;
+  position: fixed !important;
+  top: 4px;
+  left: 5px;
+}
+
+.LoginView-logo {
+  margin-top: 33%;
+  width: 150px;
+}
+
+.LoginView-fbButton {
+  margin-top: auto;
+  width: 200px;
+}
+
+.LoginView-login {
+  margin-top: auto;
+  margin-bottom: 38%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.LoginView-skip {
+  margin-top: 5px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: x-small;
+}

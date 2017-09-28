@@ -12,9 +12,13 @@ import "./MapView.css";
 class MapView extends Component {
 
   onSend = () => {
-    this.props.dispatch(FormActions.createEvent());
-    this.props.dispatch(AppActions.switchPage(AppActions.Page.MAIN));
-    this.props.dispatch(FormActions.resetForm());
+    if (this.props.isLoggedIn) {
+      this.props.dispatch(FormActions.createEvent());
+      this.props.dispatch(AppActions.switchPage(AppActions.Page.MAIN));
+      this.props.dispatch(FormActions.resetForm());
+    } else {
+      this.props.dispatch(AppActions.switchPage(AppActions.Page.LOGIN));
+    }
   };
 
   resetForm = () => {
@@ -67,6 +71,7 @@ class MapView extends Component {
 
 export default connect((store) => {
   return {
+    isLoggedIn: store.app.isLoggedIn,
     recentlyCreated: store.form.created
   };
 })(MapView);

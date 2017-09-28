@@ -8,38 +8,9 @@ import UserCard from './UserCard';
 import {indigo400} from 'material-ui/styles/colors';
 import './SideDrawer.css';
 
-const appConfig = require('../config/app.json');
-const nodeEnv = process.env.NODE_ENV || "development";
-const appId = appConfig[nodeEnv].appId;
-
 /*global FB*/
 
 class SideDrawer extends Component {
-  componentDidMount() {
-    window.fbAsyncInit = () => {
-      FB.init({
-        appId: appId,
-        cookie: true,
-        xfbml: true,
-        version: 'v2.5'
-      });
-      FB.getLoginStatus(response => {
-        if (response.status !== 'connected') {
-          // Clear cache & set as not logged in
-          this.props.dispatch(AppActions.logout());
-        }
-      });
-    };
-
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  }
-
   handleFBLogin = (event) => {
     event.preventDefault();
 
