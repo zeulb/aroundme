@@ -30,6 +30,7 @@ const fetchFromCache = () => {
 
 export default function reducer(state={
     page: localStorage.getItem('session') ? Page.MAIN : Page.SPLASH,
+    pageArg: {},
     drawerOpen: false,
     ga: new GoogleAnalytics(),
     recentlyLoggedIn: localStorage.getItem('session') ? true : false,
@@ -42,10 +43,10 @@ export default function reducer(state={
       ga.pageview("/" + action.payload.toString());
       switch (action.payload) {
         case Page.HELP:
-          return {...state, page: action.payload, drawerOpen: false};
+          return {...state, page: action.payload, pageArg: {...state.pageArg, ...action.payload.arg}, drawerOpen: false};
         default:
       }
-      return {...state, page: action.payload};
+      return {...state, page: action.payload.page, pageArg: {...state.pageArg, ...action.payload.arg}};
     }
     case "OPEN_DRAWER": {
       return {...state, drawerOpen: true};

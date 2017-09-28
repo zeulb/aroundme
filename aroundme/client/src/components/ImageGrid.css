@@ -1,0 +1,19 @@
+.ImageGrid {
+  margin-left: -20px !important;
+  margin-right: -20px !important;
+}
+
+.ImageGrid > div {
+  margin-left: 1vw;
+}
+
+.ImageGrid > div:nth-child(1),
+.ImageGrid--notTwo > div:nth-child(2) {
+  margin-left: 0vw !important;
+}
+
+.ImageGrid-main {
+  display: inherit;
+  margin-bottom: 1vw;
+  width: 100%;
+}

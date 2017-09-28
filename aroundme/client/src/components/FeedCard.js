@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./FeedCard.css";
+import ImageGrid from './ImageGrid';
 import { Item, List } from 'semantic-ui-react';
 import * as moment from 'moment';
 
@@ -14,7 +15,6 @@ class FeedCard extends Component {
   }
 
   render() {
-    console.log(this.props.upvotes);
     return (
       <Item className="FeedCard">
         <Item.Content>
@@ -35,6 +35,7 @@ class FeedCard extends Component {
         </Item.Content>
 
         <Item.Extra>
+          <ImageGrid images={this.props.images} />
           <List className="FeedCard-bar" divided horizontal>
             <List.Item icon='comment' content={this.getCommentText()} />
             <List.Item icon='arrow up' content={this.props.upvotes.toString()} />

@@ -35,7 +35,11 @@ function compactEvent(event) {
         : event.description.slice(titleEnd + 1),
     address: event.address,
     timestamp: event.updated * 1000,
-    creator: event.user,
+    creator: {
+      id: event.user_id,
+      pictureUrl: event.user_facebook_pic_url,
+      name: event.user_name
+    },
     upvotes: event.upvotes,
     downvotes: event.downvotes,
     voted: event.did_vote,

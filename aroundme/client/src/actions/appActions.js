@@ -10,13 +10,17 @@ export const Page = Object.freeze({
     ADD: Symbol("add"),
     SELECT_LOCATION: Symbol("select_location"),
     MAP_FEED: Symbol("map_feed"),
-    HELP: Symbol("help")
+    HELP: Symbol("help"),
+    IMAGE: Symbol("image")
 });
 
-export function switchPage(page) {
+export function switchPage(page, arg) {
   return {
     type: "SWITCH_PAGE",
-    payload: page
+    payload: {
+      page: page,
+      arg: arg
+    }
   }
 }
 

@@ -10,6 +10,7 @@ import MapView from './MapView';
 import FormView from './FormView';
 import LoginView from './LoginView';
 import MapFeedView from './MapFeedView';
+import ImageView from './ImageView';
 import SideDrawer from './SideDrawer';
 import Logo from '../assets/logo.png';
 import './App.css';
@@ -83,6 +84,10 @@ class App extends Component {
     this.props.dispatch(AppActions.openDrawer());
   };
 
+  getFeedEvents() {
+    return this.props.events.filter(event => (this.props.feedEvents.indexOf(event.id) !== -1));
+  }
+
   renderView() {
     switch(this.props.page) {
       case Page.ADD:
@@ -92,9 +97,11 @@ class App extends Component {
       case Page.SPLASH:
         return <LoginView splash={true} returnPage={Page.MAIN} />;
       case Page.MAP_FEED:
-        return <MapFeedView events={this.props.events} />;
+        return <MapFeedView events={this.getFeedEvents()} />;
       case Page.HELP:
         return <HelpView />;
+      case Page.IMAGE:
+        return <ImageView />;
       default:
         return null;
     }
@@ -115,6 +122,7 @@ class App extends Component {
       case Page.ADD:
       case Page.LOGIN:
       case Page.SPLASH:
+      case Page.IMAGE:
         return null;
       case Page.MAP_FEED:
         return "Feed";
@@ -158,6 +166,7 @@ export default connect((store) => {
     page: store.app.page,
     user: store.app.user,
     events: store.map.events,
+    feedEvents: store.app.pageArg.feedEvents,
     recentlyLoggedIn: store.app.recentlyLoggedIn
   };
 })(App);

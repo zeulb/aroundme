@@ -160,18 +160,25 @@ class MapboxMap extends Component {
         key={coordinates.toString()}
         coordinates={coordinates}
         style={styles.clusterMarker}
-        onClick={this.clusterClick.bind(coordinates, pointCount, getLeaves)}
+        onClick={this.clusterClick.bind(this, coordinates, pointCount, getLeaves)}
       >
         <div>{pointCount}</div>
       </Marker>
     );
 
   clusterClick = (coordinates, pointCount, getLeaves) => {
-    this.props.dispatch(AppActions.switchPage(AppActions.Page.MAP_FEED));
+    const ids = getLeaves().map(e => {
+      return e.props['data-feature'].properties.id
+    });
+    this.props.dispatch(AppActions.switchPage(AppActions.Page.MAP_FEED, {
+      feedEvents: ids
+    }));
   }
 
-  markerClick = () => {
-    this.props.dispatch(AppActions.switchPage(AppActions.Page.MAP_FEED));
+  markerClick = (id) => {
+    this.props.dispatch(AppActions.switchPage(AppActions.Page.MAP_FEED, {
+      feedEvents: [id]
+    }));
   }
 
   renderUserMarker() {
@@ -239,7 +246,7 @@ class MapboxMap extends Component {
                 }}
                 coordinates={feature.geometry.coordinates}
                 data-feature={feature}
-                onClick={this.markerClick}
+                onClick={this.markerClick.bind(this, feature.properties.id)}
               />
             )
           }
