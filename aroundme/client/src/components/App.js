@@ -147,6 +147,20 @@ class App extends Component {
     this.props.dispatch(AppActions.setNotRecentlyLoggedIn());
   }
 
+  renderMap() {
+    if (this.props.page !== Page.SPLASH) {
+      return (
+        <MapView
+          withAppBar={this.appBar() !== null}
+          visible={this.props.page === Page.MAIN || this.props.page === Page.SELECT_LOCATION}
+          selectMode={this.props.page === Page.SELECT_LOCATION}
+        />
+      );
+    } else {
+      return null;
+    }
+  }
+
   render() {
     return (
       <div className="App" style={{
@@ -161,12 +175,8 @@ class App extends Component {
 
         {this.renderBar()}
         {this.renderView()}
-
-        <MapView
-          withAppBar={this.appBar() !== null}
-          visible={this.props.page === Page.MAIN || this.props.page === Page.SELECT_LOCATION}
-          selectMode={this.props.page === Page.SELECT_LOCATION}
-        />
+        {this.renderMap()}
+        
         <SideDrawer />
       </div>
     );
