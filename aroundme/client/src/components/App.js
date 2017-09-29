@@ -117,6 +117,21 @@ class App extends Component {
     }
   }
 
+  renderMap() {
+    switch(this.props.page) {
+      case Page.SPLASH:
+        return null;
+      default:
+        return (
+            <MapView
+              withAppBar={this.appBar() !== null}
+              visible={this.props.page === Page.MAIN || this.props.page === Page.SELECT_LOCATION}
+              selectMode={this.props.page === Page.SELECT_LOCATION}
+            />);
+
+    }
+  }
+
   isFeedView() {
     switch(this.props.page) {
       case Page.MAP_FEED:
@@ -161,12 +176,8 @@ class App extends Component {
 
         {this.renderBar()}
         {this.renderView()}
+        {this.renderMap()}
 
-        <MapView
-          withAppBar={this.appBar() !== null}
-          visible={this.props.page === Page.MAIN || this.props.page === Page.SELECT_LOCATION}
-          selectMode={this.props.page === Page.SELECT_LOCATION}
-        />
         <SideDrawer />
       </div>
     );
