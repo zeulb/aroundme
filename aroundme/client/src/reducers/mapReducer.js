@@ -21,7 +21,10 @@ export default function reducer(state={
 }
 
 function compactEvent(event) {
-  const titleEnd = event.description.indexOf('\n');
+  var titleEnd = -1
+  if (event.description) {
+    titleEnd = event.description.indexOf('\n');
+  }
 
   return {
     id: event.id,
