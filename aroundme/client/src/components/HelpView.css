@@ -1,15 +1,15 @@
 .Title {
   width: 100%;
   background-color: rgba(247,247,247,1) !important;
-  padding: 25px 25px;
+  padding: 20px 20px;
   font-style: italic;
-  font-weight: 800;
+  font-weight: 400;
   color: rgb(127,100,160) !important;
 }
 
 .Content {
   width: 100%;
-  padding: 43px 43px;
+  padding: 40px 40px;
 }
 
 .Content-Inner {
@@ -20,7 +20,7 @@
   display: inline-block; 
   color: rgb(121, 134, 203); 
   fill: rgb(121, 134, 203); 
-  height: 24px; 
+  height: 20px; 
   width: 24px; 
   user-select: none; 
   transition: all;
