@@ -107,7 +107,7 @@ class App extends Component {
       case Page.MAP_FEED:
         return <MapFeedView events={this.getFeedEvents()} />;
       case Page.MY_FEED:
-        return <MyFeedView events={this.props.events} />;
+        return <MyFeedView events={this.props.events}/>;
       case Page.HELP:
         return <HelpView />;
       case Page.IMAGE:

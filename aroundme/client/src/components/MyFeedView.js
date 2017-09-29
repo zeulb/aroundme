@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux"
 import Feeds from './Feeds';
+import UserProfileCard from './UserProfileCard';
 import "./MyFeedView.css";
 
 class MyFeedView extends Component {
@@ -12,8 +13,14 @@ class MyFeedView extends Component {
 
   render() {
     return (
-      <div className="MyFeedView">
-        <Feeds events={this.getEvents()} />
+      <div>
+        <UserProfileCard
+          user={this.props.user}
+          numEvents={this.getEvents().length}
+        />
+        <div className="MyFeedView">
+          <Feeds events={this.getEvents()} />
+        </div>
       </div>
     );
   }
@@ -21,6 +28,7 @@ class MyFeedView extends Component {
 
 export default connect((store) => {
   return {
+    user: store.app.user,
     currentUserId: store.app.user.id
   };
 })(MyFeedView);

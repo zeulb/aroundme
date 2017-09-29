@@ -1,0 +1,30 @@
+.UserProfileCard {
+  display: flex;
+  flex-direction: row;
+}
+
+.UserProfileCard-avatar {
+  width: 80px;
+  height: 80px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.UserProfileCard-text {
+  margin-top: 25px;
+  margin-bottom: 20px;
+}
+
+.UserProfileCard-profilePicture {
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+}
+
+.UserProfileCard-name {
+  font-weight: 400;
+  font-size: large;
+  margin-bottom: 20px;
+}

@@ -81,7 +81,7 @@ export default function reducer(state={
       cachedFields.forEach(field => {
         localStorage.removeItem(field);
       });
-      return {...state, isLoggedIn: false, recentlyLoggedIn: false, user: {}}
+      return {...state, isLoggedIn: false, recentlyLoggedIn: false, user: {}, page: Page.SPLASH, drawerOpen: false }
     }
     case "NOT_RECENTLY_LOGGED_IN": {
       return {...state, recentlyLoggedIn: false}
