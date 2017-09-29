@@ -16,7 +16,7 @@
   line-height: 80px !important;
   background-color: rgb(0,188,212) !important;
   color: white !important;
-  font-weight: bold !important;
+  font-weight: medium !important;
   text-align: center;
   vertical-align: middle;
 }
@@ -41,6 +41,5 @@
 }
 
 .SideDrawer-logOut {
-  font-style: italic;
   color: rgb(92, 107, 192) !important;
 }

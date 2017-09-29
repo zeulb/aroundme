@@ -40,13 +40,8 @@ export default function reducer(state={
   var ga = new GoogleAnalytics()
   switch (action.type) {
     case "SWITCH_PAGE": {
-      ga.pageview("/" + action.payload.toString());
-      switch (action.payload) {
-        case Page.HELP:
-          return {...state, page: action.payload, pageArg: {...state.pageArg, ...action.payload.arg}, drawerOpen: false};
-        default:
-      }
-      return {...state, page: action.payload.page, pageArg: {...state.pageArg, ...action.payload.arg}};
+      ga.pageview("/" + action.payload.page.toString());
+      return {...state, page: action.payload.page, pageArg: {...state.pageArg, ...action.payload.arg}, drawerOpen: false};
     }
     case "OPEN_DRAWER": {
       return {...state, drawerOpen: true};

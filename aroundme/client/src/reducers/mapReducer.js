@@ -44,7 +44,7 @@ function compactEvent(event) {
     downvotes: event.downvotes,
     voted: event.did_vote,
     comments: event.comments,
-    images: event.content.map(image => image.data_url)
+    images: event.content.map(image => image.data_url.replace('http://', 'https://'))
   };
 }
 
