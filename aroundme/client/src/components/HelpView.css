@@ -20,8 +20,13 @@
   display: inline-block; 
   color: rgb(121, 134, 203); 
   fill: rgb(121, 134, 203); 
-  height: 20px; 
-  width: 24px; 
+  height: 16px; 
+  width: 16px; 
   user-select: none; 
   transition: all;
+}
+
+.Other-Icon {
+  height: 16px !important;
+  width: 16px !important;
 }
