@@ -17,6 +17,10 @@
   width: 150px;
 }
 
+.LoginView-slogan {
+  width: 250px;
+}
+
 .LoginView-fbButton {
   margin-top: auto;
   width: 200px;

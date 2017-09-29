@@ -5,6 +5,7 @@ import {white} from 'material-ui/styles/colors';
 import * as AppActions from '../actions/appActions';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import FbLogin from '../assets/fb-login.png';
+import Slogan from '../assets/slogan.png';
 import Logo from '../assets/logo-login.png';
 import Background from '../assets/splash.jpg';
 import "./LoginView.css";
@@ -69,6 +70,7 @@ class LoginView extends Component {
         }}>
         {!this.props.splash ? this.renderCloseButton() : null}
         <img className="LoginView-logo" src={Logo} alt="Around" />
+        <img className="LoginView-slogan" src={Slogan} alt="Around" />
         <span className="LoginView-login">
           <img className="LoginView-fbButton" src={FbLogin} alt="FbLogin" onClick={this.handleFBLogin} />
           {this.props.splash ? this.renderSkip() : null}

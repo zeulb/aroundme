@@ -119,6 +119,7 @@ class App extends Component {
 
   renderMap() {
     switch(this.props.page) {
+      case Page.LOGIN:
       case Page.SPLASH:
         return null;
       default:
