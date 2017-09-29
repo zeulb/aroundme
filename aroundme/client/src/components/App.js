@@ -10,6 +10,7 @@ import MapView from './MapView';
 import FormView from './FormView';
 import LoginView from './LoginView';
 import MapFeedView from './MapFeedView';
+import MyFeedView from './MyFeedView';
 import ImageView from './ImageView';
 import SideDrawer from './SideDrawer';
 import Logo from '../assets/logo.png';
@@ -66,12 +67,19 @@ class App extends Component {
         onLeftIconButtonTouchTap={this.onOpenDrawer}
         iconElementRight={<IconButton disabled={true}/>}
       />;
-    } else if (appBarText) {
+    } else if (appBarText === 'Feed') {
       return <AppBar
         title={this.renderLogo()}
         titleStyle={{ textAlign: "center" }}
         iconElementLeft={<IconButton><Icons.NavigationChevronLeft /></IconButton>}
         onLeftIconButtonTouchTap={this.onClose}
+        iconElementRight={<IconButton disabled={true}/>}
+      />;
+    } else if (appBarText) {
+      return <AppBar
+        title={appBarText}
+        titleStyle={{ textAlign: "center" }}
+        onLeftIconButtonTouchTap={this.onOpenDrawer}
         iconElementRight={<IconButton disabled={true}/>}
       />;
     } else {
@@ -98,6 +106,8 @@ class App extends Component {
         return <LoginView splash={true} returnPage={Page.MAIN} />;
       case Page.MAP_FEED:
         return <MapFeedView events={this.getFeedEvents()} />;
+      case Page.MY_FEED:
+        return <MyFeedView events={this.props.events} />;
       case Page.HELP:
         return <HelpView />;
       case Page.IMAGE:
@@ -126,6 +136,8 @@ class App extends Component {
         return null;
       case Page.MAP_FEED:
         return "Feed";
+      case Page.MY_FEED:
+        return "My Feeds";
       default:
         return "Home";
     }

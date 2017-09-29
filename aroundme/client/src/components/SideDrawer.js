@@ -72,7 +72,11 @@ class SideDrawer extends Component {
             leftIcon={<Icons.ActionSearch color={indigo400} />}
           />
           <ListItem primaryText="Popular Events" leftIcon={<Icons.ActionStars color={indigo400} />} />
-          <ListItem primaryText="My Feed" leftIcon={<Icons.SocialPerson color={indigo400} />} />
+          <ListItem
+            primaryText="My Feed"
+            onClick={this.onOpenPage.bind(this, AppActions.Page.MY_FEED)}
+            leftIcon={<Icons.SocialPerson color={indigo400} />}
+          />
           <ListItem
             primaryText="Help"
             onClick={this.onOpenPage.bind(this, AppActions.Page.HELP)}
