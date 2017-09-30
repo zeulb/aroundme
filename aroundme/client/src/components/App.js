@@ -77,7 +77,7 @@ class App extends Component {
       />;
     } else if (appBarText && this.isFeedView() && this.props.feedExpandedEvent) {
       return <AppBar
-        title={appBarText}
+        title={this.getAppText(appBarText)}
         titleStyle={{ textAlign: "center", fontSize: 'large' }}
         iconElementLeft={<IconButton><Icons.NavigationChevronLeft /></IconButton>}
         onLeftIconButtonTouchTap={this.onClose}
@@ -85,13 +85,25 @@ class App extends Component {
       />;
     } else if (appBarText) {
       return <AppBar
-        title={appBarText}
+        title={this.getAppText(appBarText)}
         titleStyle={{ textAlign: "center", fontSize: 'large' }}
         onLeftIconButtonTouchTap={this.onOpenDrawer}
         iconElementRight={<IconButton disabled={true}/>}
       />;
     } else {
       return null;
+    }
+  }
+
+  getAppText(text) {
+    if (text === 'My Profile') {
+      if (this.props.user.id === this.props.profileUser.id) {
+        return text;
+      } else {
+        return `${this.props.profileUser.firstName}'s Profile`;
+      }
+    } else {
+      return text
     }
   }
 
@@ -200,6 +212,7 @@ export default connect((store) => {
   return {
     page: store.app.page,
     user: store.app.user,
+    profileUser: store.app.pageArg.profileUser,
     feedExpandedEvent: store.app.feedExpandedEvent,
     runQueue: store.form.runQueue,
     createQueue: store.form.createQueue,

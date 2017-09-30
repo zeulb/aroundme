@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 import "./FeedCard.css";
 import ImageGrid from './ImageGrid';
 import * as MapActions from '../actions/mapActions';
+import * as AppActions from '../actions/appActions';
 import { Item, List, Icon } from 'semantic-ui-react';
 import * as moment from 'moment';
 
@@ -55,10 +56,14 @@ class FeedCard extends Component {
     }
   }
 
+  onViewUser = () => {
+    this.props.dispatch(AppActions.switchPage(AppActions.Page.MY_FEED, { profileUser: this.props.creator }));
+  }
+
   renderCreator() {
     return this.props.displayCreator
       ? (
-        <img className="FeedCard-userPicture" src={this.props.creator.pictureUrl} alt="UserPicture" />
+        <img className="FeedCard-userPicture" src={this.props.creator.pictureUrl} alt="UserPicture" onClick={this.onViewUser} />
       )
       : null;
   }

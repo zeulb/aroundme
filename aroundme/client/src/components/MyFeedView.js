@@ -7,7 +7,7 @@ import "./MyFeedView.css";
 class MyFeedView extends Component {
   getEvents() {
     return this.props.events
-      .filter(event => (event.creator.id === parseInt(this.props.currentUserId, 10)))
+      .filter(event => (event.creator.id === parseInt(this.props.user.id, 10)))
       .sort((x, y) => y.timestamp - x.timestamp);
   }
 
@@ -26,7 +26,6 @@ class MyFeedView extends Component {
 
 export default connect((store) => {
   return {
-    user: store.app.user,
-    currentUserId: store.app.user.id
+    user: store.app.pageArg.profileUser
   };
 })(MyFeedView);

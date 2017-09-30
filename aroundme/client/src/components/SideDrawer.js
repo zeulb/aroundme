@@ -58,8 +58,8 @@ class SideDrawer extends Component {
     );
   }
 
-  onOpenPage = (page) => {
-    this.props.dispatch(AppActions.switchPage(page));
+  onOpenPage = (page, arg={}) => {
+    this.props.dispatch(AppActions.switchPage(page, arg));
   };
 
   renderMenu() {
@@ -78,7 +78,7 @@ class SideDrawer extends Component {
           />
           <ListItem
             primaryText="My Profile"
-            onClick={this.onOpenPage.bind(this, AppActions.Page.MY_FEED)}
+            onClick={this.onOpenPage.bind(this, AppActions.Page.MY_FEED, { profileUser: this.props.user })}
             leftIcon={<Icons.SocialPerson color={indigo400} />}
           />
           <ListItem

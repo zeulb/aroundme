@@ -42,7 +42,7 @@ export default function reducer(state={
   switch (action.type) {
     case "SWITCH_PAGE": {
       ga.pageview("/" + action.payload.page.toString());
-      return {...state, page: action.payload.page, pageArg: {...state.pageArg, ...action.payload.arg}, drawerOpen: false};
+      return {...state, page: action.payload.page, pageArg: {...state.pageArg, ...action.payload.arg}, drawerOpen: false, feedExpandedEvent: null};
     }
     case "OPEN_DRAWER": {
       return {...state, drawerOpen: true};
