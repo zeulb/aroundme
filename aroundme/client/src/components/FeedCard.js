@@ -7,8 +7,16 @@ import { Item, List } from 'semantic-ui-react';
 import * as moment from 'moment';
 
 class FeedCard extends Component {
+  currentEvent() {
+    return this.props.events.filter(event => event.id === this.props.id)[0];
+  }
+
   voted() {
-    return this.props.events.filter(event => event.id === this.props.id)[0].voted;
+    return this.currentEvent().voted;
+  }
+
+  userVote() {
+    return this.currentEvent().userVote;
   }
 
   onUpvote = () => {
@@ -54,8 +62,8 @@ class FeedCard extends Component {
           <ImageGrid images={this.props.images} />
           <List className="FeedCard-bar" divided horizontal>
             <List.Item icon='comment' content={this.getCommentText()} />
-            <List.Item icon='arrow up' content={this.props.upvotes.toString()} onClick={this.onUpvote} />
-            <List.Item icon='arrow down' content={this.props.downvotes.toString()} onClick={this.onDownvote} />
+            <List.Item className={this.userVote() === 1 ? "FeedCard--upvoted" : ""} icon='arrow up' content={this.props.upvotes.toString()} onClick={this.onUpvote} />
+            <List.Item className={this.userVote() === -1 ? "FeedCard--downvoted" : ""} icon='arrow down' content={this.props.downvotes.toString()} onClick={this.onDownvote} />
           </List>
         </Item.Extra>
       </Item>

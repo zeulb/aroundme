@@ -42,12 +42,14 @@ export default function reducer(state={
         newCurrentEvent = {
           ...currentEvent,
           voted: true,
+          userVote: 1,
           upvotes: currentEvent.upvotes + 1
         }
       } else {
         newCurrentEvent = {
           ...currentEvent,
           voted: true,
+          userVote: -1,
           downvotes: currentEvent.downvotes + 1
         }
       }
@@ -81,9 +83,10 @@ function compactEvent(event) {
       pictureUrl: event.user_facebook_pic_url,
       name: event.user_name
     },
+    userVote: event.user_vote,
     upvotes: event.upvotes,
     downvotes: event.downvotes,
-    voted: event.did_vote,
+    voted: event.disallow_vote || (event.user_vote !== 0),
     comments: event.comments,
     images: event.content.map(image => image.data_url.replace('http://', 'https://'))
   };

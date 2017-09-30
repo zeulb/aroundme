@@ -21,3 +21,13 @@
   color: rgb(120, 146, 190);
   margin-top: 4px !important;
 }
+
+.FeedCard--upvoted i,
+.FeedCard--downvoted i {
+  color: #b47bbe;
+}
+
+.FeedCard--upvoted,
+.FeedCard--downvoted {
+  font-weight: 800;
+}

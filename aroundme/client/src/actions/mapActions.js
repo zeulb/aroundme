@@ -3,11 +3,16 @@ const nodeEnv = process.env.NODE_ENV || "development";
 const apiUrl = appConfig[nodeEnv].api;
 
 export function fetchMap(images) {
-  return {
-    type: "FETCH_GEOJSON",
-    payload: fetch(apiUrl + "/events", {
-      method: "GET"
-    }).then(response => response.json())
+  return (dispatch, getState) => {
+    const state = getState();
+    const endPoint = state.app.isLoggedIn ? `/events?user_id=${state.app.user.id}` : 'events';
+
+    dispatch({
+      type: "FETCH_GEOJSON",
+      payload: fetch(apiUrl + endPoint, {
+        method: "GET"
+      }).then(response => response.json())
+    });
   }
 }
 
@@ -83,13 +88,13 @@ export function downvote(eventId) {
     var formData = new FormData();
     formData.append('user_id', state.app.user.id);
     formData.append('session_id', state.app.user.session);
-    formData.append('vote', 0);
+    formData.append('vote', -1);
 
     dispatch({
       type: "SET_VOTE",
       payload: {
         eventId,
-        value: 0
+        value: -1
       }
     });
     dispatch({
