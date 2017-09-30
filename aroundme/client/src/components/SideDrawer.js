@@ -74,7 +74,7 @@ class SideDrawer extends Component {
           <ListItem
             primaryText="Popular Events"
             onClick={this.onOpenPage.bind(this, AppActions.Page.POPULAR_FEED)}
-            leftIcon={<Icons.SocialPerson color={indigo400} />}
+            leftIcon={<Icons.ActionStars color={indigo400} />}
           />
           <ListItem
             primaryText="My Profile"
