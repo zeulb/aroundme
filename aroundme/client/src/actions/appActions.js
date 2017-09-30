@@ -66,3 +66,16 @@ export function logout() {
     type: "LOGOUT"
   }
 }
+
+export function expandEvent(event) {
+  return {
+    type: "EXPAND_EVENT",
+    payload: event
+  };
+}
+
+export function collapseEvent() {
+  return {
+    type: "COLLAPSE_EVENT"
+  };
+}

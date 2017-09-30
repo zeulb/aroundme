@@ -32,6 +32,7 @@ export default function reducer(state={
     page: localStorage.getItem('session') ? Page.MAIN : Page.SPLASH,
     pageArg: {},
     drawerOpen: false,
+    feedExpandedEvent: null,
     ga: new GoogleAnalytics(),
     recentlyLoggedIn: localStorage.getItem('session') ? true : false,
     ...fetchFromCache()
@@ -48,6 +49,12 @@ export default function reducer(state={
     }
     case "CLOSE_DRAWER": {
       return {...state, drawerOpen: false};
+    }
+    case "EXPAND_EVENT": {
+      return {...state, feedExpandedEvent: action.payload};
+    }
+    case "COLLAPSE_EVENT": {
+      return {...state, feedExpandedEvent: null};
     }
     case "LOGIN_PENDING": {
       return {...state};

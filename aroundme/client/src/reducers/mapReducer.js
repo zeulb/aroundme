@@ -87,7 +87,18 @@ function compactEvent(event) {
     upvotes: event.upvotes,
     downvotes: event.downvotes,
     voted: event.disallow_vote || (event.user_vote !== 0),
-    comments: event.comments,
+    comments: event.comments.map(comment => {
+      return {
+        id: comment.id,
+        owner: {
+          id: comment.user.id,
+          pictureUrl: comment.user.facebook_pic_url,
+          name: comment.user.name
+        },
+        timestamp: comment.updated * 1000,
+        content: comment.content
+      };
+    }),
     images: event.content.map(image => image.data_url.replace('http://', 'https://'))
   };
 }

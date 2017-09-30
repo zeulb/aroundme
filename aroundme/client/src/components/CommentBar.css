@@ -1,0 +1,42 @@
+.CommentBar {
+  display: flex;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  height: auto;
+  border-top: thin solid #D0D0D2;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: white;
+}
+
+.CommentBar-userPicture {
+  align-self: flex-end;
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  margin-left: 20px;
+  flex: 0 auto;
+}
+
+.CommentBar-textField {
+  border-radius: 10px;
+  background-color: #F1F1F1 !important;
+  flex: 1 auto;
+  margin: 0px 10px;
+  padding: 0 15px;
+  font-size: 14px !important;
+  line-height: 20px !important;
+}
+
+.CommentBar-textField--iOS textarea {
+  margin-left: -3px;
+  &::placeholder {
+      padding-left: 3px;
+  }
+}
+.CommentBar-sendButton {
+  margin-right: 10px;
+  align-self: flex-end;
+}

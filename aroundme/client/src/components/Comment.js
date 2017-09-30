@@ -5,21 +5,21 @@ import './Comment.css';
 class Comment extends Component {
   render() {
     return (
-      <div className="Comment">
+      <div className="Comment" key={`Comment.${this.props.id}`} >
         <div className="Comment-user">
-          <img className="Comment-userPicture" src={localStorage.getItem('pictureUrl')} alt="UserPicture" />
+          <img className="Comment-userPicture" src={this.props.owner.pictureUrl} alt="UserPicture" />
         </div>
         <div className="Comment-main">
           <div className="Comment-info">
             <span className="Comment-ownerName">
-              Stefano Chiesaasdasdadsads
+              {this.props.owner.name}
             </span>
             <span className="Comment-time">
-              {moment(Date.now()).fromNow()}
+              {moment(this.props.timestamp).fromNow()}
             </span>
           </div>
           <div className="Comment-content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquet, lacus sit amet porttitor iaculis, enim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquet, lacus sit amet porttitor iaculis, enim turpis porttitor erat, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquet, 
+            {this.props.content}
           </div>
         </div>
       </div>

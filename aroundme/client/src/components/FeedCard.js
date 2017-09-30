@@ -61,7 +61,7 @@ class FeedCard extends Component {
         <Item.Extra>
           <ImageGrid images={this.props.images} />
           <List className="FeedCard-bar" divided horizontal>
-            <List.Item icon='comment' content={this.getCommentText()} />
+            <List.Item icon='comment' content={this.getCommentText()} onClick={this.props.onCommentClick} />
             <List.Item className={this.userVote() === 1 ? "FeedCard--upvoted" : ""} icon='arrow up' content={this.props.upvotes.toString()} onClick={this.onUpvote} />
             <List.Item className={this.userVote() === -1 ? "FeedCard--downvoted" : ""} icon='arrow down' content={this.props.downvotes.toString()} onClick={this.onDownvote} />
           </List>

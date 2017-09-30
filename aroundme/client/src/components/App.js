@@ -50,7 +50,11 @@ class App extends Component {
   }
 
   onClose = () => {
-    this.props.dispatch(AppActions.switchPage(Page.MAIN));
+    if (this.props.feedExpandedEvent) {
+      this.props.dispatch(AppActions.collapseEvent());
+    } else {
+      this.props.dispatch(AppActions.switchPage(Page.MAIN));
+    }
   }
 
   renderBar() {
@@ -181,6 +185,7 @@ export default connect((store) => {
   return {
     page: store.app.page,
     user: store.app.user,
+    feedExpandedEvent: store.app.feedExpandedEvent,
     runQueue: store.form.runQueue,
     createQueue: store.form.createQueue,
     events: store.map.events,
