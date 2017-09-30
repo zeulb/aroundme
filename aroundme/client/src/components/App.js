@@ -100,7 +100,7 @@ class App extends Component {
       if (this.props.user.id === this.props.profileUser.id) {
         return text;
       } else {
-        return `${this.props.profileUser.firstName}'s Profile`;
+        return `${this.props.profileUser.name}'s Profile`;
       }
     } else {
       return text

@@ -77,7 +77,10 @@ export default function reducer(state={
         ...state,
         isLoggedIn: true,
         recentlyLoggedIn: true,
-        user: userInfo
+        user: {
+          ...userInfo,
+          name: userInfo.fullName
+        }
       };
     }
     case "LOGOUT": {

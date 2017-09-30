@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux"
 import * as moment from 'moment';
+import * as AppActions from '../actions/appActions';
 import './Comment.css';
 
 class Comment extends Component {
+  onViewUser = () => {
+    this.props.dispatch(AppActions.switchPage(AppActions.Page.MY_FEED, { profileUser: this.props.owner }));
+  }
+
   render() {
     return (
       <div className="Comment" key={`Comment.${this.props.id}`} >
         <div className="Comment-user">
-          <img className="Comment-userPicture" src={this.props.owner.pictureUrl} alt="UserPicture" />
+          <img className="Comment-userPicture" src={this.props.owner.pictureUrl} alt="UserPicture" onClick={this.onViewUser} />
         </div>
         <div className="Comment-main">
           <div className="Comment-info">
@@ -27,4 +33,4 @@ class Comment extends Component {
   }
 }
 
-export default (Comment);
+export default connect()(Comment);

@@ -5,14 +5,14 @@ class UserProfileCard extends Component {
 
   renderAvatar() {
     return (
-        <img className="UserProfileCard-avatar" src={this.props.user.pictureUrl} alt={this.props.user.fullName} />
+        <img className="UserProfileCard-avatar" src={this.props.user.pictureUrl} alt={this.props.user.name} />
     );
   }
 
   renderDetails() {
     return (
         <div className="UserProfileCard-text"> 
-          <div className="UserProfileCard-name">{this.props.user.fullName}</div>
+          <div className="UserProfileCard-name">{this.props.user.name}</div>
           <div className="UserProfileCard-bottom">
             <div className="UserProfileCard-aboutMe">A veteran cheapskate, explains why i love freebies. </div>
             {this.renderEventCount()}
