@@ -28,9 +28,18 @@ class Feeds extends Component {
     }
   }
 
+  renderGuide() {
+    if (this.getEvents().length === 0) {
+      return <Item>Be the first to create an event.</Item>;
+    } else {
+      return null;
+    }
+  }
+
   render() {
     return (
       <Item.Group id="Feeds" className="Feeds" relaxed>
+        {this.renderGuide()}
         {this.getEvents().map(event => <FeedCard displayCreator={this.props.displayCreator} key={`FeedCard.${event.id}`} {...event} onCommentClick={this.expandComment.bind(this, event)}/>)}
         
         {this.renderCommentCard()}
