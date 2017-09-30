@@ -4,7 +4,9 @@ export default function reducer(state={
     images: [],
     description: "",
     created: false,
-    location: null
+    location: null,
+    createQueue: [],
+    runQueue: false
   }, action) {
 
   var ga = new GoogleAnalytics()
@@ -26,17 +28,24 @@ export default function reducer(state={
         category: 'Event',
         action: 'Create rejected'
       });
-      return {...state};
+      return {...state, runQueue: true};
     }
     case "CREATE_EVENT_FULFILLED": {
       ga.event({
         category: 'Event',
         action: 'Create fulfilled'
       });
-      return {...state, created: true};
+      return {...state, created: true, createQueue: [], runQueue: false};
+    }
+    case "PUSH_CREATE_QUEUE": {
+      return {...state, createQueue: [...state.createQueue, action.payload]};
+    }
+    case "POP_CREATE_QUEUE": {
+      return {...state, createQueue: state.createQueue.slice(1)};
     }
     case "RESET": {
       return {
+        ...state,
         images: [],
         description: "",
         created: false,

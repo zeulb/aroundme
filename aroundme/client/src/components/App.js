@@ -5,6 +5,7 @@ import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
 import { Page } from '../actions/appActions';
 import * as AppActions from '../actions/appActions';
+import * as FormActions from '../actions/formActions';
 import * as Icons from 'material-ui/svg-icons';
 import MapView from './MapView';
 import FormView from './FormView';
@@ -17,7 +18,33 @@ import Logo from '../assets/logo.png';
 import './App.css';
 import HelpView from './HelpView';
 
+const appConfig = require('../config/app.json');
+const nodeEnv = process.env.NODE_ENV || "development";
+const apiUrl = appConfig[nodeEnv].api;
+
 class App extends Component {
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.runQueue
+      && this.props.createQueue
+      && this.props.createQueue.length > 0
+      && (!prevProps.createQueue
+          || this.props.createQueue.length !== prevProps.createQueue.length
+          || this.props.runQueue !== prevProps.runQueue)) {
+      const formData = this.props.createQueue[0];
+      const interval =
+        setInterval(() =>
+          fetch(apiUrl + "/events", {
+            method: "POST",
+            body: formData
+          })
+            .then(() => {
+              clearInterval(interval);
+              this.props.dispatch(FormActions.popCreateQueue());
+            })
+            .catch(() => {}), 3000);
+    }
+  }
+
   renderLogo() {
     return <img className="App-logo" src={Logo} alt="logo" />;
   }
@@ -154,6 +181,8 @@ export default connect((store) => {
   return {
     page: store.app.page,
     user: store.app.user,
+    runQueue: store.form.runQueue,
+    createQueue: store.form.createQueue,
     events: store.map.events,
     feedEvents: store.app.pageArg.feedEvents,
     recentlyLoggedIn: store.app.recentlyLoggedIn

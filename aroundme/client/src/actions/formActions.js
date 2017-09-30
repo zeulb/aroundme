@@ -38,6 +38,11 @@ export function createEvent() {
     });
 
     dispatch({
+      type: "PUSH_CREATE_QUEUE",
+      payload: formData
+    });
+
+    dispatch({
       type: "CREATE_EVENT",
       payload: fetch(apiUrl + "/events", {
         method: "POST",
@@ -45,6 +50,12 @@ export function createEvent() {
       }).then(response => response.json())
     });
   }
+}
+
+export function popCreateQueue() {
+  return {
+    type: "POP_CREATE_QUEUE"
+  };
 }
 
 export function resetForm() {
