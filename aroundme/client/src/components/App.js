@@ -11,6 +11,7 @@ import MapView from './MapView';
 import FormView from './FormView';
 import LoginView from './LoginView';
 import MapFeedView from './MapFeedView';
+import PopularFeedView from './PopularFeedView';
 import MyFeedView from './MyFeedView';
 import ImageView from './ImageView';
 import SideDrawer from './SideDrawer';
@@ -115,6 +116,8 @@ class App extends Component {
         return <MapFeedView events={this.getFeedEvents()} />;
       case Page.MY_FEED:
         return <MyFeedView events={this.props.events}/>;
+      case Page.POPULAR_FEED:
+        return <PopularFeedView events={this.props.events}/>;
       case Page.HELP:
         return <HelpView />;
       case Page.IMAGE:
@@ -128,6 +131,7 @@ class App extends Component {
     switch(this.props.page) {
       case Page.MAP_FEED:
       case Page.MY_FEED:
+      case Page.POPULAR_FEED:
         return true;
       default:
         return false;
@@ -146,6 +150,8 @@ class App extends Component {
         return "Feed";
       case Page.MY_FEED:
         return "My Profile";
+      case Page.POPULAR_FEED:
+        return "Popular";
       default:
         return "Home";
     }

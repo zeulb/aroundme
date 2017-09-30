@@ -11,6 +11,7 @@ export const Page = Object.freeze({
     SELECT_LOCATION: Symbol("select_location"),
     MAP_FEED: Symbol("map_feed"),
     MY_FEED: Symbol("my_feed"),
+    POPULAR_FEED: Symbol("popular_feed"),
     HELP: Symbol("help"),
     IMAGE: Symbol("image")
 });
