@@ -37,6 +37,7 @@
   }
 }
 .CommentBar-sendButton {
+  flex: 0 auto;
   margin-right: 10px;
   align-self: flex-end;
 }
