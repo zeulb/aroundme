@@ -7,9 +7,21 @@ class MapFeedView extends Component {
     return this.props.events.sort((x, y) => y.timestamp - x.timestamp);
   }
 
+  display() {
+    if (this.props.displayImages) {
+      return {
+        display: 'none'
+      }
+    } else {
+      return {
+        display: 'block'
+      }
+    }
+  }
+  
   render() {
     return (
-      <div id="FeedView" className="MapFeedView">
+      <div id="FeedView" style={this.display()} className="MapFeedView">
         <Feeds autoExpand={true} displayCreator={true} events={this.getEvents()} />
       </div>
     );

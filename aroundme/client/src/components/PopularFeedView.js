@@ -7,9 +7,21 @@ class PopularFeedView extends Component {
     return this.props.events.sort((x, y) => (y.upvotes - y.downvotes) - (x.upvotes - x.downvotes));
   }
 
+  display() {
+    if (this.props.displayImages) {
+      return {
+        display: 'none'
+      }
+    } else {
+      return {
+        display: 'block'
+      }
+    }
+  }
+
   render() {
     return (
-      <div id="FeedView" className="PopularFeedView">
+      <div id="FeedView" className="PopularFeedView" style={this.display()}>
         <Feeds autoExpand={true} displayCreator={true} events={this.getEvents()} />
       </div>
     );

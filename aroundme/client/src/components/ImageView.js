@@ -24,7 +24,7 @@ class ImageView extends Component {
   }
 
   onCloseButtonClick = () => {
-    this.props.dispatch(AppActions.switchPage(AppActions.Page.MAP_FEED));
+    this.props.dispatch(AppActions.closeImages());
   };
 
   render() {
@@ -41,8 +41,4 @@ class ImageView extends Component {
   }
 }
 
-export default connect((store) => {
-  return {
-    images: store.app.pageArg.images
-  };
-})(ImageView);
+export default connect()(ImageView);

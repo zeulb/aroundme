@@ -5,8 +5,7 @@ import "./ImageGrid.css";
 
 class ImageGrid extends Component {
   expandImages = () => {
-    console.log(this);
-    this.props.dispatch(AppActions.switchPage(AppActions.Page.IMAGE, { images: this.props.images }));
+    this.props.dispatch(AppActions.displayImages(this.props.images));
   }
 
   createCell(imageUrl, split) {

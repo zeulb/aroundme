@@ -15,6 +15,7 @@ class CommentBar extends Component {
   };
 
   onTextFocus = (event) => {
+    scroller.scrollToBottom();
     scroller.scrollToBottom({
       containerId: 'FeedView'
     });

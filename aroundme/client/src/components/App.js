@@ -125,15 +125,13 @@ class App extends Component {
       case Page.SPLASH:
         return <LoginView splash={true} returnPage={Page.MAIN} />;
       case Page.MAP_FEED:
-        return <MapFeedView events={this.getFeedEvents()} />;
+        return <MapFeedView displayImages={(this.props.images.length > 0)} events={this.getFeedEvents()} />;
       case Page.MY_FEED:
-        return <MyFeedView events={this.props.events}/>;
+        return <MyFeedView displayImages={(this.props.images.length > 0)} events={this.props.events}/>;
       case Page.POPULAR_FEED:
-        return <PopularFeedView events={this.props.events}/>;
+        return <PopularFeedView displayImages={(this.props.images.length > 0)} events={this.props.events}/>;
       case Page.HELP:
         return <HelpView />;
-      case Page.IMAGE:
-        return <ImageView />;
       default:
         return null;
     }
@@ -151,12 +149,14 @@ class App extends Component {
   }
 
   appBar() {
+    if (this.props.images.length > 0) {
+      return null;
+    }
     switch(this.props.page) {
       case Page.SELECT_LOCATION:
       case Page.ADD:
       case Page.LOGIN:
       case Page.SPLASH:
-      case Page.IMAGE:
         return null;
       case Page.MAP_FEED:
         return "Feed";
@@ -187,6 +187,14 @@ class App extends Component {
     }
   }
 
+  renderImages() {
+    if (this.props.images.length > 0) {
+      return <ImageView images={this.props.images}/>;
+    } else {
+      return null;
+    }
+  }
+
   render() {
     return (
       <div id="App" className="App" style={{
@@ -201,6 +209,7 @@ class App extends Component {
 
         {this.renderBar()}
         {this.renderView()}
+        {this.renderImages()}
         {this.renderMap()}
         <SideDrawer />
       </div>
@@ -212,6 +221,7 @@ export default connect((store) => {
   return {
     page: store.app.page,
     user: store.app.user,
+    images: store.app.images,
     profileUser: store.app.pageArg.profileUser,
     feedExpandedEvent: store.app.feedExpandedEvent,
     runQueue: store.form.runQueue,

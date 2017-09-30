@@ -10,10 +10,22 @@ class MyFeedView extends Component {
       .filter(event => (event.creator.id === parseInt(this.props.user.id, 10)))
       .sort((x, y) => y.timestamp - x.timestamp);
   }
+  
+  display() {
+    if (this.props.displayImages) {
+      return {
+        display: 'none'
+      }
+    } else {
+      return {
+        display: 'block'
+      }
+    }
+  }
 
   render() {
     return (
-      <div className="MyFeedView">
+      <div id="FeedView" className="MyFeedView" style={this.display()}>
         <UserProfileCard
           user={this.props.user}
           numEvents={this.getEvents().length}

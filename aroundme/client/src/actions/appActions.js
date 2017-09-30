@@ -12,8 +12,7 @@ export const Page = Object.freeze({
     MAP_FEED: Symbol("map_feed"),
     MY_FEED: Symbol("my_feed"),
     POPULAR_FEED: Symbol("popular_feed"),
-    HELP: Symbol("help"),
-    IMAGE: Symbol("image")
+    HELP: Symbol("help")
 });
 
 export function switchPage(page, arg) {
@@ -23,6 +22,19 @@ export function switchPage(page, arg) {
       page: page,
       arg: arg
     }
+  }
+}
+
+export function displayImages(images) {
+  return {
+    type: "DISPLAY_IMAGES",
+    payload: images
+  }
+}
+
+export function closeImages() {
+  return {
+    type: "CLOSE_IMAGES"
   }
 }
 
