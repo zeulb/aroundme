@@ -14,6 +14,7 @@ class ImageSlider extends Component {
   render() {
     return (
       <SwipeableViews
+        index={this.props.defaultIndex || 0}
         className="ImageSlider"
         resistance={true}>
         {this.props.images.map((image, index) => {

@@ -11,6 +11,7 @@ class ImageView extends Component {
   renderImages() {
     return (
       <ImageSlider
+        defaultIndex={this.props.startImageIndex}
         images={
           this.props.images.map(image => {
             return {

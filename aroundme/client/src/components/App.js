@@ -189,7 +189,7 @@ class App extends Component {
 
   renderImages() {
     if (this.props.images.length > 0) {
-      return <ImageView images={this.props.images}/>;
+      return <ImageView images={this.props.images} startImageIndex={this.props.startImageIndex} />;
     } else {
       return null;
     }
@@ -222,6 +222,7 @@ export default connect((store) => {
     page: store.app.page,
     user: store.app.user,
     images: store.app.images,
+    startImageIndex: store.app.startImageIndex,
     profileUser: store.app.pageArg.profileUser,
     feedExpandedEvent: store.app.feedExpandedEvent,
     runQueue: store.form.runQueue,

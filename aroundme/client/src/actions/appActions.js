@@ -25,10 +25,13 @@ export function switchPage(page, arg) {
   }
 }
 
-export function displayImages(images) {
+export function displayImages(images, startIndex) {
   return {
     type: "DISPLAY_IMAGES",
-    payload: images
+    payload: {
+      images,
+      startIndex
+    }
   }
 }
 

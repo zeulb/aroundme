@@ -38,6 +38,7 @@ export default function reducer(state={
     feedExpandedEvent: null,
     ga: new GoogleAnalytics(),
     images: [],
+    startImageIndex: 0,
     recentlyLoggedIn: localStorage.getItem('session') ? true : false,
     ...fetchFromCache()
   }, action) {
@@ -49,7 +50,7 @@ export default function reducer(state={
       return {...state, page: action.payload.page, pageArg: {...state.pageArg, ...action.payload.arg}, drawerOpen: false, feedExpandedEvent: null};
     }
     case "DISPLAY_IMAGES": {
-      return {...state, images: action.payload}
+      return {...state, images: action.payload.images, startImageIndex: action.payload.startIndex}
     }
     case "CLOSE_IMAGES": {
       return {...state, images: []}

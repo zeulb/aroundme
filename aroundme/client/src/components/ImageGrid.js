@@ -4,14 +4,14 @@ import * as AppActions from '../actions/appActions';
 import "./ImageGrid.css";
 
 class ImageGrid extends Component {
-  expandImages = () => {
-    this.props.dispatch(AppActions.displayImages(this.props.images));
+  expandImages = (index) => {
+    this.props.dispatch(AppActions.displayImages(this.props.images, index));
   }
 
-  createCell(imageUrl, split) {
+  createCell(index, imageUrl, split) {
     if (split > 1) {
       return (
-        <div onClick={this.expandImages}
+        <div onClick={this.expandImages.bind(this, index)}
           style={{
           display: "inline-block",
           background: `url(${imageUrl}) no-repeat center /cover`,
@@ -29,7 +29,7 @@ class ImageGrid extends Component {
   renderOne() {
     return (
       <div className="ImageGrid">
-        {this.createCell(this.props.images[0], 1)}
+        {this.createCell(0, this.props.images[0], 1)}
       </div>
     );
   }
@@ -37,8 +37,8 @@ class ImageGrid extends Component {
   renderTwo() {
     return (
       <div className="ImageGrid">
-        {this.createCell(this.props.images[0], 2)}
-        {this.createCell(this.props.images[1], 2)}
+        {this.createCell(0, this.props.images[0], 2)}
+        {this.createCell(1, this.props.images[1], 2)}
       </div>
     );
   }
@@ -46,9 +46,9 @@ class ImageGrid extends Component {
   renderThree() {
     return (
       <div className="ImageGrid ImageGrid--notTwo">
-        {this.createCell(this.props.images[0], 1)}
-        {this.createCell(this.props.images[1], 2)}
-        {this.createCell(this.props.images[2], 2)}
+        {this.createCell(0, this.props.images[0], 1)}
+        {this.createCell(1, this.props.images[1], 2)}
+        {this.createCell(2, this.props.images[2], 2)}
       </div>
     );
   }
@@ -56,10 +56,10 @@ class ImageGrid extends Component {
   renderFour() {
     return (
       <div className="ImageGrid ImageGrid--notTwo">
-        {this.createCell(this.props.images[0], 1)}
-        {this.createCell(this.props.images[1], 3)}
-        {this.createCell(this.props.images[2], 3)}
-        {this.createCell(this.props.images[3], 3)}
+        {this.createCell(0, this.props.images[0], 1)}
+        {this.createCell(1, this.props.images[1], 3)}
+        {this.createCell(2, this.props.images[2], 3)}
+        {this.createCell(3, this.props.images[3], 3)}
       </div>
     );
   }
