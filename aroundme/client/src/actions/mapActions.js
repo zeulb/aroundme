@@ -51,3 +51,53 @@ export function addEventFromForm() {
     });
   } 
 }
+
+export function upvote(eventId) {
+  return (dispatch, getState) => {
+    const state = getState();
+    var formData = new FormData();
+    formData.append('user_id', state.app.user.id);
+    formData.append('session_id', state.app.user.session);
+    formData.append('vote', 1);
+
+    dispatch({
+      type: "SET_VOTE",
+      payload: {
+        eventId,
+        value: 1
+      }
+    });
+    dispatch({
+      type: "UPVOTE",
+      payload: fetch(apiUrl + `/events/${eventId}/votes`, {
+        method: "POST",
+        body: formData
+      }).then(response => response.json())
+    });
+  }
+}
+
+export function downvote(eventId) {
+  return (dispatch, getState) => {
+    const state = getState();
+    var formData = new FormData();
+    formData.append('user_id', state.app.user.id);
+    formData.append('session_id', state.app.user.session);
+    formData.append('vote', 0);
+
+    dispatch({
+      type: "SET_VOTE",
+      payload: {
+        eventId,
+        value: 0
+      }
+    });
+    dispatch({
+      type: "DOWNVOTE",
+      payload: fetch(apiUrl + `/events/${eventId}/votes`, {
+        method: "POST",
+        body: formData
+      }).then(response => response.json())
+    });
+  }
+}
