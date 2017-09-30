@@ -17,3 +17,16 @@
   margin-bottom: 1vw;
   width: 100%;
 }
+
+.ImageGrid-subImage--overflow::before {
+  content: "+";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: xx-large;
+  color: white;
+  position: absolute;
+  left: 0; right: 0;
+  top: 0; bottom: 0;
+  background: rgba(0,0,0,.5);
+}

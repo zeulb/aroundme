@@ -10,14 +10,16 @@ class ImageGrid extends Component {
 
   createCell(index, imageUrl, split) {
     if (split > 1) {
+      const extraClass = (index === 3 && this.props.images.length > 4) ? " ImageGrid-subImage--overflow" : "";
       return (
-        <div onClick={this.expandImages.bind(this, index)}
+        <div className={"ImageGrid-subImage" + extraClass} onClick={this.expandImages.bind(this, index)}
           style={{
-          display: "inline-block",
+          position: "relative",
+          display: "inline-flex",
           background: `url(${imageUrl}) no-repeat center /cover`,
           width: ((100 - split + 1) / split).toString() + 'vw',
-          height: ((100 - split + 1) / split).toString() + 'vw'
-        }} />
+          height: ((100 - split + 1) / split).toString() + 'vw',
+        }}></div>
       );
     } else {
       return (
