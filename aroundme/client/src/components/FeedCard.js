@@ -3,8 +3,25 @@ import { connect } from "react-redux"
 import "./FeedCard.css";
 import ImageGrid from './ImageGrid';
 import * as MapActions from '../actions/mapActions';
-import { Item, List } from 'semantic-ui-react';
+import { Item, List, Icon } from 'semantic-ui-react';
 import * as moment from 'moment';
+
+moment.updateLocale('en', {
+  relativeTime : {
+    s  : 'few secs',
+    ss : '%d secs',
+    m:  "1 min",
+    mm: "%d mins",
+    h:  "1 hour",
+    hh: "%d hours",
+    d:  "1 day",
+    dd: "%d days",
+    M:  "1 mth",
+    MM: "%d mths",
+    y:  "1 year",
+    yy: "%d years"
+  }
+});
 
 class FeedCard extends Component {
   currentEvent() {
@@ -38,25 +55,35 @@ class FeedCard extends Component {
     }
   }
 
+  renderCreator() {
+    return this.props.displayCreator
+      ? (
+        <img className="FeedCard-userPicture" src={this.props.creator.pictureUrl} alt="UserPicture" />
+      )
+      : null;
+  }
+
   render() {
     return (
       <Item className="FeedCard">
-        <Item.Content>
-          <Item.Header className="FeedCard-header">
-            {this.props.title}
-          </Item.Header>
+        <Item.Content className="FeedCard-content">
+          <div className="FeedCard-innerContent">
+            <Item.Header className="FeedCard-header">
+              {this.props.title}
+            </Item.Header>
 
-          <Item.Meta className="FeedCard-meta">
-            <List className="FeedCard-info" divided horizontal>
-                <List.Item icon='clock' content={moment(this.props.timestamp).fromNow()} />
-                <List.Item icon='map outline' content={this.props.address.split(',')[0]} />
-            </List>
-          </Item.Meta>
-
-          <Item.Description>
-            {this.props.description}
-          </Item.Description>
+            <Item.Meta className="FeedCard-meta">
+              {moment(this.props.timestamp).fromNow(true)}
+              <Icon className="FeedCard-separator" name="point" />
+              {this.props.address.split(',')[0]}
+            </Item.Meta>
+          </div>
+          {this.renderCreator()}
         </Item.Content>
+
+        <Item.Description>
+          {this.props.description}
+        </Item.Description>
 
         <Item.Extra>
           <ImageGrid images={this.props.images} />

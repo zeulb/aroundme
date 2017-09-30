@@ -77,7 +77,7 @@ class App extends Component {
     } else if (appBarText) {
       return <AppBar
         title={appBarText}
-        titleStyle={{ textAlign: "center" }}
+        titleStyle={{ textAlign: "center", fontSize: 'large' }}
         onLeftIconButtonTouchTap={this.onOpenDrawer}
         iconElementRight={<IconButton disabled={true}/>}
       />;
@@ -136,7 +136,7 @@ class App extends Component {
       case Page.MAP_FEED:
         return "Feed";
       case Page.MY_FEED:
-        return "My Feeds";
+        return "My Profile";
       default:
         return "Home";
     }

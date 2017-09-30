@@ -15,7 +15,7 @@ class Comment extends Component {
               {this.props.owner.name}
             </span>
             <span className="Comment-time">
-              {moment(this.props.timestamp).fromNow()}
+              {moment(this.props.timestamp).fromNow(true)}
             </span>
           </div>
           <div className="Comment-content">

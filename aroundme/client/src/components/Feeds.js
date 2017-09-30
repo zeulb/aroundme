@@ -21,7 +21,7 @@ class Feeds extends Component {
 
   renderCommentCard() {
     const events = this.getEvents();
-    if (events.length === 1) {
+    if (events.length === 1 && this.props.autoExpand) {
       return <CommentCard id={events[0].id} comments={events[0].comments} />
     } else {
       return null;
@@ -31,7 +31,7 @@ class Feeds extends Component {
   render() {
     return (
       <Item.Group id="Feeds" className="Feeds" relaxed>
-        {this.getEvents().map(event => <FeedCard key={`FeedCard.${event.id}`} {...event} onCommentClick={this.expandComment.bind(this, event)}/>)}
+        {this.getEvents().map(event => <FeedCard displayCreator={this.props.displayCreator} key={`FeedCard.${event.id}`} {...event} onCommentClick={this.expandComment.bind(this, event)}/>)}
         
         {this.renderCommentCard()}
         <Item style={{display: "none"}}/>

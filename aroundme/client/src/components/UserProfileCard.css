@@ -1,30 +1,50 @@
 .UserProfileCard {
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  background: white;
+  padding: 10px 20px;
 }
 
 .UserProfileCard-avatar {
-  width: 80px;
-  height: 80px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-left: 20px;
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
   margin-right: 20px;
 }
 
-.UserProfileCard-text {
-  margin-top: 25px;
-  margin-bottom: 20px;
-}
-
-.UserProfileCard-profilePicture {
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
+.UserProfileCard-aboutMe {
+  font-weight: 300;
 }
 
 .UserProfileCard-name {
-  font-weight: 400;
+  font-weight: 500;
   font-size: large;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+}
+
+.UserProfileCard-bottom {
+  display: flex;
+}
+
+.UserProfileCard-event {
+  border-left: thin solid #D0D0D2;
+  padding-left: 10px;
+  flex: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.UserProfileCard-aboutMe {
+  flex: 0 auto;
+  min-width: 0;
+}
+
+.UserProfileCard-eventCount {
+  font-weight: 500;
+  font-size: large;
+}
+
+.UserProfileCard-eventText {
+  font-weight: 300;
 }

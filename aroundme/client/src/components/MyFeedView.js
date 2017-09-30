@@ -7,20 +7,18 @@ import "./MyFeedView.css";
 class MyFeedView extends Component {
   getEvents() {
     return this.props.events
-      .filter(event => (event.creator.id === this.props.currentUserId))
+      .filter(event => (event.creator.id === parseInt(this.props.currentUserId, 10)))
       .sort((x, y) => y.timestamp - x.timestamp);
   }
 
   render() {
     return (
-      <div>
+      <div className="MyFeedView">
         <UserProfileCard
           user={this.props.user}
           numEvents={this.getEvents().length}
         />
-        <div className="MyFeedView">
-          <Feeds events={this.getEvents()} />
-        </div>
+        <Feeds autoExpand={false} displayCreator={false} events={this.getEvents()} />
       </div>
     );
   }

@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import Paper from 'material-ui/Paper';
 import './UserProfileCard.css';
 
 class UserProfileCard extends Component {
 
   renderAvatar() {
     return (
-        <Paper className="UserProfileCard-avatar" circle={true}>
-          <img className="UserProfileCard-profilePicture" src={this.props.user.pictureUrl} alt={this.props.user.fullName} />
-        </Paper>
+        <img className="UserProfileCard-avatar" src={this.props.user.pictureUrl} alt={this.props.user.fullName} />
     );
   }
 
@@ -16,19 +13,21 @@ class UserProfileCard extends Component {
     return (
         <div className="UserProfileCard-text"> 
           <div className="UserProfileCard-name">{this.props.user.fullName}</div>
-          {this.renderNumEvents()}
+          <div className="UserProfileCard-bottom">
+            <div className="UserProfileCard-aboutMe">A veteran cheapskate, explains why i love freebies. </div>
+            {this.renderEventCount()}
+          </div>
         </div>
     );
   }
 
-  renderNumEvents() {
-    return this.props.numEvents === 0?
-      (<div>Create one through "Discover Events" now!</div>)
-      :
-      this.props.numEvents === 1?
-      (<div>1 event</div>)
-      :
-      (<div>{this.props.numEvents} events</div>);
+  renderEventCount() {
+    return (
+      <div className="UserProfileCard-event">
+        <div className="UserProfileCard-eventCount">{this.props.numEvents}</div>
+        <div className="UserProfileCard-eventText">{this.props.numEvents !== 1 ? "events" : "event"}</div>
+      </div>
+    )
   }
 
   render() {

@@ -10,7 +10,7 @@ class MapFeedView extends Component {
   render() {
     return (
       <div id="FeedView" className="MapFeedView">
-        <Feeds events={this.getEvents()} />
+        <Feeds autoExpand={true} displayCreator={true} events={this.getEvents()} />
       </div>
     );
   }
