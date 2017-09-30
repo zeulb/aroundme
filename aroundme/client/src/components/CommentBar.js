@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
+import * as MapActions from '../actions/mapActions';
 import * as Icons from 'material-ui/svg-icons';
+import { connect } from "react-redux"
 import './CommentBar.css';
 
 var Scroll = require('react-scroll');
-var scroll = Scroll.animateScroll;
+var scroller = Scroll.animateScroll;
 
 class CommentBar extends Component {
   state = {
@@ -13,7 +15,9 @@ class CommentBar extends Component {
   };
 
   onTextFocus = (event) => {
-    scroll.scrollToBottom();
+    scroller.scrollToBottom({
+      containerId: 'FeedView'
+    });
   }
 
   onTextChange = (event) => {
@@ -23,13 +27,16 @@ class CommentBar extends Component {
   }
 
   onSubmit = (event) => {
-
+    this.props.dispatch(MapActions.comment(this.props.id, this.state.commentText));
+    this.setState({
+      commentText: ''
+    });
   }
 
   render() {
     return (
       <div className="CommentBar">
-        <img className="CommentBar-userPicture" src={localStorage.getItem('pictureUrl')} alt="UserPicture" />
+        <img className="CommentBar-userPicture" src={this.props.user.pictureUrl} alt="UserPicture" />
         <TextField
           className={
             "CommentBar-textField" + 
@@ -47,6 +54,7 @@ class CommentBar extends Component {
             marginTop: '14px',
             marginBottom: '-14px'
           }}
+          value={this.state.commentText}
           hintStyle={{ bottom: '14px' }}
           onFocus={this.onTextFocus}
           onChange={this.onTextChange}
@@ -64,4 +72,8 @@ class CommentBar extends Component {
   }
 }
 
-export default (CommentBar);
+export default connect(store => {
+  return {
+    user: store.app.user
+  }
+})(CommentBar);

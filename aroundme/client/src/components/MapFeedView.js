@@ -9,7 +9,7 @@ class MapFeedView extends Component {
 
   render() {
     return (
-      <div className="MapFeedView">
+      <div id="FeedView" className="MapFeedView">
         <Feeds events={this.getEvents()} />
       </div>
     );

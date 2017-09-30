@@ -162,7 +162,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App" style={{
+      <div id="App" className="App" style={{
         overflowY: "hidden"
       }}>
         <Snackbar

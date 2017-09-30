@@ -106,3 +106,39 @@ export function downvote(eventId) {
     });
   }
 }
+
+export function comment(eventId, content) {
+  return (dispatch, getState) => {
+    const state = getState();
+    var formData = new FormData();
+    formData.append('user_id', state.app.user.id);
+    formData.append('session_id', state.app.user.session);
+    formData.append('content', content);
+
+    const newComment = {
+      id: Math.floor(Math.random() * 10000),
+      owner: {
+        id: state.app.user.id,
+        pictureUrl: state.app.user.pictureUrl,
+        name: state.app.user.fullName
+      },
+      timestamp: Date.now(),
+      content: content
+    }
+
+    dispatch({
+      type: "ADD_COMMENT",
+      payload: {
+        eventId,
+        comment: newComment
+      }
+    });
+    dispatch({
+      type: "COMMENT",
+      payload: fetch(apiUrl + `/events/${eventId}/comments`, {
+        method: "POST",
+        body: formData
+      }).then(response => response.json())
+    });
+  }
+}

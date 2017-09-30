@@ -15,6 +15,20 @@ export default function reducer(state={
       const events = action.payload['events'];
       return {...state, events: events.map(compactEvent), geojson: toGeojson(events), isLoading: false};
     }
+    case "ADD_COMMENT": {
+      const currentEventId = action.payload.eventId;
+      const events = state.events;
+      const currentEvent = events.filter(event => event.id === currentEventId)[0];
+      const eventsWithoutCurrent = events.filter(event => event.id !== currentEventId);
+      const newCurrentEvent = {
+        ...currentEvent,
+        comments: [
+          ...currentEvent.comments,
+          action.payload.comment
+        ]
+      };
+      return {...state, events: [...eventsWithoutCurrent, newCurrentEvent]}
+    }
     case "ADD_EVENT": {
       const events = [...state.events, action.payload];
       const geojson = {

@@ -19,11 +19,21 @@ class Feeds extends Component {
     }
   }
 
+  renderCommentCard() {
+    const events = this.getEvents();
+    if (events.length === 1) {
+      return <CommentCard id={events[0].id} comments={events[0].comments} />
+    } else {
+      return null;
+    }
+  }
+
   render() {
     return (
-      <Item.Group className="Feeds" relaxed>
-        {this.getEvents().map(event => <FeedCard {...event} onCommentClick={this.expandComment.bind(this, event)}/>)}
-        {(this.props.selectedEvent !== null) ? <CommentCard comments={this.getEvents()[0].comments} /> : null}
+      <Item.Group id="Feeds" className="Feeds" relaxed>
+        {this.getEvents().map(event => <FeedCard key={`FeedCard.${event.id}`} {...event} onCommentClick={this.expandComment.bind(this, event)}/>)}
+        
+        {this.renderCommentCard()}
         <Item style={{display: "none"}}/>
       </Item.Group>
     );
