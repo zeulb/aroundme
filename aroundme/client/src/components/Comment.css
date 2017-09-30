@@ -1,0 +1,42 @@
+.Comment {
+  display: flex;
+  margin-top: 15px;
+}
+
+.Comment:first-child {
+  margin-top: 0px;
+}
+
+.Comment-user {
+  flex: 0 auto;
+}
+
+.Comment-userPicture {
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+}
+
+.Comment-main {
+  margin-left: 10px;
+  flex: 1 auto;
+}
+
+.Comment-time {
+  font-size: smaller;
+  font-weight: 300;
+  white-space: nowrap;
+}
+
+.Comment-ownerName {
+  margin-right: 5px;
+  display: inline-block;
+  font-weight: 500;
+}
+
+.Comment-content {
+  border-radius: 10px;
+  padding: 10px 15px;
+  background-color: #F1F1F1;
+  margin-top: 5px;
+}
