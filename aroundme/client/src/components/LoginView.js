@@ -17,9 +17,19 @@ class LoginView extends Component {
     this.props.dispatch(AppActions.switchPage(this.props.returnPage));
   };
 
-  handleFBLogin = (event) => {
-    event.preventDefault();
+  componentDidMount() {
+    if (localStorage.getItem('SplashSkipLogin')) {
+      this.onReturn();
+      localStorage.removeItem('SplashSkipLogin');
+    }
 
+    if (localStorage.getItem('SplashContinueLogin')) {
+      this.handleFBLogin();
+      localStorage.removeItem('SplashContinueLogin');
+    }
+  }
+
+  handleFBLogin = (event) => {
     FB.login(response => {
       if (response.status === 'connected') {
         FB.api(

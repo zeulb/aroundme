@@ -5,6 +5,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {indigo200, indigo300, indigo500, white} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme'; // (new v0.15.0 import path)
 import App from './App';
+import '../index.css';
+import 'semantic-ui-css/semantic.min.css';
 import './Root.css';
 
 const muiTheme = getMuiTheme({

@@ -24,18 +24,15 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Around</title>
-
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
   </head>
   <body>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div id="root"></div>
+    <div id="root">
+      <div class="Splash" style="background: url(%PUBLIC_URL%/splash.jpg) center center / cover no-repeat fixed;"><img class="Splash-logo" src="%PUBLIC_URL%/logo.png" alt="Around"><img class="Splash-slogan" src="%PUBLIC_URL%/slogan.png" alt="Around"><span class="Splash-login"><img class="Splash-fbButton" src="/static/media/fb-login.cdbce77d.png" alt="FbLogin"><span class="Splash-skip"><b>Continue</b><!-- react-text: 11 --> without account<!-- /react-text --></span></span></div>
+    </div>
+    
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -46,5 +43,53 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <style>
+      .Splash {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        height: 100%;
+      }
+
+      .Splash-logo {
+        margin-top: 33%;
+        width: 150px;
+      }
+
+      .Splash-slogan {
+        width: 250px;
+      }
+
+      .Splash-fbButton {
+        margin-top: auto;
+        width: 200px;
+      }
+
+      .Splash-login {
+        margin-top: auto;
+        margin-bottom: 38%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .Splash-skip {
+        margin-top: 5px;
+        color: white;
+        font-family: 'Montserrat', sans-serif;
+        font-size: x-small;
+      }
+    </style>
   </body>
+  <script>
+    if (localStorage.getItem('session')) {
+      document.getElementsByClassName('Splash')[0].remove();
+    }
+  </script>
 </html>

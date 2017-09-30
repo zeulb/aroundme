@@ -25,6 +25,12 @@
       "sizes": "192x192",
       "type": "image/png",
       "density": 4.0
+    },
+    {
+      "src": "favicon-8x.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "density": 8.0
     }
   ],
   "start_url": "./index.html",
