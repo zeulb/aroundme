@@ -24,7 +24,10 @@ const fetchFromCache = () => {
 
   return {
     isLoggedIn,
-    user: userInfo
+    user: {
+      ...userInfo,
+      name: userInfo.fullName
+    }
   };
 }
 
