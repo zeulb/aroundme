@@ -15,6 +15,23 @@ export default function reducer(state={
       const events = action.payload['events'];
       return {...state, events: events.map(compactEvent), geojson: toGeojson(events), isLoading: false};
     }
+    case "ADD_EVENT": {
+      const events = [...state.events, action.payload];
+      const geojson = {
+        type: "FeatureCollection",
+        features: [...state.geojson.features, {
+          type: "Feature",
+          properties: {
+            id: action.payload.id
+          },
+          geometry: {
+            type: "Point",
+            coordinates: [action.payload.lng, action.payload.lat]
+          }
+        }]
+      }
+      return {...state, events, geojson};
+    }
     default:
       return state;
   }
@@ -58,8 +75,7 @@ function toGeojson(events) {
     geoFeatures.push({
       type: "Feature",
       properties: {
-        id: geoEvent.id,
-        comment: geoEvent.description,
+        id: geoEvent.id
       },
       geometry: {
         type: "Point",

@@ -6,6 +6,7 @@ import Snackbar from 'material-ui/Snackbar';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import * as Icons from 'material-ui/svg-icons';
 import * as FormActions from '../actions/formActions';
+import * as MapActions from '../actions/mapActions';
 import * as AppActions from '../actions/appActions';
 import "./MapView.css";
 
@@ -14,6 +15,7 @@ class MapView extends Component {
   onSend = () => {
     if (this.props.isLoggedIn) {
       this.props.dispatch(FormActions.createEvent());
+      this.props.dispatch(MapActions.addEventFromForm());
       this.props.dispatch(AppActions.switchPage(AppActions.Page.MAIN));
       this.props.dispatch(FormActions.resetForm());
     } else {
