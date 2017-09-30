@@ -74,6 +74,14 @@ class App extends Component {
         onLeftIconButtonTouchTap={this.onClose}
         iconElementRight={<IconButton disabled={true}/>}
       />;
+    } else if (appBarText && this.isFeedView() && this.props.feedExpandedEvent) {
+      return <AppBar
+        title={appBarText}
+        titleStyle={{ textAlign: "center", fontSize: 'large' }}
+        iconElementLeft={<IconButton><Icons.NavigationChevronLeft /></IconButton>}
+        onLeftIconButtonTouchTap={this.onClose}
+        iconElementRight={<IconButton disabled={true}/>}
+      />;
     } else if (appBarText) {
       return <AppBar
         title={appBarText}
@@ -119,6 +127,7 @@ class App extends Component {
   isFeedView() {
     switch(this.props.page) {
       case Page.MAP_FEED:
+      case Page.MY_FEED:
         return true;
       default:
         return false;

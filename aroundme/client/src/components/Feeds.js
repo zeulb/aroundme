@@ -21,7 +21,7 @@ class Feeds extends Component {
 
   renderCommentCard() {
     const events = this.getEvents();
-    if (events.length === 1 && this.props.autoExpand) {
+    if (events.length === 1 && (this.props.selectedEvent || this.props.autoExpand)) {
       return <CommentCard id={events[0].id} comments={events[0].comments} />
     } else {
       return null;
