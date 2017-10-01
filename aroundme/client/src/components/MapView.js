@@ -63,7 +63,7 @@ class MapView extends Component {
           onRequestClose={this.resetForm}
         />
         {this.props.selectMode ? this.renderGuide() : null}
-        {(this.props.visible && !this.props.selectMode) ? <AddButton /> : null}
+        {(this.props.visible && !this.props.selectMode) ? <AddButton returnPage={AppActions.Page.MAIN} /> : null}
         {(this.props.visible && this.props.selectMode) ? this.renderSendButton() : null}
         <MapboxMap selectMode={this.props.selectMode} />
       </div>

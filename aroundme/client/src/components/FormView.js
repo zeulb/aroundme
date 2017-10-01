@@ -15,7 +15,7 @@ class FormView extends Component {
   }
 
   onCloseButtonClick = () => {
-    this.props.dispatch(AppActions.switchPage(AppActions.Page.MAIN));
+    this.props.dispatch(AppActions.switchPage(this.props.returnPage));
     this.props.dispatch(FormActions.resetForm());
   };
 
@@ -36,6 +36,7 @@ class FormView extends Component {
 
 export default connect((store) => {
   return {
-    images: store.form.images
+    images: store.form.images,
+    returnPage: store.app.pageArg.returnPage
   };
 })(FormView);

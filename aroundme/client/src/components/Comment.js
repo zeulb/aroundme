@@ -25,7 +25,7 @@ class Comment extends Component {
             </span>
           </div>
           <div className="Comment-content">
-            {this.props.content}
+            {this.props.content.split('\n').map(line => <div>{line}</div>)}
           </div>
         </div>
       </div>

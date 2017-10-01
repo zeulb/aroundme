@@ -97,7 +97,7 @@ class MapboxMap extends Component {
 
   normalConfig = {
     zoom: [14],
-    minZoom: 4,
+    minZoom: 1,
     maxZoom: 18
   }
 
