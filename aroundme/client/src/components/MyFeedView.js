@@ -27,7 +27,7 @@ class MyFeedView extends Component {
   }
 
   renderGuide() {
-    if (this.getEvents().length === 0) {
+    if (this.showGuide()) {
       return (
         <div className="MyFeedView-guide">
           Create an event now!
@@ -39,13 +39,17 @@ class MyFeedView extends Component {
   }
 
   renderGuideLine() {
-    if (this.getEvents().length === 0) {
+    if (this.showGuide()) {
       return (
         <img className="MyFeedView-guideLine" src={Arrow} />
       );
     } else {
       return null;
     }
+  }
+
+  showGuide() {
+    return (this.getEvents().length === 0 && !this.props.feedExpandedEvent);
   }
 
   render() {
@@ -56,7 +60,7 @@ class MyFeedView extends Component {
           numEvents={this.getEvents().length}
         />
         <Feeds autoExpand={false} displayCreator={false} events={this.getEvents()} myFeed={true}/>
-        <AddButton returnPage={AppActions.Page.MY_FEED} />
+        {!this.props.feedExpandedEvent ? <AddButton returnPage={AppActions.Page.MY_FEED} /> : null}
         {this.renderGuide()}
         {this.renderGuideLine()}
       </div>
@@ -66,6 +70,7 @@ class MyFeedView extends Component {
 
 export default connect((store) => {
   return {
+    feedExpandedEvent: store.app.feedExpandedEvent,
     user: store.app.pageArg.profileUser
   };
 })(MyFeedView);
