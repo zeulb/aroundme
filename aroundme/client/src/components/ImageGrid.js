@@ -13,12 +13,13 @@ class ImageGrid extends Component {
       const extraClass = (index === 3 && this.props.images.length > 4) ? " ImageGrid-subImage--overflow" : "";
       return (
         <div className={"ImageGrid-subImage" + extraClass} onClick={this.expandImages.bind(this, index)}
+          data-overflow={`+${this.props.images.length - 3}`}
           style={{
           position: "relative",
           display: "inline-flex",
           background: `url(${imageUrl}) no-repeat center /cover`,
           width: ((100 - split + 1) / split).toString() + 'vw',
-          height: ((100 - split + 1) / split).toString() + 'vw',
+          height: ((100 - split + 1) / split).toString() + 'vw'
         }}></div>
       );
     } else {

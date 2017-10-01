@@ -19,7 +19,7 @@
 }
 
 .ImageGrid-subImage--overflow::before {
-  content: "+";
+  content: attr(data-overflow);
   display: inline-flex;
   align-items: center;
   justify-content: center;
