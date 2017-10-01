@@ -38,13 +38,23 @@ class FeedCard extends Component {
   }
 
   onUpvote = () => {
-    if (this.voted()) return;
-    this.props.dispatch(MapActions.upvote(this.props.id));
+    if (this.voted()) {
+      if (this.userVote() === 1) {
+        this.props.dispatch(MapActions.unvote(this.props.id, true));
+      }
+    } else {
+      this.props.dispatch(MapActions.upvote(this.props.id));
+    }
   };
 
   onDownvote = () => {
-    if (this.voted()) return;
-    this.props.dispatch(MapActions.downvote(this.props.id));
+    if (this.voted()) {
+      if (this.userVote() === -1) {
+        this.props.dispatch(MapActions.unvote(this.props.id, false));
+      }
+    } else {
+      this.props.dispatch(MapActions.downvote(this.props.id));
+    }
   };
 
   getCommentText() {

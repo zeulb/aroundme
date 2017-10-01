@@ -107,6 +107,31 @@ export function downvote(eventId) {
   }
 }
 
+export function unvote(eventId, wasUpvote) {
+  return (dispatch, getState) => {
+    const state = getState();
+    var formData = new FormData();
+    formData.append('user_id', state.app.user.id);
+    formData.append('session_id', state.app.user.session);
+    formData.append('vote', 0);
+
+    dispatch({
+      type: "UNSET_VOTE",
+      payload: {
+        eventId,
+        prevUpvote: wasUpvote
+      }
+    });
+    dispatch({
+      type: "UNVOTE",
+      payload: fetch(apiUrl + `/events/${eventId}/votes`, {
+        method: "POST",
+        body: formData
+      }).then(response => response.json())
+    });
+  }
+}
+
 export function comment(eventId, content) {
   return (dispatch, getState) => {
     const state = getState();
