@@ -22,7 +22,7 @@ class PopularFeedView extends Component {
   render() {
     return (
       <div id="FeedView" className="PopularFeedView" style={this.display()}>
-        <Feeds autoExpand={true} displayCreator={true} events={this.getEvents()} />
+        <Feeds autoExpand={true} displayCreator={true} events={this.getEvents()} myFeed={false}/>
       </div>
     );
   }

@@ -30,7 +30,7 @@ class MyFeedView extends Component {
           user={this.props.user}
           numEvents={this.getEvents().length}
         />
-        <Feeds autoExpand={false} displayCreator={false} events={this.getEvents()} />
+        <Feeds autoExpand={false} displayCreator={false} events={this.getEvents()} myFeed={true}/>
       </div>
     );
   }
