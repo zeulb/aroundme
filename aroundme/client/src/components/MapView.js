@@ -21,22 +21,27 @@ class MapView extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.location !== prevProps.location) {
-      console.log(this.props.location);
-      const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${this.props.location.lng},${this.props.location.lat}.json?access_token=${token}&types=address`;
+      if (this.props.location) {
+        const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${this.props.location.lng},${this.props.location.lat}.json?access_token=${token}&types=address`;
 
-      fetch(url)
-        .then(r => r.json())
-        .then(r => {
-          if (r.features.length > 0) {
-            this.setState({
-              address: r.features[0].place_name
-            });
-          } else {
-            this.setState({
-              address: ''
-            });
-          }
+        fetch(url)
+          .then(r => r.json())
+          .then(r => {
+            if (r.features.length > 0) {
+              this.setState({
+                address: r.features[0].place_name
+              });
+            } else {
+              this.setState({
+                address: ''
+              });
+            }
+          });
+      } else {
+        this.setState({
+          address: ''
         });
+      }
     }
   }
 
