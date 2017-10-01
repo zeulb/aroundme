@@ -18,21 +18,6 @@ const mapStyle = {
   touchAction: 'none'
 };
 
-const styles = {
-  clusterMarker: {
-  },
-  marker: {
-    width: 30,
-    height: 30,
-    borderRadius: '50%',
-    backgroundColor: '#E0E0E0',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    border: '2px solid #C9C9C9'
-  }
-}
-
 const createGeoJSONCircle = function(center, radiusInKm, points) {
     if(!points) points = 64;
 
@@ -125,6 +110,9 @@ class MapboxMap extends Component {
       map.dragRotate.disable();
       map.setMinZoom(this.selectConfig.minZoom);
       map.setMaxZoom(this.selectConfig.maxZoom);
+      map.easeTo({
+        center: this.state.initialLocation
+      });
     } else {
       map.dragPan.enable();
       map.dragRotate.enable();
@@ -134,10 +122,11 @@ class MapboxMap extends Component {
   }
 
   onStyleLoaded = (map) => {
+    this.map = map;
     this.updateMap(map);
   }
 
-  onMapZoom = (map) => {
+  onZoomEnd = (map) => {
     this.updateMap(map);
   }
 
@@ -226,7 +215,7 @@ class MapboxMap extends Component {
         style={style}
         containerStyle={mapStyle}
         onStyleLoad={this.onStyleLoaded}
-        onZoom={this.onMapZoom}
+        onZoomEnd={this.onZoomEnd}
         zoom={this.props.selectMode ? this.selectConfig.zoom : this.normalConfig.zoom}
       >
         <Cluster ClusterMarkerFactory={this.clusterMarker}>

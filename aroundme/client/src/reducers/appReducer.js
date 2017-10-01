@@ -9,9 +9,10 @@ const fieldMapping = {
   'firstName': 'first_name',
   'lastName': 'last_name',
   'pictureUrl': 'facebook_pic_url',
+  'description': 'description',
   'firstTime': 'first_time',
 }
-const cachedFields = ['id', 'session', 'fbId', 'fullName', 'firstName', 'lastName', 'pictureUrl'];
+const cachedFields = ['id', 'session', 'fbId', 'fullName', 'firstName', 'lastName', 'pictureUrl', 'description'];
 
 const fetchFromCache = () => {
   const isLoggedIn = localStorage.getItem('session') ? true : false;

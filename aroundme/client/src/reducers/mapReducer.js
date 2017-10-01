@@ -138,7 +138,8 @@ function compactEvent(event) {
     creator: {
       id: event.user_id,
       pictureUrl: event.user_facebook_pic_url,
-      name: event.user_name
+      name: event.user_name,
+      description: event.user_description
     },
     userVote: event.user_vote,
     upvotes: event.upvotes,
@@ -150,7 +151,8 @@ function compactEvent(event) {
         owner: {
           id: comment.user.id,
           pictureUrl: comment.user.facebook_pic_url,
-          name: comment.user.name
+          name: comment.user.name,
+          description: comment.user.description
         },
         timestamp: comment.updated * 1000,
         content: comment.content

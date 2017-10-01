@@ -14,7 +14,7 @@ class UserProfileCard extends Component {
         <div className="UserProfileCard-text"> 
           <div className="UserProfileCard-name">{this.props.user.name}</div>
           <div className="UserProfileCard-bottom">
-            <div className="UserProfileCard-aboutMe">A veteran cheapskate, explains why i love freebies. </div>
+            <div className="UserProfileCard-aboutMe">{this.props.user.description}</div>
             {this.renderEventCount()}
           </div>
         </div>
