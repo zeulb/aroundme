@@ -78,6 +78,24 @@ export default function reducer(state={
     case "LOGIN_REJECTED": {
       return {...state};
     }
+    case "POST_DESCRIPTION_FULFILLED": {
+      var userInfo = {};
+      cachedFields.forEach(field => {
+        userInfo[field] = action.payload[fieldMapping[field]];
+        localStorage.setItem(field, userInfo[field]);
+      });
+      userInfo['firstTime'] = action.payload[fieldMapping['firstTime']];
+      localStorage.setItem('firstTime', false);
+
+      return {
+        ...state,
+        isLoggedIn: true,
+        user: {
+          ...userInfo,
+          name: userInfo.fullName
+        }
+      };
+    }
     case "LOGIN_FULFILLED": {
       ga.event({
         category: 'User',
