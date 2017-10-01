@@ -41,7 +41,7 @@ class MyFeedView extends Component {
   renderGuideLine() {
     if (this.showGuide()) {
       return (
-        <img className="MyFeedView-guideLine" src={Arrow} />
+        <img className="MyFeedView-guideLine" src={Arrow} alt="Arrow"/>
       );
     } else {
       return null;

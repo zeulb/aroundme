@@ -62,6 +62,7 @@ class App extends Component {
     const appBarText = this.appBar();
     if (appBarText === 'Home') {
       return <AppBar
+        className="App-bar"
         title={this.renderLogo()}
         titleStyle={{ textAlign: "center" }}
         onLeftIconButtonTouchTap={this.onOpenDrawer}
@@ -69,6 +70,7 @@ class App extends Component {
       />;
     } else if (appBarText === 'Feed') {
       return <AppBar
+        className="App-bar"
         title={this.renderLogo()}
         titleStyle={{ textAlign: "center" }}
         iconElementLeft={<IconButton><Icons.NavigationChevronLeft /></IconButton>}
@@ -77,6 +79,7 @@ class App extends Component {
       />;
     } else if (appBarText && this.isFeedView() && this.props.feedExpandedEvent) {
       return <AppBar
+        className="App-bar"
         title={this.getAppText(appBarText)}
         titleStyle={{ textAlign: "center", fontSize: 'large' }}
         iconElementLeft={<IconButton><Icons.NavigationChevronLeft /></IconButton>}
@@ -85,6 +88,7 @@ class App extends Component {
       />;
     } else if (appBarText) {
       return <AppBar
+        className="App-bar"
         title={this.getAppText(appBarText)}
         titleStyle={{ textAlign: "center", fontSize: 'large' }}
         onLeftIconButtonTouchTap={this.onOpenDrawer}
