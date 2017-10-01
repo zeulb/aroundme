@@ -30,10 +30,11 @@ class Feeds extends Component {
 
   renderGuide() {
     if (this.getEvents().length === 0) {
-      if (this.props.myFeed) {
-        return <Item>Create your first event in "Discover Events"!</Item>;
-      } 
-      return <Item>Be the first to create an event!</Item>;
+      return (
+        <Item className="Feeds-noEvent">
+          No events found in this feed!
+        </Item>
+      )
     } else {
       return null;
     }
