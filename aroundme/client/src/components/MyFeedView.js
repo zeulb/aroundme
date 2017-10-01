@@ -5,6 +5,7 @@ import UserProfileCard from './UserProfileCard';
 import AddButton from './AddButton';
 import * as AppActions from '../actions/appActions';
 import "./MyFeedView.css";
+import Arrow from '../assets/arrow.svg';
 
 class MyFeedView extends Component {
   getEvents() {
@@ -25,6 +26,28 @@ class MyFeedView extends Component {
     }
   }
 
+  renderGuide() {
+    if (this.getEvents().length === 0) {
+      return (
+        <div className="MyFeedView-guide">
+          Create an event now!
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  renderGuideLine() {
+    if (this.getEvents().length === 0) {
+      return (
+        <img className="MyFeedView-guideLine" src={Arrow} />
+      );
+    } else {
+      return null;
+    }
+  }
+
   render() {
     return (
       <div id="FeedView" className="MyFeedView" style={this.display()}>
@@ -34,6 +57,8 @@ class MyFeedView extends Component {
         />
         <Feeds autoExpand={false} displayCreator={false} events={this.getEvents()} myFeed={true}/>
         <AddButton returnPage={AppActions.Page.MY_FEED} />
+        {this.renderGuide()}
+        {this.renderGuideLine()}
       </div>
     );
   }

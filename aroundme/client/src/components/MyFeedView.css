@@ -3,3 +3,18 @@
   background-color: rgb(217, 217, 217);
   overflow-y: scroll;
 }
+
+.MyFeedView-guide {
+  position: absolute;
+  bottom: 42px;
+  left: 118px;
+  font-size: medium;
+  font-weight: 300;
+}
+
+.MyFeedView-guideLine {
+  position: absolute;
+  bottom: 40px;
+  left: 70px;
+  width: 40px;
+}
