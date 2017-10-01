@@ -14,7 +14,7 @@ class AddButton extends Component {
   onCameraClick = () => {
     this.imageInput.openCamera()
       .then(images => {
-        this.props.dispatch(AppActions.switchPage(AppActions.Page.ADD));
+        this.props.dispatch(AppActions.switchPage(AppActions.Page.ADD, { returnPage: this.props.returnPage }));
         this.props.dispatch(FormActions.addImages(images));
       });
   }
@@ -22,7 +22,7 @@ class AddButton extends Component {
   onPhotoClick = () => {
     this.imageInput.openPhotoLibrary()
       .then(images => {
-        this.props.dispatch(AppActions.switchPage(AppActions.Page.ADD));
+        this.props.dispatch(AppActions.switchPage(AppActions.Page.ADD, { returnPage: this.props.returnPage }));
         this.props.dispatch(FormActions.addImages(images));
       });
   }

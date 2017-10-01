@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from "react-redux"
 import Feeds from './Feeds';
 import UserProfileCard from './UserProfileCard';
+import AddButton from './AddButton';
+import * as AppActions from '../actions/appActions';
 import "./MyFeedView.css";
 
 class MyFeedView extends Component {
@@ -10,7 +12,7 @@ class MyFeedView extends Component {
       .filter(event => (event.creator.id === parseInt(this.props.user.id, 10)))
       .sort((x, y) => y.timestamp - x.timestamp);
   }
-  
+
   display() {
     if (this.props.displayImages) {
       return {
@@ -31,6 +33,7 @@ class MyFeedView extends Component {
           numEvents={this.getEvents().length}
         />
         <Feeds autoExpand={false} displayCreator={false} events={this.getEvents()} myFeed={true}/>
+        <AddButton returnPage={AppActions.Page.MY_FEED} />
       </div>
     );
   }
