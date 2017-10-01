@@ -27,6 +27,9 @@ export function createEvent() {
   return (dispatch, getState) => {
     const state = getState();
 
+    console.log("DESCRIPTION");
+    console.log(state.form.description);
+
     var formData = new FormData();
     formData.append('user_id', state.app.user.id);
     formData.append('session_id', state.app.user.session);

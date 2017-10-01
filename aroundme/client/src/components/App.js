@@ -202,7 +202,7 @@ class App extends Component {
       }}>
         <Snackbar
           open={this.props.recentlyLoggedIn}
-          message={`Welcome back, ${this.props.user.firstName}!`}
+          message={this.props.user.firstTime? `Welcome, ${this.props.user.firstName}!`: `Welcome back, ${this.props.user.firstName}!`}
           autoHideDuration={1500}
           onRequestClose={this.setNotRecentlyLoggedIn}
         />

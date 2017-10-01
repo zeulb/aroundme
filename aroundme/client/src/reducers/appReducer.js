@@ -9,6 +9,7 @@ const fieldMapping = {
   'firstName': 'first_name',
   'lastName': 'last_name',
   'pictureUrl': 'facebook_pic_url',
+  'firstTime': 'first_time',
 }
 const cachedFields = ['id', 'session', 'fbId', 'fullName', 'firstName', 'lastName', 'pictureUrl'];
 
@@ -83,6 +84,8 @@ export default function reducer(state={
         userInfo[field] = action.payload[fieldMapping[field]];
         localStorage.setItem(field, userInfo[field]);
       });
+      userInfo['firstTime'] = action.payload[fieldMapping['firstTime']];
+      localStorage.setItem('firstTime', false);
 
       return {
         ...state,
