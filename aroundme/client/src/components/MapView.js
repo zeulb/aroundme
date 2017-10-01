@@ -3,14 +3,42 @@ import { connect } from "react-redux"
 import MapboxMap from './MapboxMap';
 import AddButton from './AddButton';
 import Snackbar from 'material-ui/Snackbar';
+import Paper from 'material-ui/Paper';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import * as Icons from 'material-ui/svg-icons';
 import * as FormActions from '../actions/formActions';
 import * as MapActions from '../actions/mapActions';
 import * as AppActions from '../actions/appActions';
+import MarkerImage from '../assets/Mapmarker.svg';
 import "./MapView.css";
 
+const { token } = require('../config/mapbox.json');
+
 class MapView extends Component {
+  state = {
+    address: ''
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.location !== prevProps.location) {
+      console.log(this.props.location);
+      const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${this.props.location.lng},${this.props.location.lat}.json?access_token=${token}&types=address`;
+
+      fetch(url)
+        .then(r => r.json())
+        .then(r => {
+          if (r.features.length > 0) {
+            this.setState({
+              address: r.features[0].place_name
+            });
+          } else {
+            this.setState({
+              address: ''
+            });
+          }
+        });
+    }
+  }
 
   onSend = () => {
     if (this.props.isLoggedIn) {
@@ -45,6 +73,17 @@ class MapView extends Component {
     );
   }
 
+  renderCurrentLocation() {
+    return (
+      <Paper className="MapView-currentLocation" zDepth={3}>
+        <img className="MapView-currentLocationMarker" src={MarkerImage} alt="MarkerImage" />
+        <span className="MapView-address">
+          {this.state.address}
+        </span>
+      </Paper>
+    )
+  }
+
   renderGuide() {
     return (
       <div className="MapView-guide">
@@ -62,6 +101,7 @@ class MapView extends Component {
           autoHideDuration={2500}
           onRequestClose={this.resetForm}
         />
+        {this.props.selectMode ? this.renderCurrentLocation() : null}
         {this.props.selectMode ? this.renderGuide() : null}
         {(this.props.visible && !this.props.selectMode) ? <AddButton returnPage={AppActions.Page.MAIN} /> : null}
         {(this.props.visible && this.props.selectMode) ? this.renderSendButton() : null}
@@ -73,6 +113,7 @@ class MapView extends Component {
 
 export default connect((store) => {
   return {
+    location: store.form.location,
     isLoggedIn: store.app.isLoggedIn,
     recentlyCreated: store.form.created
   };

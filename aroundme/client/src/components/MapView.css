@@ -15,14 +15,37 @@
 
 .MapView-guide {
   position: fixed;
-  top: 40px;
-  left: 25px;
-  right: 25px;
+  top: 75px;
+  left: 26px;
+  right: 26px;
   border-radius: 10px;
   z-index: 1;
-  font-size: 12px;
+  font-size: 11px;
   text-align: center;
   background-color: rgba(120, 146, 190, 0.6);
   padding: 15px 10px;
   color: white;
+}
+
+.MapView-currentLocation {
+  position: fixed;
+  top: 20px;
+  left: 21px;
+  right: 21px;
+  z-index: 2;
+  font-size: 14px;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+}
+
+.MapView-address {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.MapView-currentLocationMarker {
+  width: 15px;
+  margin-right: 10px;
 }
