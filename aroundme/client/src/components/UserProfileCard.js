@@ -12,6 +12,12 @@ class UserProfileCard extends Component {
     description: ''
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.editMode && !prevState.editMode) {
+      this.refs.textField.focus();
+    }
+  }
+
   onEditDescription = (event) => {
     event.stopPropagation();
     if (!this.state.editMode) {
@@ -56,8 +62,9 @@ class UserProfileCard extends Component {
     } else {
       return (
         <TextField
+          ref="textField"
           className="UserProfileCard-textField"
-          hintText="Tell us more about yourself..."
+          hintText="Describe yourself..."
           fullWidth={true}
           rowsMax={2}
           multiLine={true}

@@ -79,20 +79,20 @@ export default function reducer(state={
       return {...state};
     }
     case "POST_DESCRIPTION_FULFILLED": {
-      var userInfo = {};
+      var userInfo2 = {};
       cachedFields.forEach(field => {
-        userInfo[field] = action.payload[fieldMapping[field]];
-        localStorage.setItem(field, userInfo[field]);
+        userInfo2[field] = action.payload[fieldMapping[field]].toString();
+        localStorage.setItem(field, userInfo2[field]);
       });
-      userInfo['firstTime'] = action.payload[fieldMapping['firstTime']];
+      userInfo2['firstTime'] = action.payload[fieldMapping['firstTime']];
       localStorage.setItem('firstTime', false);
 
       return {
         ...state,
         isLoggedIn: true,
         user: {
-          ...userInfo,
-          name: userInfo.fullName
+          ...userInfo2,
+          name: userInfo2.fullName
         }
       };
     }
@@ -103,7 +103,7 @@ export default function reducer(state={
       });
       var userInfo = {};
       cachedFields.forEach(field => {
-        userInfo[field] = action.payload[fieldMapping[field]];
+        userInfo[field] = action.payload[fieldMapping[field]].toString();
         localStorage.setItem(field, userInfo[field]);
       });
       userInfo['firstTime'] = action.payload[fieldMapping['firstTime']];

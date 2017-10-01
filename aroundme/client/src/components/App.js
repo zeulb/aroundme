@@ -101,7 +101,12 @@ class App extends Component {
 
   getAppText(text) {
     if (text === 'My Profile') {
-      if (this.props.user.id === this.props.profileUser.id) {
+      console.log(this.props.user.id);
+      console.log(typeof this.props.user.id);
+      console.log(this.props.profileUser.id);
+      console.log(typeof this.props.profileUser.id);
+      console.log(this.props.user.id === this.props.profileUser.id);
+      if (!this.props.profileUser || this.props.user.id === this.props.profileUser.id) {
         return text;
       } else {
         return `${this.props.profileUser.name}'s Profile`;

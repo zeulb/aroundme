@@ -27,6 +27,27 @@
   flex: 1 auto;
   margin-right: 7px;
   min-width: 0;
+  font-size: 14px !important;
+  line-height: 20px !important;
+}
+
+.UserProfileCard-textField--iOS textarea {
+  margin-left: -3px;
+  &::placeholder {
+      padding-left: 3px;
+  }
+}
+
+.UserProfileCard-edit {
+  width: 36px !important;
+  height: 36px !important;
+  padding: 9px !important;
+}
+
+.UserProfileCard-edit svg {
+  color: #C0BFBF !important;
+  width: 18px !important;
+  height: 18px !important;
 }
 
 .UserProfileCard-name {
@@ -36,7 +57,6 @@
 
 .UserProfileCard-nameBlock {
   display: flex;
-  margin-bottom: 5px;
   align-items: center;
   justify-content: space-between;
 }

@@ -10,7 +10,7 @@ import Arrow from '../assets/arrow.svg';
 class MyFeedView extends Component {
   getEvents() {
     return this.props.events
-      .filter(event => (event.creator.id === parseInt(this.props.user.id, 10)))
+      .filter(event => (event.creator.id === parseInt(this.getUser().id, 10)))
       .sort((x, y) => y.timestamp - x.timestamp);
   }
 
@@ -49,7 +49,7 @@ class MyFeedView extends Component {
   }
 
   getUser() {
-    if (this.props.currentUser.id !== this.props.user.id) {
+    if (this.props.user && (this.props.currentUser.id !== this.props.user.id)) {
       return this.props.user;
     } else {
       return this.props.currentUser;
@@ -57,7 +57,7 @@ class MyFeedView extends Component {
   }
 
   showGuide() {
-    return (this.getEvents().length === 0 && !this.props.feedExpandedEvent && this.props.currentUser.id === this.props.user.id);
+    return (this.getEvents().length === 0 && !this.props.feedExpandedEvent && this.props.currentUser.id === this.getUser().id);
   }
 
   render() {
@@ -66,10 +66,10 @@ class MyFeedView extends Component {
         <UserProfileCard
           user={this.getUser()}
           numEvents={this.getEvents().length}
-          ownProfile={this.props.currentUser.id === this.props.user.id}
+          ownProfile={this.props.currentUser.id === this.getUser().id}
         />
         <Feeds autoExpand={false} displayCreator={false} events={this.getEvents()} myFeed={true}/>
-        {(!this.props.feedExpandedEvent && this.props.currentUser.id === this.props.user.id) ? <AddButton returnPage={AppActions.Page.MY_FEED} /> : null}
+        {(!this.props.feedExpandedEvent && this.props.currentUser.id === this.getUser().id) ? <AddButton returnPage={AppActions.Page.MY_FEED} /> : null}
         {this.renderGuide()}
         {this.renderGuideLine()}
       </div>
