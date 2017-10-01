@@ -49,7 +49,7 @@ class MyFeedView extends Component {
   }
 
   showGuide() {
-    return (this.getEvents().length === 0 && !this.props.feedExpandedEvent);
+    return (this.getEvents().length === 0 && !this.props.feedExpandedEvent && this.props.currentUserId === this.props.user.id);
   }
 
   render() {
@@ -60,7 +60,7 @@ class MyFeedView extends Component {
           numEvents={this.getEvents().length}
         />
         <Feeds autoExpand={false} displayCreator={false} events={this.getEvents()} myFeed={true}/>
-        {!this.props.feedExpandedEvent ? <AddButton returnPage={AppActions.Page.MY_FEED} /> : null}
+        {(!this.props.feedExpandedEvent && this.props.currentUserId === this.props.user.id) ? <AddButton returnPage={AppActions.Page.MY_FEED} /> : null}
         {this.renderGuide()}
         {this.renderGuideLine()}
       </div>
@@ -71,6 +71,7 @@ class MyFeedView extends Component {
 export default connect((store) => {
   return {
     feedExpandedEvent: store.app.feedExpandedEvent,
-    user: store.app.pageArg.profileUser
+    user: store.app.pageArg.profileUser,
+    currentUserId: store.app.user.id
   };
 })(MyFeedView);
