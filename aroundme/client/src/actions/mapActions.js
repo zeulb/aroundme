@@ -107,23 +107,26 @@ export function downvote(eventId) {
   }
 }
 
-export function unvote(eventId, wasUpvote) {
+export function changevote(eventId, isUpvote, wasUpvote) {
   return (dispatch, getState) => {
     const state = getState();
     var formData = new FormData();
     formData.append('user_id', state.app.user.id);
     formData.append('session_id', state.app.user.session);
-    formData.append('vote', 0);
+    var newVote = ((isUpvote && wasUpvote) || (!isUpvote && !wasUpvote)) ? 0 : isUpvote? 1 : -1;
+    formData.append('vote', newVote);
+    console.log(newVote);
 
     dispatch({
-      type: "UNSET_VOTE",
+      type: "CHANGE_VOTE",
       payload: {
         eventId,
-        prevUpvote: wasUpvote
+        prevUpvote: wasUpvote,
+        newVote: newVote
       }
     });
     dispatch({
-      type: "UNVOTE",
+      type: "CHANGEVOTE",
       payload: fetch(apiUrl + `/events/${eventId}/votes`, {
         method: "POST",
         body: formData

@@ -69,13 +69,14 @@ export default function reducer(state={
       }
       return {...state, events: [...eventsWithoutCurrent, newCurrentEvent]}
     }
-    case "UNSET_VOTE": {
+    case "CHANGE_VOTE": {
       const currentEventId = action.payload.eventId;
       const events = state.events;
       const currentEvent = events.filter(event => event.id === currentEventId)[0];
       const eventsWithoutCurrent = events.filter(event => event.id !== currentEventId);
       var latestCurrentEvent = {}
       const prevUpvote = action.payload.prevVote;
+      const newVote = action.payload.newVote;
       if (prevUpvote) {
         latestCurrentEvent = {
           ...currentEvent,
@@ -90,6 +91,21 @@ export default function reducer(state={
           userVote: 0,
           downvotes: currentEvent.upvotes - 1
         };
+      }
+      if (newVote === 1) {
+        latestCurrentEvent = {
+          ...latestCurrentEvent,
+          voted: true,
+          userVote: 1,
+          upvotes: latestCurrentEvent.upvotes + 1
+        }
+      } else if (newVote === -1) {
+        latestCurrentEvent = {
+          ...latestCurrentEvent,
+          voted: true,
+          userVote: -1,
+          downvotes: latestCurrentEvent.downvotes + 1
+        }
       }
       return {...state, events: [...eventsWithoutCurrent, latestCurrentEvent]}
     }

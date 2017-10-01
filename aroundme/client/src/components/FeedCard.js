@@ -39,9 +39,7 @@ class FeedCard extends Component {
 
   onUpvote = () => {
     if (this.voted()) {
-      if (this.userVote() === 1) {
-        this.props.dispatch(MapActions.unvote(this.props.id, true));
-      }
+      this.props.dispatch(MapActions.changevote(this.props.id, true, this.userVote()===1));
     } else {
       this.props.dispatch(MapActions.upvote(this.props.id));
     }
@@ -49,9 +47,7 @@ class FeedCard extends Component {
 
   onDownvote = () => {
     if (this.voted()) {
-      if (this.userVote() === -1) {
-        this.props.dispatch(MapActions.unvote(this.props.id, false));
-      }
+      this.props.dispatch(MapActions.changevote(this.props.id, false, this.userVote() === 1));
     } else {
       this.props.dispatch(MapActions.downvote(this.props.id));
     }
