@@ -8,10 +8,15 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import "./ImageView.css";
 
 class ImageView extends Component {
+  state = {
+    currentIndex: this.props.startImageIndex
+  }
+
   renderImages() {
     return (
       <ImageSlider
         defaultIndex={this.props.startImageIndex}
+        onChangeIndex={this.onChangeIndex}
         images={
           this.props.images.map(image => {
             return {
@@ -24,6 +29,12 @@ class ImageView extends Component {
     );
   }
 
+  onChangeIndex = (index) => {
+    this.setState({
+      currentIndex: index
+    });
+  }
+
   onCloseButtonClick = () => {
     this.props.dispatch(AppActions.closeImages());
   };
@@ -34,6 +45,9 @@ class ImageView extends Component {
         <IconButton className="ImageView-closeButton" onClick={this.onCloseButtonClick} >
           <NavigationClose color={white}/>
         </IconButton>
+        <div className="ImageView-count">
+          {this.state.currentIndex + 1} of {this.props.images.length}
+        </div>
         <div className="ImageView-images">
           {this.renderImages()}
         </div>

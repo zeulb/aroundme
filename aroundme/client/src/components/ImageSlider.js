@@ -11,11 +11,16 @@ class ImageSlider extends Component {
     }
   }
 
+  onChangeIndex = (index) => {
+    this.props.onChangeIndex(index);
+  }
+
   render() {
     return (
       <SwipeableViews
         index={this.props.defaultIndex || 0}
         className="ImageSlider"
+        onChangeIndex={this.onChangeIndex}
         resistance={true}>
         {this.props.images.map((image, index) => {
           return <div className="ImageSlider-imageContainer" key={`ImageSlider-container.${index}`}>

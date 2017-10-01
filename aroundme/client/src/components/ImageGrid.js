@@ -8,7 +8,7 @@ class ImageGrid extends Component {
     this.props.dispatch(AppActions.displayImages(this.props.images, index));
   }
 
-  createCell(index, imageUrl, split) {
+  createCell = (index, imageUrl, split) => {
     if (split > 1) {
       const extraClass = (index === 3 && this.props.images.length > 4) ? " ImageGrid-subImage--overflow" : "";
       return (
@@ -23,7 +23,7 @@ class ImageGrid extends Component {
       );
     } else {
       return (
-        <img onClick={this.expandImages} className="ImageGrid-main" src={imageUrl} alt="MainImage" />
+        <img onClick={this.expandImages.bind(this, index)} className="ImageGrid-main" src={imageUrl} alt="MainImage" />
       );
     }
   }

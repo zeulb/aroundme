@@ -115,7 +115,6 @@ export function changevote(eventId, isUpvote, wasUpvote) {
     formData.append('session_id', state.app.user.session);
     var newVote = ((isUpvote && wasUpvote) || (!isUpvote && !wasUpvote)) ? 0 : isUpvote? 1 : -1;
     formData.append('vote', newVote);
-    console.log(newVote);
 
     dispatch({
       type: "CHANGE_VOTE",

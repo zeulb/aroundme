@@ -10,6 +10,17 @@
   left: 5px;
 }
 
+.ImageView-count {
+  color: white;
+  position: fixed !important;
+  top: 12px;
+  right: 7px;
+  padding: 5px 10px;
+  z-index: 99;
+  border-radius: 8px;
+  background: rgba(0,0,0,.5);
+}
+
 .ImageView-images {
   display: flex;
   height: 100%;
