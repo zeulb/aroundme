@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="152px" height="218px" viewBox="0 0 152 218" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>ic_place copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#7695C3" offset="0%"></stop>
+            <stop stop-color="#7E64A3" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ic_place-copy" transform="translate(-54.000000, -21.000000)">
+            <polygon id="Bounds" points="0 0 260 0 260 260 0 260"></polygon>
+            <path d="M130,21.6666667 C88.075,21.6666667 54.1666667,55.575 54.1666667,97.5 C54.1666667,154.375 130,238.333333 130,238.333333 C130,238.333333 205.833333,154.375 205.833333,97.5 C205.833333,55.575 171.925,21.6666667 130,21.6666667 L130,21.6666667 Z M130,124.583333 C115.05,124.583333 102.916667,112.45 102.916667,97.5 C102.916667,82.55 115.05,70.4166667 130,70.4166667 C144.95,70.4166667 157.083333,82.55 157.083333,97.5 C157.083333,112.45 144.95,124.583333 130,124.583333 L130,124.583333 Z" id="Icon" fill="url(#linearGradient-1)"></path>
+        </g>
+    </g>
+</svg>

@@ -6,7 +6,7 @@ import * as FormActions from '../actions/formActions';
 import * as MapActions from '../actions/mapActions';
 import * as AppActions from '../actions/appActions';
 import UserMarker from './UserMarker';
-import MarkerImage from '../assets/marker.svg';
+import MarkerImage from '../assets/Mapmarker.svg';
 
 const { token, style } = require('../config/mapbox.json');
 
@@ -20,16 +20,6 @@ const mapStyle = {
 
 const styles = {
   clusterMarker: {
-    width: 30,
-    height: 30,
-    borderRadius: '50%',
-    backgroundColor: '#51D5A0',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: 'white',
-    border: '2px solid #56C498',
-    cursor: 'pointer'
   },
   marker: {
     width: 30,
@@ -157,12 +147,18 @@ class MapboxMap extends Component {
     getLeaves
   ) => (
       <Marker
+        style={{
+          marginTop: -15,
+          width: 21,
+          height: 30,
+          background: `url(${MarkerImage}) no-repeat center /cover`
+        }}
         key={coordinates.toString()}
         coordinates={coordinates}
-        style={styles.clusterMarker}
         onClick={this.clusterClick.bind(this, coordinates, pointCount, getLeaves)}
       >
-        <div>{pointCount}</div>
+        <div className="MapboxMap-clusterCount">{pointCount}</div>
+        <div className="MapboxMap-clusterCountTriangle" />
       </Marker>
     );
 
@@ -239,10 +235,10 @@ class MapboxMap extends Component {
               <Marker
                 key={key}
                 style={{
-                  marginTop: -16,
-                  width: 32,
-                  height: 32,
-                  backgroundImage: `url(${MarkerImage})`
+                  marginTop: -15,
+                  width: 21,
+                  height: 30,
+                  background: `url(${MarkerImage}) no-repeat center /cover`
                 }}
                 coordinates={feature.geometry.coordinates}
                 data-feature={feature}
