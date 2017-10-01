@@ -48,19 +48,28 @@ class MyFeedView extends Component {
     }
   }
 
+  getUser() {
+    if (this.props.currentUser.id !== this.props.user.id) {
+      return this.props.user;
+    } else {
+      return this.props.currentUser;
+    }
+  }
+
   showGuide() {
-    return (this.getEvents().length === 0 && !this.props.feedExpandedEvent && this.props.currentUserId === this.props.user.id);
+    return (this.getEvents().length === 0 && !this.props.feedExpandedEvent && this.props.currentUser.id === this.props.user.id);
   }
 
   render() {
     return (
       <div id="FeedView" className="MyFeedView" style={this.display()}>
         <UserProfileCard
-          user={this.props.user}
+          user={this.getUser()}
           numEvents={this.getEvents().length}
+          ownProfile={this.props.currentUser.id === this.props.user.id}
         />
         <Feeds autoExpand={false} displayCreator={false} events={this.getEvents()} myFeed={true}/>
-        {(!this.props.feedExpandedEvent && this.props.currentUserId === this.props.user.id) ? <AddButton returnPage={AppActions.Page.MY_FEED} /> : null}
+        {(!this.props.feedExpandedEvent && this.props.currentUser.id === this.props.user.id) ? <AddButton returnPage={AppActions.Page.MY_FEED} /> : null}
         {this.renderGuide()}
         {this.renderGuideLine()}
       </div>
@@ -72,6 +81,6 @@ export default connect((store) => {
   return {
     feedExpandedEvent: store.app.feedExpandedEvent,
     user: store.app.pageArg.profileUser,
-    currentUserId: store.app.user.id
+    currentUser: store.app.user
   };
 })(MyFeedView);

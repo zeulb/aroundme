@@ -83,6 +83,30 @@ export function logout() {
   }
 }
 
+export function editDescription(description) {
+  return (dispatch, getState) => {
+    const state = getState();
+    var formData = new FormData();
+    formData.append('user_id', state.app.user.id);
+    formData.append('session_id', state.app.user.session);
+    formData.append('description', description);
+
+    dispatch({
+      type: "SET_DESCRIPTION",
+      payload: {
+        description
+      }
+    });
+    dispatch({
+      type: "POST_DESCRIPTION",
+      payload: fetch(apiUrl + `/users`, {
+        method: "POST",
+        body: formData
+      }).then(response => response.json())
+    });
+  }
+}
+
 export function expandEvent(event) {
   return {
     type: "EXPAND_EVENT",

@@ -23,14 +23,27 @@
   min-width: 0;
 }
 
+.UserProfileCard-textField {
+  flex: 1 auto;
+  margin-right: 7px;
+  min-width: 0;
+}
+
 .UserProfileCard-name {
   font-weight: 500;
   font-size: large;
+}
+
+.UserProfileCard-nameBlock {
+  display: flex;
   margin-bottom: 5px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .UserProfileCard-bottom {
   display: flex;
+  align-items: center;
 }
 
 .UserProfileCard-event {
