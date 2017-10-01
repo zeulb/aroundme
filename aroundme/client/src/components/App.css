@@ -8,6 +8,19 @@
   height: 100%;
 }
 
+.App-bar {
+  background: #7E64A2;
+  background: -webkit-linear-gradient(-90deg, #7E64A2, #7794C1); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(-90deg, #7E64A2, #7794C1); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(-90deg, #7E64A2, #7794C1); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(-90deg, #7E64A2, #7794C1); /* Standard syntax */
+}
+
+.App-bar h1 {
+  font-weight: 500 !important;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
 .App-logo {
   margin-top: 13px;
   width: 110px;
