@@ -77,34 +77,37 @@ export default function reducer(state={
       var latestCurrentEvent = {}
       const prevUpvote = action.payload.prevVote;
       const newVote = action.payload.newVote;
-      if (prevUpvote) {
-        latestCurrentEvent = {
-          ...currentEvent,
-          voted: false,
-          userVote: 0,
-          upvotes: currentEvent.upvotes - 1
-        };
-      } else {
-        latestCurrentEvent = {
-          ...currentEvent,
-          voted: false,
-          userVote: 0,
-          downvotes: currentEvent.upvotes - 1
-        };
-      }
-      if (newVote === 1) {
-        latestCurrentEvent = {
-          ...latestCurrentEvent,
-          voted: true,
-          userVote: 1,
-          upvotes: latestCurrentEvent.upvotes + 1
+      if (newVote === 0) {
+        if (prevUpvote) {
+          latestCurrentEvent = {
+            ...currentEvent,
+            voted: false,
+            userVote: 0,
+            upvotes: currentEvent.upvotes - 1
+          };
+        } else {
+          latestCurrentEvent = {
+            ...currentEvent,
+            voted: false,
+            userVote: 0,
+            downvotes: currentEvent.downvotes - 1
+          };
         }
-      } else if (newVote === -1) {
-        latestCurrentEvent = {
-          ...latestCurrentEvent,
-          voted: true,
-          userVote: -1,
-          downvotes: latestCurrentEvent.downvotes + 1
+      } else {
+        if (newVote === 1) {
+          latestCurrentEvent = {
+            ...currentEvent,
+            userVote: 1,
+            downvotes: currentEvent.downvotes - 1,
+            upvotes: currentEvent.upvotes + 1
+          }
+        } else if (newVote === -1) {
+          latestCurrentEvent = {
+            ...currentEvent,
+            userVote: -1,
+            downvotes: currentEvent.downvotes + 1,
+            upvotes: currentEvent.upvotes - 1
+          }
         }
       }
       return {...state, events: [...eventsWithoutCurrent, latestCurrentEvent]}
