@@ -63,7 +63,12 @@ class UserProfileCard extends Component {
       return (
         <TextField
           ref="textField"
-          className="UserProfileCard-textField"
+          className={
+            "UserProfileCard-textField" +
+              ((/iPhone|iPad|iPod/i.test(navigator.userAgent))
+                 ? " UserProfileCard-textField--iOS"
+                 : "")
+          }
           hintText="Describe yourself..."
           fullWidth={true}
           rowsMax={2}
