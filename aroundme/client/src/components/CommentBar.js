@@ -35,7 +35,7 @@ class CommentBar extends Component {
   }
 
   render() {
-    if (this.props.user) {
+    if (!this.props.isLoggedIn) {
       return null;
     }
     return (
@@ -78,6 +78,7 @@ class CommentBar extends Component {
 
 export default connect(store => {
   return {
+    isLoggedIn: store.app.isLoggedIn,
     user: store.app.user
   }
 })(CommentBar);
