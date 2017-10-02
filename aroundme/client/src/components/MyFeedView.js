@@ -69,7 +69,7 @@ class MyFeedView extends Component {
           ownProfile={this.props.currentUser.id === this.getUser().id}
         />
         <Feeds autoExpand={false} displayCreator={false} events={this.getEvents()} myFeed={true}/>
-        {(!this.props.feedExpandedEvent && this.props.currentUser.id === this.getUser().id) ? <AddButton returnPage={AppActions.Page.MY_FEED} /> : null}
+        {(this.getEvents().length === 0) ? <AddButton returnPage={AppActions.Page.MY_FEED} /> : null}
         {this.renderGuide()}
         {this.renderGuideLine()}
       </div>
