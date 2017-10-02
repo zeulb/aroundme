@@ -71,7 +71,7 @@ class MapboxMap extends Component {
   }
 
   normalConfig = {
-    zoom: [14],
+    zoom: [12],
     minZoom: 1,
     maxZoom: 18
   }
@@ -124,6 +124,7 @@ class MapboxMap extends Component {
   }
 
   onStyleLoaded = (map) => {
+    this.props.dispatch(AppActions.mapReady());
     this.map = map;
     this.updateMap(map);
   }
@@ -207,6 +208,45 @@ class MapboxMap extends Component {
       : null;
   }
 
+  renderCluster() {
+    return (
+      <Cluster ClusterMarkerFactory={this.clusterMarker}>
+        {
+          this.props.geojson.features.map((feature, key) =>
+            <Marker
+              key={key}
+              style={{
+                marginTop: -15,
+                width: 21,
+                height: 30,
+                background: `url(${MarkerImage}) no-repeat center /cover`
+              }}
+              coordinates={feature.geometry.coordinates}
+              data-feature={feature}
+              onClick={this.markerClick.bind(this, feature.properties.id)}
+            />
+          )
+        }
+      </Cluster>
+    );
+  }
+
+  renderOnboardingNode() {
+    return (
+      <Marker
+        className="MapboxMap-onboardingMarker"
+        key={"Onboarding"}
+        style={{
+          marginTop: -15,
+          width: 21,
+          height: 30,
+          background: `url(${MarkerImage}) no-repeat center /cover`
+        }}
+        coordinates={this.state.initialLocation}
+      />
+    );
+  }
+
   render() {
     const { initialLocation } = this.state;
 
@@ -220,24 +260,7 @@ class MapboxMap extends Component {
         onZoomEnd={this.onZoomEnd}
         zoom={this.props.selectMode ? this.selectConfig.zoom : this.normalConfig.zoom}
       >
-        <Cluster ClusterMarkerFactory={this.clusterMarker}>
-          {
-            this.props.geojson.features.map((feature, key) =>
-              <Marker
-                key={key}
-                style={{
-                  marginTop: -15,
-                  width: 21,
-                  height: 30,
-                  background: `url(${MarkerImage}) no-repeat center /cover`
-                }}
-                coordinates={feature.geometry.coordinates}
-                data-feature={feature}
-                onClick={this.markerClick.bind(this, feature.properties.id)}
-              />
-            )
-          }
-        </Cluster>
+        {!this.props.onboarding ? this.renderCluster() : this.renderOnboardingNode()}
         {this.renderUserMarker()}
         {this.renderCircle()}
         {this.renderLocationPin()}
@@ -248,6 +271,7 @@ class MapboxMap extends Component {
 
 export default connect((store) => {
   return {
+    onboarding: store.app.onboarding,
     geojson: store.map.geojson,
     selectedLocation: store.form.location
   };

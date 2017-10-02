@@ -7,6 +7,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'; // (new v0.15.0 import
 import App from './App';
 import '../index.css';
 import 'semantic-ui-css/semantic.min.css';
+import 'react-joyride/lib/react-joyride-compiled.css';
 import './Root.css';
 
 const muiTheme = getMuiTheme({

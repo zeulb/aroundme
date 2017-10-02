@@ -18,12 +18,87 @@ import SideDrawer from './SideDrawer';
 import Logo from '../assets/logo.png';
 import './App.css';
 import HelpView from './HelpView';
+import Joyride from 'react-joyride';
 
 const appConfig = require('../config/app.json');
 const nodeEnv = process.env.NODE_ENV || "development";
 const apiUrl = appConfig[nodeEnv].api;
 
 class App extends Component {
+  onboardingSteps = [
+    {
+      title: 'Welcome to Around',
+      text: 'This is your opportunity to discover fun events going on around you.',
+      selector: '.App-bar',
+      position: 'bottom',
+      type: 'click',
+      isFixed: false,
+      style: {
+        mainColor: '#7D68A2',
+        arrow: {
+          display: 'none'
+        },
+        close: {
+          display: 'none'
+        },
+        hole: {
+          marginTop: '-5px'
+        }
+      }
+    },
+    {
+      title: 'What\'s going on',
+      text: 'Click on the marker to check out what\'s happening at that location',
+      selector: '.MapboxMap-onboardingMarker',
+      position: 'top',
+      type: 'click',
+      isFixed: false,
+      style: {
+        mainColor: '#7D68A2',
+        arrow: {
+          display: 'none'
+        },
+        close: {
+          display: 'none'
+        }
+      }
+    },
+    {
+      title: 'Something interesting?',
+      text: 'Click on the add button to let us know what\'s happening at your location',
+      selector: '.AddButton > div:nth-child(3)',
+      position: 'top left',
+      type: 'click',
+      isFixed: false,
+      style: {
+        mainColor: '#7D68A2',
+        arrow: {
+          display: 'none'
+        },
+        close: {
+          display: 'none'
+        }
+      }
+    },
+    {
+      title: 'More interesting sutff',
+      text: 'Click on the drawer to see popular events and your profile',
+      selector: '.App-bar > button',
+      position: 'top',
+      type: 'click',
+      isFixed: false,
+      style: {
+        mainColor: '#7D68A2',
+        arrow: {
+          display: 'none'
+        },
+        close: {
+          display: 'none'
+        }
+      }
+    }
+  ]
+
   componentDidUpdate(prevProps, prevState) {
     if (this.props.runQueue
       && this.props.createQueue
@@ -199,11 +274,40 @@ class App extends Component {
     }
   }
 
+  handleJoyrideCallback = (result) => {
+    if (result.type === 'finished') {
+      this.props.dispatch(AppActions.onboardingDone());
+    }
+  }
+
+  renderOnboarding() {
+    if (this.props.page === Page.MAIN && this.props.mapReady) {
+      return (
+        <Joyride
+          ref="joyride"
+          steps={this.onboardingSteps}
+          run={this.props.onboarding}
+          debug={true}
+          callback={this.handleJoyrideCallback}
+          showOverlay={true}
+          showBackButton={true}
+          type={'continuous'}
+          scrollToSteps={false}
+          disableOverlay={true}
+          autoStart={true}
+        />
+      );
+    } else {
+      return null;
+    }
+  }
+
   render() {
     return (
       <div id="App" className="App" style={{
         overflowY: "hidden"
       }}>
+        {this.renderOnboarding()}
         <Snackbar
           open={this.props.recentlyLoggedIn}
           message={this.props.user.firstTime? `Welcome, ${this.props.user.firstName}!`: `Welcome back, ${this.props.user.firstName}!`}
@@ -223,8 +327,10 @@ class App extends Component {
 
 export default connect((store) => {
   return {
+    mapReady: store.app.mapReady,
     page: store.app.page,
     user: store.app.user,
+    onboarding: store.app.onboarding,
     images: store.app.images,
     startImageIndex: store.app.startImageIndex,
     profileUser: store.app.pageArg.profileUser,

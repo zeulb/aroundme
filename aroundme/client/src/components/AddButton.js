@@ -39,6 +39,7 @@ class AddButton extends Component {
         }}
         positionH="left"
         positionV="bottom"
+        className="AddButton"
       >
         <BubbleList
           alignment="up"

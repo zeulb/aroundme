@@ -36,7 +36,9 @@ const fetchFromCache = () => {
 export default function reducer(state={
     page: localStorage.getItem('session') ? Page.MAIN : Page.SPLASH,
     pageArg: {},
+    mapReady: false,
     drawerOpen: false,
+    onboarding: !localStorage.getItem('onboarded'),
     feedExpandedEvent: null,
     ga: new GoogleAnalytics(),
     images: [],
@@ -50,6 +52,13 @@ export default function reducer(state={
     case "SWITCH_PAGE": {
       ga.pageview("/" + action.payload.page.toString());
       return {...state, page: action.payload.page, pageArg: {...state.pageArg, ...action.payload.arg}, drawerOpen: false, feedExpandedEvent: null};
+    }
+    case "ONBOARDING_DONE": {
+      localStorage.setItem('onboarded', 1);
+      return {...state, onboarding: false};
+    }
+    case "MAP_READY": {
+      return {...state, mapReady: true};
     }
     case "SET_DESCRIPTION": {
       return {...state, user: {...state.user, description: action.payload.description}}
@@ -86,6 +95,9 @@ export default function reducer(state={
       });
       userInfo2['firstTime'] = action.payload[fieldMapping['firstTime']];
       localStorage.setItem('firstTime', false);
+      if (!userInfo2['firstTime']) {
+        localStorage.setItem('onboarded', 1);
+      }
 
       return {
         ...state,
@@ -93,7 +105,8 @@ export default function reducer(state={
         user: {
           ...userInfo2,
           name: userInfo2.fullName
-        }
+        },
+        onboarding: !localStorage.getItem('onboarded')
       };
     }
     case "LOGIN_FULFILLED": {
@@ -108,6 +121,9 @@ export default function reducer(state={
       });
       userInfo['firstTime'] = action.payload[fieldMapping['firstTime']];
       localStorage.setItem('firstTime', false);
+      if (!userInfo['firstTime']) {
+        localStorage.setItem('onboarded', 1);
+      }
 
       return {
         ...state,
@@ -116,7 +132,8 @@ export default function reducer(state={
         user: {
           ...userInfo,
           name: userInfo.fullName
-        }
+        },
+        onboarding: !localStorage.getItem('onboarded')
       };
     }
     case "LOGOUT": {

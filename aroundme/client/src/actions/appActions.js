@@ -15,6 +15,12 @@ export const Page = Object.freeze({
     HELP: Symbol("help")
 });
 
+export function onboardingDone() {
+  return {
+    type: "ONBOARDING_DONE"
+  }
+}
+
 export function switchPage(page, arg) {
   return {
     type: "SWITCH_PAGE",
@@ -105,6 +111,12 @@ export function editDescription(description) {
       }).then(response => response.json())
     });
   }
+}
+
+export function mapReady() {
+  return {
+    type: "MAP_READY"
+  };
 }
 
 export function expandEvent(event) {

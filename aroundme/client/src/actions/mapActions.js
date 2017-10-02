@@ -5,7 +5,7 @@ const apiUrl = appConfig[nodeEnv].api;
 export function fetchMap(images) {
   return (dispatch, getState) => {
     const state = getState();
-    const endPoint = state.app.isLoggedIn ? `/events?user_id=${state.app.user.id}` : 'events';
+    const endPoint = state.app.isLoggedIn ? `/events?user_id=${state.app.user.id}` : '/events';
 
     dispatch({
       type: "FETCH_GEOJSON",
