@@ -75,7 +75,7 @@ export default function reducer(state={
       const currentEvent = events.filter(event => event.id === currentEventId)[0];
       const eventsWithoutCurrent = events.filter(event => event.id !== currentEventId);
       var latestCurrentEvent = {}
-      const prevUpvote = action.payload.prevVote;
+      const prevUpvote = action.payload.prevUpvote;
       const newVote = action.payload.newVote;
       if (newVote === 0) {
         if (prevUpvote) {
