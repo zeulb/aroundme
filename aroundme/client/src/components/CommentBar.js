@@ -35,6 +35,9 @@ class CommentBar extends Component {
   }
 
   render() {
+    if (this.props.user) {
+      return null;
+    }
     return (
       <div className="CommentBar">
         <img className="CommentBar-userPicture" src={this.props.user.pictureUrl} alt="UserPicture" />
