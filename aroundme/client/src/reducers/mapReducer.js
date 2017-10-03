@@ -13,7 +13,10 @@ export default function reducer(state={
     }
     case "FETCH_GEOJSON_FULFILLED": {
       const events = action.payload['events'];
-      return {...state, events: events.map(compactEvent), geojson: toGeojson(events), isLoading: false};
+      const pEvents = events.filter(event => (event.updated*1000) < Date.now());
+      const pREvents = events.filter(event => Date.now() - (event.updated*1000) <= (3 * 24 * 60 * 60 * 1000));
+      const cPEvents = pEvents.map(compactEvent);
+      return {...state, events: cPEvents, geojson: toGeojson(pREvents), isLoading: false};
     }
     case "ADD_COMMENT": {
       const currentEventId = action.payload.eventId;

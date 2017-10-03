@@ -192,7 +192,11 @@ class App extends Component {
   };
 
   getFeedEvents() {
-    return this.props.events.filter(event => (this.props.feedEvents.indexOf(event.id) !== -1));
+    return this.props.events.filter(event => (this.props.feedEvents.indexOf(event.id) !== -1) && ((Date.now() - event.timestamp) <= (3 * 24 * 60 * 60 * 1000)));
+  }
+
+  getPopularEvents() {
+    return this.props.events.filter(event => (Date.now() - event.timestamp) <= (3 * 24 * 60 * 60 * 1000));
   }
 
   renderView() {
@@ -208,7 +212,7 @@ class App extends Component {
       case Page.MY_FEED:
         return <MyFeedView displayImages={(this.props.images.length > 0)} events={this.props.events}/>;
       case Page.POPULAR_FEED:
-        return <PopularFeedView displayImages={(this.props.images.length > 0)} events={this.props.events}/>;
+        return <PopularFeedView displayImages={(this.props.images.length > 0)} events={this.getPopularEvents()}/>;
       case Page.HELP:
         return <HelpView />;
       default:
