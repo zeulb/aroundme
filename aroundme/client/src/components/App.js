@@ -47,6 +47,23 @@ class App extends Component {
       }
     },
     {
+      title: 'Map Overview',
+      text: 'This is the map overview. Feel free to swipe to shift visible area, or pinch to zoom in/out to change perspective.',
+      selector: '.MapboxMap-overview',
+      position: 'bottom',
+      type: 'click',
+      isFixed: false,
+      style: {
+        mainColor: '#7D68A2',
+        arrow: {
+          display: 'none'
+        },
+        close: {
+          display: 'none'
+        },
+      }
+    },
+    {
       title: 'What\'s happened recently',
       text: 'Click on the marker to check out what\'s happened at that location',
       selector: '.MapboxMap-onboardingMarker',

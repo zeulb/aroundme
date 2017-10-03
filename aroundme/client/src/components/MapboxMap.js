@@ -252,6 +252,7 @@ class MapboxMap extends Component {
 
     return (
       <Map
+        className="MapboxMap-overview"
         ref={this.mapRef}
         center={initialLocation}
         style={style}
