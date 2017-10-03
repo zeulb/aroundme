@@ -28,7 +28,7 @@ class App extends Component {
   onboardingSteps = [
     {
       title: 'Welcome to Around',
-      text: 'This is your opportunity to discover and share interesting events that have happened around you.',
+      text: 'This is your opportunity to discover and share interesting events that are happening around you.',
       selector: '.App-bar',
       position: 'bottom',
       type: 'click',
@@ -64,8 +64,8 @@ class App extends Component {
       }
     },
     {
-      title: 'What\'s happened recently',
-      text: 'Click on the marker to check out what\'s happened at that location',
+      title: 'What\'s going on?',
+      text: 'Click on the marker to check out what\'s happening at that location',
       selector: '.MapboxMap-onboardingMarker',
       position: 'top',
       type: 'click',
@@ -308,7 +308,7 @@ class App extends Component {
           ref="joyride"
           steps={this.onboardingSteps}
           run={this.props.onboarding}
-          debug={true}
+          debug={false}
           callback={this.handleJoyrideCallback}
           showOverlay={true}
           showBackButton={true}
