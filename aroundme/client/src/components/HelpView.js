@@ -9,7 +9,7 @@ class HelpView extends Component {
       <div>
         <div className="Title">How does Around work?</div>
         <div className="Content"> 
-          See something interesting around you? Snap it and upload it on your feed! Or explore whats going on in your area with "Discover Events"! </div>
+          Use "Discover Events" to see what's happened within the last 3 days! See something interesting around you? Snap it and upload it on your feed! Or explore whats going on in your area with "Discover Events"!</div>
         <div className="Title">
           I see an interesting event! How do I share it on Around?
         </div>
