@@ -28,7 +28,7 @@ class App extends Component {
   onboardingSteps = [
     {
       title: 'Welcome to Around',
-      text: 'This is your opportunity to discover and share interesting events that are happening around you.',
+      text: 'Discover and share interesting events that are happening around you!',
       selector: '.App-bar',
       position: 'bottom',
       type: 'click',
@@ -48,7 +48,7 @@ class App extends Component {
     },
     {
       title: 'Map Overview',
-      text: 'This is the map overview. Feel free to swipe to shift visible area, or pinch to zoom in/out to change perspective.',
+      text: 'Swipe to shift visible map area, or pinch to zoom in and out.',
       selector: '.MapboxMap-overview',
       position: 'bottom',
       type: 'click',
@@ -65,7 +65,7 @@ class App extends Component {
     },
     {
       title: 'What\'s going on?',
-      text: 'Click on the marker to check out what\'s happening at that location',
+      text: 'Check out what\'s happening at a location by clicking on the marker!',
       selector: '.MapboxMap-onboardingMarker',
       position: 'top',
       type: 'click',
@@ -82,7 +82,7 @@ class App extends Component {
     },
     {
       title: 'See something interesting?',
-      text: 'Click on the add button to let us know what\'s happening at your location',
+      text: 'Let us know what\'s happening around you now by adding an event!',
       selector: '.AddButton > div:nth-child(3)',
       position: 'top left',
       type: 'click',
