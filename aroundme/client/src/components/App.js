@@ -97,23 +97,6 @@ class App extends Component {
         }
       }
     },
-    {
-      title: 'More interesting stuff',
-      text: 'Click on the drawer to view popular events and your profile',
-      selector: '.App-bar > button',
-      position: 'top',
-      type: 'click',
-      isFixed: false,
-      style: {
-        mainColor: '#7D68A2',
-        arrow: {
-          display: 'none'
-        },
-        close: {
-          display: 'none'
-        }
-      }
-    }
   ]
 
   componentDidUpdate(prevProps, prevState) {
